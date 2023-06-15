@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-let a= 3;
+let a= 6;
 
 function App() {
   const [count, setCount] = useState(0)
