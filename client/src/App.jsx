@@ -7,9 +7,7 @@ import LoginBox from "./components/loginbox/Loginbox"
 function App() {
   return (
     <>
-      <Sidebar/>
-      <WriteAnswer />
-      <Footer />
+  <LoginBox/>
     </>
   );
 }
