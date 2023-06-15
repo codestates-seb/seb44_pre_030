@@ -5,9 +5,12 @@ import './App.css'
 
 let a= 344;
 
+let b=32;
+
 function App() {
   const [count, setCount] = useState(0)
 
+  let x=2;
   return (
     <>
       <div>
@@ -23,6 +26,7 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
+        <span>test</span>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
