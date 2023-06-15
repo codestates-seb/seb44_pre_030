@@ -5,6 +5,8 @@ import './App.css'
 
 let a= 344;
 
+let b=32;
+
 function App() {
   const [count, setCount] = useState(0)
 
