@@ -6,7 +6,7 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
 
-  let x=2;
+  let x=123;
   return (
     <>
       <div>
