@@ -17,11 +17,17 @@ import MyPageQuestions from './pages/MyPageQuestions';
 import MyPageTags from './pages/MyPageTags';
 import EditMyPage from './pages/EditMyPage';
 import TagsList from './pages/TagsList';
+import styled from 'styled-components';
+
+const MainDiv =styled.div`
+  display: flex;
+`
 
 function App() {
   return (
     <>
       <Header />
+      <MainDiv>
       <Sidebar />
       <Routes>
         <Route path="/" element={<QuestionList />} />
@@ -39,6 +45,7 @@ function App() {
         <Route path="/mypage/edit/:id" element={<EditMyPage />} />
         <Route path="/tagslist" element={<TagsList />} />
       </Routes>
+      </MainDiv>
       <Footer />
 
     </>

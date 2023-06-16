@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import logo from '../../assets/footer/logo3.svg';
 import googlelogo from '../../assets/oauth/googlelogo.svg';
@@ -12,21 +13,27 @@ const LoginBox = () => {
         <OauthBtn><img src={googlelogo}></img>Log in with Google</OauthBtn>
         <InputContainer>
           <SmallContainer>
-          <TextBox>Email</TextBox>
-          <InputBox></InputBox>
+          <TextBox For="Email">Email</TextBox>
+          <InputBox id="Email"></InputBox>
           </SmallContainer>
           <SmallContainer>
-          <TextBox>Password</TextBox>
-          <InputBox></InputBox>
+          <TextBox For="Password">Password</TextBox>
+          <InputBox id="Password"></InputBox>
           </SmallContainer>
           <LoginBtn>Log in</LoginBtn>
         </InputContainer>
         </AllContainer>
     );
   };
+
 const AllContainer = styled.div`
-  height: 500px;
-  width: 250px;
+  height: 700px;
+  width: 100%;
+  background-color: rgba(242, 243, 243, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `
 const LogImgbox = styled.div`
   width: 250px;
@@ -35,6 +42,7 @@ const LogImgbox = styled.div`
 `
 const LogoImg = styled.img`
   width: 35px;
+  cursor: pointer;
 `
 
 const OauthBtn = styled.button`
@@ -48,7 +56,7 @@ const OauthBtn = styled.button`
   border: solid 1px #a5a5a5;
   background-color: white;
   margin-bottom: 30px;  
-
+  cursor: pointer;
   
   &:hover{
     background-color: #f3f3f3;
@@ -76,7 +84,7 @@ const SmallContainer = styled.div`
   padding-top: 17px;
   margin-left: 25px;
 `
-const TextBox = styled.div`
+const TextBox = styled.label`
     font-weight: 400;
 `
 const InputBox = styled.input`
@@ -93,6 +101,7 @@ const LoginBtn = styled.button`
   border: none;
   border-radius: 3px;
   box-shadow: inset 0px 2px 0px 0px rgba(119, 194, 251, 1);
+  cursor: pointer;
   &:hover {
 	background-color:rgba(49, 114, 198, 1);
   &:active {

@@ -1,11 +1,15 @@
+import React from 'react';
 import styled from 'styled-components';
 import { BiWorld } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
   return (
     <SidebarContainer>
           <SidebarBlock>
+            <Link to="/">
           <HomeButton>Home</HomeButton>
+          </Link>
           <div>PUBLIC</div>
          <QuesetionsButton><BiWorld className="icon" size={21} />Questions</QuesetionsButton>
         <SidebarButton><Block/>Tags</SidebarButton>
@@ -16,6 +20,7 @@ const Sidebar = () => {
 };
 
 const SidebarContainer = styled.div`
+  margin-right: 1px;
   width: 256px;
   height: 700px;
   padding-top: 10px;
@@ -25,7 +30,7 @@ const SidebarContainer = styled.div`
 `;
 
 const SidebarBlock = styled.div`
-  width: 159px;
+  width: 180px;
   color: rgb(93, 92, 92);
   margin-top: 41px;
   display: flex;
