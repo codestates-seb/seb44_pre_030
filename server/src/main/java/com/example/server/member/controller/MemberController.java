@@ -1,6 +1,6 @@
 package com.example.server.member.controller;
 
-import com.example.server.member.dto.MemberUpdateDto;
+import com.example.server.member.dto.MemberPostDto;
 import com.example.server.member.entity.Member;
 import com.example.server.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -8,15 +8,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
 
+    @PostMapping("/signup")
+    ResponseEntity signupMember(@RequestBody MemberPostDto dto/*, HttpServletResponse response*/) throws IOException {
+        long id = memberService.signup(dto);
+
+        if(id == -1) return new ResponseEntity(id, HttpStatus.ACCEPTED);
+
+        return new ResponseEntity(id, HttpStatus.OK);
+    }
+
     @PostMapping("/update/{memberId}")
     ResponseEntity updateMember(@PathVariable("memberId") long memberId,
-                          @RequestBody MemberUpdateDto dto){
+                          @RequestBody MemberPostDto dto){
         long response = memberService.update(memberId, dto);
 
         if(response == -1) return new ResponseEntity(response, HttpStatus.ACCEPTED);
