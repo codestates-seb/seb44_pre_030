@@ -1,12 +1,7 @@
 import React from 'react';
-import WriteAnswer from '../components/answer/WriteAnswer';
 
 const QuestionList = () => {
-  return (
-    <div>
-      <WriteAnswer />
-    </div>
-  );
+  return <div></div>;
 };
 
 export default QuestionList;
