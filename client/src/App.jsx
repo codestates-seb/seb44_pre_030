@@ -7,10 +7,12 @@ import Sidebar from './components/sidebar/sidebar';
 function App() {
   return (
     <>
+
       <Header/>
       <Sidebar/>
       <WriteAnswer />
       <Footer />
+
     </>
   );
 }

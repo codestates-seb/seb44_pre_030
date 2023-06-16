@@ -1,6 +1,20 @@
 import styled from 'styled-components';
 import { BiWorld } from 'react-icons/bi';
 
+const Sidebar = () => {
+  return (
+    <SidebarContainer>
+          <SidebarBlock>
+          <HomeButton>Home</HomeButton>
+          <PublicDviv>PUBLIC</PublicDviv>
+         <QuesetionsButton><BiWorld className="icon" size={21} />Questions</QuesetionsButton>
+        <SidebarButton><Block/>Tags</SidebarButton>
+        <SidebarButton><Block/><CompaniesLink href='https://stackoverflow.com/jobs/companies'>Companies</CompaniesLink></SidebarButton> 
+      </SidebarBlock>
+    </SidebarContainer>
+  );
+};
+
 const SidebarContainer = styled.div`
   width: 180px;
   height: 700px;
@@ -16,10 +30,6 @@ const SidebarBlock = styled.div`
   margin-top: 41px;
   display: flex;
   flex-direction: column;
-  li {
-    list-style-type: none;
-    padding-left: 17px;
-  }
 `
 const QuesetionsButton = styled.button`
   background-color: white;
@@ -30,7 +40,7 @@ const QuesetionsButton = styled.button`
   border :0;
   outline: 0;
   box-shadow: none;
-  font-size: 14px;
+  font-size: 13px;
   display: flex;
   align-items:center;
   cursor: pointer;
@@ -52,7 +62,7 @@ const SidebarButton = styled.button`
   border :0;
   outline: 0;
   box-shadow: none;
-  font-size: 14px;
+  font-size: 13px;
   margin-right: 20px;
   cursor: pointer;
   align-items:center;
@@ -63,10 +73,6 @@ const SidebarButton = styled.button`
     border-right: 3px solid orange;
   }
   }
-  /* a {
-    a:link { color: #696969; text-decoration: none;}
-    a:visited { color: #535353; text-decoration: none;}
-  } */
 `
 
 const HomeButton = styled.button`
@@ -78,7 +84,7 @@ const HomeButton = styled.button`
   border :0;
   outline: 0;
   box-shadow: none;
-  font-size: 14px;
+  font-size: 13px;
   display: flex;
   align-items:center;
   cursor: pointer;
@@ -105,18 +111,5 @@ const CompaniesLink = styled.a`
     &:visited { color: #555555; text-decoration: none;}
     &:hover { color: #000000; text-decoration: none;}
 `
-const Sidebar = () => {
-  return (
-    <SidebarContainer>
-          <SidebarBlock>
-          <HomeButton>Home</HomeButton>
-          <PublicDviv>PUBLIC</PublicDviv>
-         <QuesetionsButton><BiWorld className="icon" size={21} />Questions</QuesetionsButton>
-        <SidebarButton><Block/>Tags</SidebarButton>
-        <SidebarButton><Block/><CompaniesLink href='https://stackoverflow.com/jobs/companies'>Companies</CompaniesLink></SidebarButton> 
-      </SidebarBlock>
-    </SidebarContainer>
-  );
-};
 
 export default Sidebar;
