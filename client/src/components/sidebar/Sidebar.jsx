@@ -6,7 +6,7 @@ const Sidebar = () => {
     <SidebarContainer>
           <SidebarBlock>
           <HomeButton>Home</HomeButton>
-          <PublicDviv>PUBLIC</PublicDviv>
+          <div>PUBLIC</div>
          <QuesetionsButton><BiWorld className="icon" size={21} />Questions</QuesetionsButton>
         <SidebarButton><Block/>Tags</SidebarButton>
         <SidebarButton><Block/><CompaniesLink href='https://stackoverflow.com/jobs/companies'>Companies</CompaniesLink></SidebarButton> 
@@ -16,7 +16,7 @@ const Sidebar = () => {
 };
 
 const SidebarContainer = styled.div`
-  width: 180px;
+  width: 256px;
   height: 700px;
   padding-top: 10px;
   padding-left: 75px;
@@ -100,10 +100,6 @@ const Block =styled.div`
   width: 20px;
   height: 10px;
   background-color: none;
-`
-
-const PublicDviv =styled.div`
-  margin-left: 6px;
 `
 
 const CompaniesLink = styled.a`
