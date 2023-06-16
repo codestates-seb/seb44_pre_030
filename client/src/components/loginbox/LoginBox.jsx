@@ -63,7 +63,6 @@ const OauthBtn = styled.button`
   }
 `
 
-
 const InputContainer = styled.div`
     width: 250px;
     height: 210px;
