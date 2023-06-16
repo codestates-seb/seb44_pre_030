@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import VoteGroup from '../vote/VoteGroup';
 
 const Answer = () => {
   const User_id = localStorage.getItem('User_id');
@@ -92,7 +93,10 @@ const Answer = () => {
       {answerList.map(answer => (
         <DetailContents key={answer.Answer_id}>
           <div>
-            <AnswerVoteGroup />
+            <VoteGroup
+              answerId={answer.Answer_id}
+              answerVoteCount={answer.count}
+            />
             <TextContents>
               <span>{answer.Content}</span>
               <SideContents>
