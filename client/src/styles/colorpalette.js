@@ -17,6 +17,18 @@ const colorpalette = {
     headerSignUpColor:'hsl(206,100%,52%)',
     headerSignUpBorderColor:'#0074CC',
     headerSignUpHoverColor:'#0074CC',
+
+    questionNoticeColor:'#EBF4FB',
+    questionNoticeBorderColor:"#A6CEED",
+    questionWritePageFontSize:'14px',
+    questionInputBoxBorderColor:'#E4E5E7',
+    questionWriteBtnColor:'hsl(206,100%,52%)',
+    questionWriteBtnHoverColor:'hsl(206,100%,40%)',
+    qeustionWriteBtnActiveColor:'hsl(209,100%,37.5%)',
+    questionResetBtnFontColor:'#AB252A',
+    questionResetBtnHoverColor:'hsl(358,75%,97%)',
+    questionResetBtnActiveColor:'hsl(358,76%,90%)',
+    questionEditorBorderColor:'#f1f1f1',
 }
 
 export default colorpalette;
