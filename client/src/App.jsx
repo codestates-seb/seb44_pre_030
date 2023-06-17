@@ -2,6 +2,7 @@ import './App.css';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import Sidebar from './components/sidebar/sidebar';
+import WriteQestion from './components/question/WriteQestion';
 import { Route, Routes } from 'react-router-dom';
 import QuestionList from './pages/QuestionList';
 import Signup from './pages/Signup';
