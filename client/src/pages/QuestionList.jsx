@@ -1,7 +1,13 @@
 import React from 'react';
+import ViewQuestionList from '../components/question/ViewQuestionList'
+
 
 const QuestionList = () => {
-  return <div></div>;
+  return (
+      <>
+        <ViewQuestionList/>
+      </>
+    )
 };
 
 export default QuestionList;

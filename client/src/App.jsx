@@ -4,6 +4,7 @@ import Footer from './components/footer/Footer';
 import Sidebar from './components/sidebar/sidebar';
 import WriteQestion from './components/question/WriteQestion';
 import { Route, Routes } from 'react-router-dom';
+import ViewQuestionList from './components/question/ViewQuestionList';
 import QuestionList from './pages/QuestionList';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
@@ -23,7 +24,7 @@ function App() {
   return (
     <>
       <Header />
-      <Sidebar />
+      {/* <Sidebar /> */}
       <Routes>
         <Route path="/" element={<QuestionList />} />
         <Route path="/signup" element={<Signup />} />
