@@ -92,6 +92,7 @@ const CommentView = styled.div`
     background-color: white;
     margin-left: 20px;
     color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
   }
 `;
 const CommentOpenBtn = styled.div`
@@ -100,6 +101,10 @@ const CommentOpenBtn = styled.div`
   .addComment {
     border: none;
     background-color: white;
+    cursor: pointer;
+  }
+  .addComment:hover {
+    color: #507ca6;
   }
 `;
 
@@ -124,6 +129,7 @@ const CommentWrite = styled.div`
     align-items: center;
     padding: 10px;
     border-radius: 3px;
+    cursor: pointer;
   }
   button:hover {
     background-color: #f7f7f7;
