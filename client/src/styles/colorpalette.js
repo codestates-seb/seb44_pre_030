@@ -29,6 +29,17 @@ const colorpalette = {
     questionResetBtnHoverColor:'hsl(358,75%,97%)',
     questionResetBtnActiveColor:'hsl(358,76%,90%)',
     questionEditorBorderColor:'#f1f1f1',
+
+    questionListPostTitleFontColor:'hsl(206,100%,40%)',
+    questionListPostTitleHoverFontcolor:'hsl(206,100%,52%)',
+    questionPostTagBackgroundColor:'hsl(205,46%,92%)',
+    questionPostTagColor:'hsl(205,47%,42%)',
+    questionPostTagHoverBackgroundColor:'#D0E2F0',
+    questionPostUserFontColor:'hsl(206,100%,40%)',
+    questionPostUserHoverFontColor:'hsl(206,100%,52%)',
+    questionPostUserCardAnswerCountColor:'hsl(210,8%,35%)',
+    questionPostFontColor:'hsl(210,8%,45%)',
+    questionPostFontBlack:'#0C0D0E',
 }
 
 export default colorpalette;
