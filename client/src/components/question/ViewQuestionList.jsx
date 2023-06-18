@@ -5,6 +5,68 @@ import { Link } from 'react-router-dom';
 import colorpalette from '../../styles/colorpalette';
 import { NumberForMatter } from '../../utils/NumberForMatter';
 
+
+const QuestionList = () => {
+    const [questionList,setQuestionList] = useState([]);
+    useEffect(()=>{
+      const getQuestion = async () => {
+        const questions = await axios.get(`http://localhost:3000/api/answer`);
+        setQuestionList(questions.data)
+      }
+      getQuestion();
+    },[]);
+
+    return (
+        <QustionListContainer>
+            <ul>
+                {questionList.map(list=>{
+                    return (
+                        <li className="post" key={list.User.user_id}>
+                            <PostSummaryWrapper>
+                                <PostSummaryStatsItem>
+                                    <span className='postVoteText'>{`${NumberForMatter(list.question_good_count)} votes`}</span>
+                                </PostSummaryStatsItem>
+                                <PostSummaryStatsItem>
+                                    <span>{`${NumberForMatter(list.answer_count)} answers`}</span>
+                                </PostSummaryStatsItem>
+                                <PostSummaryStatsItem>
+                                    <span>{`${NumberForMatter(list.question_view)} views`}</span>
+                                </PostSummaryStatsItem>
+                            </PostSummaryWrapper>
+                            <PostContentWrapper>
+                                <PostContentTitle>
+                                    <Link to={`/question/${list.User.user_id}`}><span>{list.question_title}</span></Link>
+                                </PostContentTitle>
+                                <PostContentExcerpt>
+                                    {list.question_content}
+                                </PostContentExcerpt>
+                                <PostContentMeta>
+                                    <PostTags>
+                                        {list.tag.map((tag,i)=>{
+                                            return (
+                                                <Tag key={i}>{tag}</Tag>
+                                            )
+                                        })}
+                                    </PostTags>
+                                    <PostUserCard>
+                                        <img src={list.User.profile_image_url}></img>
+                                        <Link className='UserName' to={`mypage/${list.User.user_id}`}>{NumberForMatter(list.User.name)}</Link>
+                                        <div>
+                                            <span className='userCardAnswerCount'>{NumberForMatter(list.answer_count)}</span>
+                                            <span>asked</span>
+                                        </div>
+                                    </PostUserCard>
+                                </PostContentMeta>
+            
+                            </PostContentWrapper>
+                        </li>
+                        )
+                    })}
+            </ul>
+        </QustionListContainer>
+    );
+};
+
 const QustionListContainer = styled.main`
     display: flex;
     flex-direction: column;
@@ -112,65 +174,5 @@ const PostUserCard = styled.div`
         color:${colorpalette.questionPostUserCardAnswerCountColor};
     }
 `
-const QuestionList = () => {
-    const [questionList,setQuestionList] = useState([]);
-    useEffect(()=>{
-      const getQuestion = async () => {
-        const questions = await axios.get(`http://localhost:3000/api/answer`);
-        setQuestionList(questions.data)
-      }
-      getQuestion();
-    },[]);
-
-    return (
-        <QustionListContainer>
-            <ul>
-                {questionList.map(list=>{
-                    return (
-                        <li className="post" key={list.User.user_id}>
-                            <PostSummaryWrapper>
-                                <PostSummaryStatsItem>
-                                    <span className='postVoteText'>{`${NumberForMatter(list.question_good_count)} votes`}</span>
-                                </PostSummaryStatsItem>
-                                <PostSummaryStatsItem>
-                                    <span>{`${NumberForMatter(list.answer_count)} answers`}</span>
-                                </PostSummaryStatsItem>
-                                <PostSummaryStatsItem>
-                                    <span>{`${NumberForMatter(list.question_view)} views`}</span>
-                                </PostSummaryStatsItem>
-                            </PostSummaryWrapper>
-                            <PostContentWrapper>
-                                <PostContentTitle>
-                                    <Link to={`/question/${list.User.user_id}`}><span>{list.question_title}</span></Link>
-                                </PostContentTitle>
-                                <PostContentExcerpt>
-                                    {list.question_content}
-                                </PostContentExcerpt>
-                                <PostContentMeta>
-                                    <PostTags>
-                                        {list.tag.map((tag,i)=>{
-                                            return (
-                                                <Tag key={i}>{tag}</Tag>
-                                            )
-                                        })}
-                                    </PostTags>
-                                    <PostUserCard>
-                                        <img src={list.User.profile_image_url}></img>
-                                        <Link className='UserName' to={`mypage/${list.User.user_id}`}>{NumberForMatter(list.User.name)}</Link>
-                                        <div>
-                                            <span className='userCardAnswerCount'>{NumberForMatter(list.answer_count)}</span>
-                                            <span>asked</span>
-                                        </div>
-                                    </PostUserCard>
-                                </PostContentMeta>
-            
-                            </PostContentWrapper>
-                        </li>
-                        )
-                    })}
-            </ul>
-        </QustionListContainer>
-    );
-};
 
 export default QuestionList;
