@@ -4,6 +4,8 @@ import { styled } from 'styled-components';
 import colorpalette from '../../styles/colorpalette';
 import AskQuestionBtn from './AskQuestionBtn';
 import { NumberForMatter } from '../../utils/NumberForMatter';
+import VoteGroup from '../vote/VoteGroup';
+import advertisementImg from '../../assets/questionDetail/advertisement.svg'
 
 
 const QuestionDetailContainer = styled.div`
@@ -30,6 +32,7 @@ const QuestionInfo = styled.div`
     display: flex;
     font-size: ${colorpalette.headerFontSize};
     padding-bottom: 8px;
+    margin-bottom: 1rem;
     border-bottom: 1px solid ${colorpalette.headerBorderBttom};
 `
 const QuestionInfoItem = styled.div`
@@ -40,6 +43,31 @@ const QuestionInfoItem = styled.div`
     & span:first-child{
         color:${colorpalette.questionDetailInfoFontColor};
     }
+`
+const QuestionContent = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+const Advertisement = styled.div`
+    width:100%;
+    height:90px;
+    margin-bottom: 1.5rem;
+`
+const QuestionLayout = styled.div`
+    display: flex;
+    transform: translateX(-3%);
+`
+const QuestionLayoutLeft = styled.div`
+    width:10%;
+`
+const QuestionLayouttRight = styled.div`
+    width:90%;
+    padding-right: 16px;
+    width:670px;
+`
+
+const QuestionDetailContent = styled.div`
+    
 `
 const ViewQuestionDetail = () => {
     const questionDetail = useLocation();
@@ -66,6 +94,23 @@ const ViewQuestionDetail = () => {
                         <time dateTime={`${data.modified_date}`}>{`${data.modified_date}`}</time>
                     </QuestionInfoItem>
                 </QuestionInfo>
+                <QuestionContent>
+                    <Advertisement>
+                        <img src={advertisementImg}/>
+                    </Advertisement>
+                    <QuestionLayout>
+                        <QuestionLayoutLeft>
+                            <VoteGroup/>
+                        </QuestionLayoutLeft>
+                        <QuestionLayouttRight>
+                
+                            <QuestionDetailContent>
+                                {data.question_content}
+                            </QuestionDetailContent>
+                        </QuestionLayouttRight>
+                    </QuestionLayout>
+           
+                </QuestionContent>
         </QuestionDetailContainer>
     );
 };
