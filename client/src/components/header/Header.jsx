@@ -17,9 +17,9 @@ const Header = () => {
                 <Link to='/'><img src={HeaderLogoImg}/></Link>
             </FirstChild>
             <SecondChild>
-                <ol>
+                <ul>
                 {SecondChildData.map((data,index)=><li key={index}><a>{data}</a></li>)}
-                </ol>
+                </ul>
                 <form className="header-search">
                     <SearchWrapper>
                         <input type='text' placeholder='Search...'></input>
@@ -28,14 +28,16 @@ const Header = () => {
                 </form>
             </SecondChild>
             <ThirdChild>
-                <ol>
-                    <Link to ="/login">
-                    <UserButton><a>{ThirdChildData[0]}</a></UserButton>
-                    </Link>
-                    <Link to ="/signup">
-                    <UserButton><a>{ThirdChildData[1]}</a></UserButton>
-                    </Link>
-                </ol>
+                <ul>
+        
+                    <UserButton className='loginBtn'>
+                        <Link to ="/login">{ThirdChildData[0]}</Link>
+                    </UserButton>
+
+                    <UserButton className='signUpBtn'>
+                        <Link to ="/signup">{ThirdChildData[1]}</Link>
+                    </UserButton>
+                </ul>
             </ThirdChild>
         </HeaderContainer>
     );
@@ -71,7 +73,7 @@ const FirstChild = styled.div`
 `
 const SecondChild = styled.div`
     display: flex;
-    & ol{
+    & ul{
         display: flex;
         width:30%;
     }
@@ -123,8 +125,25 @@ const SearchWrapper = styled.div`
 `
 const ThirdChild = styled.div`
 
-    & ol{
+    & ul{
         display: flex;
+    }
+
+    & .loginBtn{
+        border: 1px solid ${colorpalette.headerLoginFontColor};
+        background-color: ${colorpalette.headerLoginColor};
+        color:${colorpalette.headerLoginFontColor};
+    }
+    & .loginBtn:hover{
+        background-color: ${colorpalette.headerLoginHoverColor};
+    }
+    & .signUpBtn{
+        border: 1px solid ${colorpalette.headerSignUpBorderColor};
+        background-color: ${colorpalette.headerSignUpColor};
+        color:${colorpalette.signatureWhite};
+    }
+    & .signUpBtn:hover{
+        background-color: ${colorpalette.headerSignUpHoverColor};
     }
 `
 const UserButton = styled.li`
@@ -138,22 +157,7 @@ const UserButton = styled.li`
     border-radius: 3px;
     padding:3px;
     cursor: pointer;
-    &:first-child{
-        border: 1px solid ${colorpalette.headerLoginFontColor};
-        background-color: ${colorpalette.headerLoginColor};
-        color:${colorpalette.headerLoginFontColor};
-    }
-    &:first-child:hover{
-        background-color: ${colorpalette.headerLoginHoverColor};
-    }
-    &:last-child{
-        border: 1px solid ${colorpalette.headerSignUpBorderColor};
-        background-color: ${colorpalette.headerSignUpColor};
-        color:${colorpalette.signatureWhite};
-    }
-    &:last-child:hover{
-        background-color: ${colorpalette.headerSignUpHoverColor};
-    }
+
 `
 
 export default Header;
