@@ -1,10 +1,40 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import logo from '../../assets/footer/logo3.svg';
 import googlelogo from '../../assets/oauth/googlelogo.svg';
 import {Link} from 'react-router-dom';
+import axios from 'axios'
+import { useNavigate} from 'react-router-dom';
+
 
 const LoginBox = () => {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const {replace} = useNavigate();
+  
+  const checkUser = () => { 
+    if (email === "" || password === ""){
+      alert("아이디와 비밀번호를 입력해주세요");
+      return;
+    }
+    axios
+    .post('http://localhost:1337/api/auth/local', {
+      identifier: 'user@strapi.io',
+      password: 'strapiPassword',
+    })
+    .then(response => {
+      // Handle success.
+      console.log('Well done!');
+      console.log('User profile', response.data.user);
+      console.log('User token', response.data.jwt);
+      replace("/");
+    })
+    .catch(error => {
+      // Handle error.
+      console.log('An error occurred:', error.response);
+    });
+  }
+
     return (
       <AllContainer>
         <LogImgbox>
@@ -16,20 +46,20 @@ const LoginBox = () => {
         <InputContainer>
           <SmallContainer>
           <TextBox For="Email">Email</TextBox>
-          <InputBox id="Email"></InputBox>
+          <InputBox id="Email" value={email} onChange={(event) => setEmail(event.target.value)}></InputBox>
           </SmallContainer>
           <SmallContainer>
           <TextBox For="Password">Password</TextBox>
-          <InputBox id="Password"></InputBox>
+          <InputBox id="Password" type="password"  value={password} onChange={(event) => setPassword(event.target.value)}></InputBox>
           </SmallContainer>
-          <LoginBtn>Log in</LoginBtn>
+          <LoginBtn onClick={() =>{checkUser();}}>Log in</LoginBtn>
         </InputContainer>
         </AllContainer>
     );
   };
 
 const AllContainer = styled.div`
-  height: 700px;
+  height: 723px;
   width: 100%;
   background-color: rgba(242, 243, 243, 1);
   display: flex;
@@ -113,4 +143,3 @@ const LoginBtn = styled.button`
 }
 `
 export default LoginBox;
-  

@@ -3,9 +3,9 @@ import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import styled from 'styled-components';
 import { EditorState } from 'draft-js';
-import {BiLink} from 'react-icons/bi';
+import { BiLink } from 'react-icons/bi';
 import { FaTwitter } from 'react-icons/fa';
-import {BsGithub} from 'react-icons/bs';
+import { BsGithub } from 'react-icons/bs';
 import ProfileSvg from '../../assets/mypage/profileimg.svg'
 
 const MypageEditContent = () => {
@@ -126,10 +126,10 @@ const MyBlock = styled.div`
   }
 `;
 const IconBox = styled.div`
-    display: flex;
-  justify-content: space-between;
+  top: 19px;
+  left: 3px;
   position: absolute;
-  margin-left: 10px;
+  transform: translateY(-50%);
 `
 const AllContainer = styled.div`
     width: 700px;
@@ -175,6 +175,7 @@ const PrivateContainer = styled.div`
 const AllLinkBox = styled.div`
     display: flex;
   align-items: center;
+  position: relative;
 `
 
 const LinkBox = styled.div`
@@ -187,10 +188,11 @@ const LinkBox = styled.div`
     
 `
 const InputLinkBox = styled.input`
-    width: 200px;
+    width: 17vw;
     height: 30px;
-    text-align: center;
+    text-align: right;
   font-size: 15px;
+  padding-right: 30px;
     &:active{
         box-shadow: 0px 0px 1px 4px rgb(97, 234, 255, 0.5);
     }
