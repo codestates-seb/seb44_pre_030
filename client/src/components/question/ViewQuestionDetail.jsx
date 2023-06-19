@@ -7,6 +7,7 @@ import { NumberForMatter } from '../../utils/NumberForMatter';
 import VoteGroup from '../vote/VoteGroup';
 import advertisementImg from '../../assets/questionDetail/advertisement.svg'
 import QuestionTag from './QuestionTag';
+import Answer from '../answer/Answer'
 
 
 const QuestionDetailContainer = styled.div`
@@ -116,7 +117,6 @@ const ViewQuestionDetail = () => {
                             </QuestionDetailContent>
                         </QuestionLayouttRight>
                     </QuestionLayout>
-           
                 </QuestionContent>
         </QuestionDetailContainer>
     );

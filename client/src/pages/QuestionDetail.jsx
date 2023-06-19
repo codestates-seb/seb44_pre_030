@@ -6,9 +6,7 @@ import ViewQuestionDetail from '../components/question/ViewQuestionDetail';
 const QuestionDetail = () => {
   return (
     <div>
-      <ViewQuestionDetail/>
-      {/* <Answer />
-      <WriteAnswer /> */}
+   
     </div>
   );
 };
