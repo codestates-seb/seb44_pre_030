@@ -76,14 +76,14 @@ const QustionListContainer = styled.main`
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 0 124px;
+  /* padding: 0 124px; */
 
   & .post {
     display: flex;
     width: 786px;
     max-height: 163px;
     padding: 19px 15px 18px 42px;
-    margin-left: 161px;
+    /* margin-left: 161px; */
     border-bottom: 1px solid ${colorpalette.headerBorderBttom};
   }
   & .post:first-child {
