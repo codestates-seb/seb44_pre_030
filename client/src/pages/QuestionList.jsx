@@ -1,12 +1,13 @@
 import React from 'react';
-import WriteAnswer from '../components/answer/WriteAnswer';
+import ViewQuestionList from '../components/question/ViewQuestionList'
+
 
 const QuestionList = () => {
   return (
-    <div>
-      <WriteAnswer />
-    </div>
-  );
+      <>
+        <ViewQuestionList/>
+      </>
+    )
 };
 
 export default QuestionList;
