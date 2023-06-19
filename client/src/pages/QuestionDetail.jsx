@@ -1,9 +1,8 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import ViewQuestionDetail from '../components/question/ViewQuestionDetail'
+import ViewQuestionDetail from '../components/question/ViewQuestionDetail';
 import WriteAnswer from '../components/answer/WriteAnswer';
 import Answer from '../components/answer/Answer';
-
 
 const QuestionDetail = () => {
   return (
