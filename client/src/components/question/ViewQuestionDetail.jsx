@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
 import { styled } from 'styled-components';
-
+import { Link } from 'react-router-dom';
 import { NumberForMatter } from '../../utils/NumberForMatter';
 import colorpalette from '../../styles/colorpalette';
 import AskQuestionBtn from './AskQuestionBtn';
@@ -50,6 +50,26 @@ const ViewQuestionDetail = () => {
                             </QuestionTagLayout>
                         </QuestionLayouttRight>
                     </QuestionLayout>
+                    <QuestionUserAuthority>
+                        <QuestionEdit>
+                            {
+                            data.User?
+                            <><Link to={`/question/edit/${data.User.user_id}`}>Edit</Link><Link to='/'>Delete</Link></>
+                            :
+                            <div></div>
+                            }
+                        </QuestionEdit>
+                
+                        <QuestionUserInfo>
+                            <div>
+                                <img src={`${data.User.profile_image_url}`}/>
+                            </div>
+                            <div>
+                                <Link className='userInfoName' to={`/mypage/${data.User.user_id}`}>{`${data.User.name}`}</Link>
+                            </div>
+                        </QuestionUserInfo>
+           
+                    </QuestionUserAuthority>
                 </QuestionContent>
         </QuestionDetailContainer>
     );
@@ -111,5 +131,44 @@ const QuestionLayouttRight = styled.div`
 const QuestionTagLayout = styled.div`
     margin: 1.5rem 0 0.75rem 0;
 `
+const QuestionUserAuthority = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding-top:4px;
+    padding-left:75px;
+    margin: 1rem 0;
+    width:724px;
+    height: 79px;
+`
+const QuestionEdit = styled.div`
+    font-size: ${colorpalette.headerFontSize};
+    color:${colorpalette.headerFontColor};
 
+    & a{
+        margin-right:0.5rem;
+    }
+`
+
+const QuestionUserInfo = styled.div`
+    display: flex;
+    align-items: flex-start;
+    padding: 5px 6px 7px 7px;
+    background-color: ${colorpalette.questionDetailUserInfoBgColor};
+    border-radius: ${colorpalette.headerBorderRadius};
+    width:160px;
+    height: 47px;
+
+    & img{
+        width:32px;
+        height: 32px;
+        margin-right: 0.5rem;
+    }
+    & .userInfoName{
+        font-size:${colorpalette.headerFontSize};
+        color: ${colorpalette.questionDetailUserInfoColor};
+    }
+    & .userInfoName:hover{
+        color:${colorpalette.questionDetailUserInfoHoverColor};
+    }
+`
 export default ViewQuestionDetail;
