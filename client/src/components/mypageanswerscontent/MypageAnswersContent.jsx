@@ -5,7 +5,7 @@ const MypageAnswersContent = () => {
         <Container>
             <AllTitleBox>
                 <TitleBox>
-                    <QuantityBox>0</QuantityBox>
+                    <QuantityBox>1</QuantityBox>
                     <ExpainText>Answers</ExpainText>
                 </TitleBox>
                 <BtnBox>
