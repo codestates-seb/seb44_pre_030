@@ -1,7 +1,7 @@
 import './App.css';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
-import Sidebar from './components/sidebar/sidebar';
+import Sidebar from './components/sidebar/Sidebar';
 import { Route, Routes } from 'react-router-dom';
 import QuestionList from './pages/QuestionList';
 import Signup from './pages/Signup';
@@ -19,35 +19,34 @@ import EditMyPage from './pages/EditMyPage';
 import TagsList from './pages/TagsList';
 import styled from 'styled-components';
 
-const MainDiv =styled.div`
+const MainDiv = styled.div`
   display: flex;
-`
+`;
 
 function App() {
   return (
     <>
       <Header />
       <MainDiv>
-      <Sidebar />
-      <Routes>
-        <Route path="/" element={<QuestionList />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/question/ask" element={<CreateQuestion />} />
-        <Route path="/question/:id" element={<QuestionDetail />} />
-        <Route path="/question/edit/:id" element={<EditQuestion />} />
-        <Route path="/answer/edit/:id" element={<EditAnswer />} />
-        <Route path="/mypage/:id" element={<MyPage />} />
-        <Route path="/mypage/summary/:id" element={<MyPageSummary />} />
-        <Route path="/mypage/answers/:id" element={<MyPageAnswers />} />
-        <Route path="/mypage/questions/:id" element={<MyPageQuestions />} />
-        <Route path="/mypage/tags/:id" element={<MyPageTags />} />
-        <Route path="/mypage/edit/:id" element={<EditMyPage />} />
-        <Route path="/tagslist" element={<TagsList />} />
-      </Routes>
+        <Sidebar />
+        <Routes>
+          <Route path="/" element={<QuestionList />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/question/ask" element={<CreateQuestion />} />
+          <Route path="/question/:id" element={<QuestionDetail />} />
+          <Route path="/question/edit/:id" element={<EditQuestion />} />
+          <Route path="/answer/edit/:id" element={<EditAnswer />} />
+          <Route path="/mypage/:id" element={<MyPage />} />
+          <Route path="/mypage/summary/:id" element={<MyPageSummary />} />
+          <Route path="/mypage/answers/:id" element={<MyPageAnswers />} />
+          <Route path="/mypage/questions/:id" element={<MyPageQuestions />} />
+          <Route path="/mypage/tags/:id" element={<MyPageTags />} />
+          <Route path="/mypage/edit/:id" element={<EditMyPage />} />
+          <Route path="/tagslist" element={<TagsList />} />
+        </Routes>
       </MainDiv>
       <Footer />
-
     </>
   );
 }
