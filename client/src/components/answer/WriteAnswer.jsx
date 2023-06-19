@@ -167,7 +167,7 @@ const AnswerInfo = styled.div`
 `;
 const AnswerBtn = styled.div`
   display: flex;
-  width: 542px;
+  width: 800px;
   .askquestion_Btn {
     background: #0a95ff;
     width: 125px;
