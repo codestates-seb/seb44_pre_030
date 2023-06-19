@@ -13,6 +13,9 @@ const Sidebar = () => {
           <div>PUBLIC</div>
          <QuesetionsButton><BiWorld className="icon" size={21} />Questions</QuesetionsButton>
         <SidebarButton><Block/>Tags</SidebarButton>
+        <Link to="/mypage/:id">
+        <SidebarButton><Block/>Users</SidebarButton>
+        </Link>
         <SidebarButton><Block/><CompaniesLink href='https://stackoverflow.com/jobs/companies'>Companies</CompaniesLink></SidebarButton> 
       </SidebarBlock>
     </SidebarContainer>
@@ -22,7 +25,7 @@ const Sidebar = () => {
 const SidebarContainer = styled.div`
   margin-right: 1px;
   width: 256px;
-  height: 700px;
+  height: 80vw;
   padding-top: 10px;
   padding-left: 75px;
   border-right: 1px solid #d6d9dc;

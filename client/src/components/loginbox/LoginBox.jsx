@@ -2,13 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import logo from '../../assets/footer/logo3.svg';
 import googlelogo from '../../assets/oauth/googlelogo.svg';
-
+import {Link} from 'react-router-dom';
 
 const LoginBox = () => {
     return (
       <AllContainer>
         <LogImgbox>
+          <Link to="/">
         <LogoImg src={logo}/>
+        </Link>
         </LogImgbox>
         <OauthBtn><img src={googlelogo}></img>Log in with Google</OauthBtn>
         <InputContainer>
