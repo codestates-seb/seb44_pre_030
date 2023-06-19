@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import colorpalette from '../../styles/colorpalette';
 import { NumberForMatter } from '../../utils/NumberForMatter';
 import QuestionTag from './QuestionTag';
+import AskQuestionBtn from './AskQuestionBtn';
 
 const QuestionList = () => {
   const [questionList, setQuestionList] = useState([]);
@@ -16,8 +17,46 @@ const QuestionList = () => {
     getQuestion();
   }, []);
 
+  const [index, setIndex] = useState(0);
+  const [filter, setFilter] = useState('Newest');
+
+  const buttonFilter = [
+    { filterName: 'Newest' },
+    { filterName: 'Active' },
+    { filterName: 'Score' },
+  ];
+
+  const selectFilter = index => {
+    setIndex(index);
+  };
+
   return (
     <QustionListContainer>
+      <QuestionFilter>
+        <div className="headContents">
+          <h2>All Questions</h2>
+          <Link to={'/question/ask'}>
+            <AskQuestionBtn />
+          </Link>
+        </div>
+        <div className="headContents flex-column">
+          <span>{questionList.length} questions</span>
+          <aside className="subFilterBtn">
+            {buttonFilter.map((fil, idx) => (
+              <button
+                key={idx}
+                className={idx === index ? 'focused' : null}
+                onClick={() => {
+                  selectFilter(idx);
+                  setFilter(fil.filterName);
+                }}
+              >
+                {fil.filterName}
+              </button>
+            ))}
+          </aside>
+        </div>
+      </QuestionFilter>
       <ul>
         {questionList.map(list => {
           return (
@@ -76,14 +115,14 @@ const QustionListContainer = styled.main`
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 0 124px;
+  /* padding: 0 124px; */
 
   & .post {
     display: flex;
     width: 786px;
     max-height: 163px;
     padding: 19px 15px 18px 42px;
-    margin-left: 161px;
+    /* margin-left: 161px; */
     border-bottom: 1px solid ${colorpalette.headerBorderBttom};
   }
   & .post:first-child {
@@ -178,6 +217,50 @@ const PostUserCard = styled.div`
     margin-right: 3px;
     font-weight: 700;
     color: ${colorpalette.questionPostUserCardAnswerCountColor};
+  }
+`;
+const QuestionFilter = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #ddd;
+  .headContents {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    margin-top: 10px;
+  }
+  h2 {
+    font-size: 1.7em;
+    font-weight: 500;
+  }
+  .subFilterBtn {
+    display: flex;
+    overflow: hidden;
+    height: 35px;
+    border: 1px solid hsl(210, 8%, 65%);
+    border-radius: 4px;
+    button {
+      background-color: rgb(255, 255, 255);
+      border: none;
+      color: #6b6f73;
+      border-left: 1px solid hsl(210, 8%, 65%);
+      padding: 0px 10px;
+      cursor: pointer;
+    }
+    button:nth-child(1) {
+      border: none;
+    }
+    button:hover {
+      background-color: #f5f5f5;
+    }
+    .focused {
+      background-color: #e3e6e8;
+    }
+    .focused:hover {
+      background-color: #e3e6e8;
+    }
   }
 `;
 

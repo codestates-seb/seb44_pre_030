@@ -46,7 +46,7 @@ function EditAnswerCompo({ asId }) {
         <BtnContainer>
           <button className="save flex-center btn-blue-style">Save Edit</button>
           <button className="cancel flex-center btn-skyblue-style">
-            <Link to={`/question/${asId}`}>Cancel</Link>
+            <Link to={`/`}>Cancel</Link>
           </button>
         </BtnContainer>
       </EditContainer>
