@@ -23,6 +23,7 @@ function App() {
     <>
       <Header />
       {/* <Sidebar /> */}
+     
       <Routes>
         <Route path="/" element={<QuestionList />} />
         <Route path="/signup" element={<Signup />} />

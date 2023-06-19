@@ -35,7 +35,7 @@ const QuestionList = () => {
                             </PostSummaryWrapper>
                             <PostContentWrapper>
                                 <PostContentTitle>
-                                    <Link to={`/question/${list.User.user_id}`}><span>{list.question_title}</span></Link>
+                                   <Link to={`/question/${list.User.user_id}`} state={{question: list}}><span>{list.question_title}</span></Link>
                                 </PostContentTitle>
                                 <PostContentExcerpt>
                                     {list.question_content}
