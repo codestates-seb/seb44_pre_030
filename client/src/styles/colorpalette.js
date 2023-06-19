@@ -40,6 +40,14 @@ const colorpalette = {
     questionPostUserCardAnswerCountColor:'hsl(210,8%,35%)',
     questionPostFontColor:'hsl(210,8%,45%)',
     questionPostFontBlack:'#0C0D0E',
+
+    questionDetailTitleFontColor:'hsl(210,8%,25%)',
+    questionDetailTitleSize:'1.875rem',
+    questionRegistrationBtnColor:'hsl(206,100%,52%)',
+    questionRegistrationBtnHoverColor:'hsl(206,100%,40%)',
+    questionRegistrationBtnActiveColor:'hsl(209,100%,37.5%)',
+
+    questionDetailInfoFontColor:'hsl(210,8%,45%)',
 }
 
 export default colorpalette;
