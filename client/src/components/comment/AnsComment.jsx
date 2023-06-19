@@ -70,7 +70,74 @@ const AnsComment = () => {
   );
 };
 
-const CommentView = styled.div``;
-const CommentOpenBtn = styled.div``;
+const CommentView = styled.div`
+  margin-top: 20px;
+  .comment-list {
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
+    flex-wrap: wrap;
+  }
+  .comment-list:nth-child(1) {
+    border-top: 1px solid #ddd;
+  }
+  .comment-user {
+    color: hsl(205, 47%, 42%);
+    margin: 0px 10px;
+  }
+  button {
+    border: none;
+    background-color: white;
+    margin-left: 20px;
+    color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+`;
+const CommentOpenBtn = styled.div`
+  margin: 20px 0;
+  color: #666;
+  .addComment {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+  }
+  .addComment:hover {
+    color: #507ca6;
+  }
+`;
+
+const CommentWrite = styled.div`
+  display: flex;
+  margin: 10px 0;
+  background-color: #f7f7f7;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  padding: 20px;
+
+  input {
+    width: 100%;
+    border: 1px solid #dfdfdf;
+    padding: 20px;
+  }
+  button {
+    border: 1px solid #bfbfbf;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #f7f7f7;
+  }
+  button:active {
+    background-color: #e2e2e2;
+    color: #507ca6;
+  }
+`;
 
 export default AnsComment;
