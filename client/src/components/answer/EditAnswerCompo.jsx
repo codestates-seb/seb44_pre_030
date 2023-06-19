@@ -3,6 +3,7 @@ import { EditorState } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { Editor } from 'react-draft-wysiwyg';
 import { styled } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 function EditAnswerCompo({ asId }) {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -45,7 +46,7 @@ function EditAnswerCompo({ asId }) {
         <BtnContainer>
           <button className="save flex-center btn-blue-style">Save Edit</button>
           <button className="cancel flex-center btn-skyblue-style">
-            Cancel
+            <Link to={`/question/${asId}`}>Cancel</Link>
           </button>
         </BtnContainer>
       </EditContainer>
@@ -57,6 +58,7 @@ const EditContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 30px;
   .answer-preview {
     display: flex;
     justify-content: center;
@@ -67,7 +69,7 @@ const EditContainer = styled.div`
 const BodyContainer = styled.div`
   width: 80%;
   .edit-title {
-    width: 600px;
+    width: 200px;
     display: flex;
     justify-content: center;
     font-size: 20px;
@@ -117,7 +119,7 @@ const AnswerContainerInput = styled.div`
   margin-top: 10px;
   height: 450px;
   .wrapper-class {
-    width: 50%;
+    width: 80%;
     margin: 0 auto;
     margin-bottom: 4rem;
     border: 3px solid lightgray;

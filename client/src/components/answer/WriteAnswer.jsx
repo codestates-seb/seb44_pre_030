@@ -121,13 +121,14 @@ const Container = styled.div`
 const AnswerContainerTitle = styled.div`
   margin: 20px 0;
   transform: translateX(25%);
+  width: 400px;
 `;
 const AnswerContainerInput = styled.div`
   display: flex;
   margin-top: 10px;
   height: 450px;
   .wrapper-class {
-    width: 50%;
+    width: 80%;
     margin: 0 auto;
     margin-bottom: 4rem;
     border: 3px solid lightgray;
@@ -170,7 +171,7 @@ const AnswerInfo = styled.div`
 `;
 const AnswerBtn = styled.div`
   display: flex;
-  width: 542px;
+  width: 800px;
   .askquestion_Btn {
     background: #0a95ff;
     width: 125px;
