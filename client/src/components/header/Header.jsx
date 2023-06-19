@@ -14,7 +14,7 @@ const Header = () => {
     return (
         <HeaderContainer>
             <FirstChild className='headerLogo'>
-                <a><img src={HeaderLogoImg}/></a>
+                <Link to='/'><img src={HeaderLogoImg}/></Link>
             </FirstChild>
             <SecondChild>
                 <ol>
