@@ -1,14 +1,59 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
 import { styled } from 'styled-components';
+
+import { NumberForMatter } from '../../utils/NumberForMatter';
 import colorpalette from '../../styles/colorpalette';
 import AskQuestionBtn from './AskQuestionBtn';
-import { NumberForMatter } from '../../utils/NumberForMatter';
 import VoteGroup from '../vote/VoteGroup';
 import advertisementImg from '../../assets/questionDetail/advertisement.svg'
 import QuestionTag from './QuestionTag';
-import Answer from '../answer/Answer'
 
+
+const ViewQuestionDetail = () => {
+    const questionDetail = useLocation();
+    const data = questionDetail.state.question;
+
+
+    return (
+        <QuestionDetailContainer>
+            <QuestionDetailHeader>
+                <h1>{data.question_title}</h1>
+                <AskQuestionBtn/>
+            </QuestionDetailHeader>
+            <QuestionInfo>
+                    <QuestionInfoItem>
+                        <span>Asked</span>
+                        <time dateTime={`${data.question_date}`}>{`${data.question_date}`}</time>
+                    </QuestionInfoItem>
+                    <QuestionInfoItem>
+                        <span>Modified</span>
+                        <span>{NumberForMatter(`${data.question_view}`)}</span>
+                    </QuestionInfoItem>
+                    <QuestionInfoItem>
+                        <span>Viewed</span>
+                        <time dateTime={`${data.modified_date}`}>{`${data.modified_date}`}</time>
+                    </QuestionInfoItem>
+                </QuestionInfo>
+                <QuestionContent>
+                    <Advertisement>
+                        <img src={advertisementImg}/>
+                    </Advertisement>
+                    <QuestionLayout>
+                        <QuestionLayoutLeft>
+                            <VoteGroup/>
+                        </QuestionLayoutLeft>
+                        <QuestionLayouttRight>
+                            {data.question_content}
+                            <QuestionTagLayout>
+                                <QuestionTag tagList={data.tag}/>
+                            </QuestionTagLayout>
+                        </QuestionLayouttRight>
+                    </QuestionLayout>
+                </QuestionContent>
+        </QuestionDetailContainer>
+    );
+};
 
 const QuestionDetailContainer = styled.div`
     display: flex;
@@ -67,59 +112,8 @@ const QuestionLayouttRight = styled.div`
     padding-right: 16px;
     width:670px;
 `
-
-const QuestionDetailContent = styled.div`
-    
-`
 const QuestionTagLayout = styled.div`
     margin: 1.5rem 0 0.75rem 0;
 `
-const ViewQuestionDetail = () => {
-    const questionDetail = useLocation();
-    const data = questionDetail.state.question;
-
-
-    return (
-        <QuestionDetailContainer>
-            <QuestionDetailHeader>
-                <h1>{data.question_title}</h1>
-                <AskQuestionBtn/>
-            </QuestionDetailHeader>
-            <QuestionInfo>
-                    <QuestionInfoItem>
-                        <span>Asked</span>
-                        <time dateTime={`${data.question_date}`}>{`${data.question_date}`}</time>
-                    </QuestionInfoItem>
-                    <QuestionInfoItem>
-                        <span>Modified</span>
-                        <span>{NumberForMatter(`${data.question_view}`)}</span>
-                    </QuestionInfoItem>
-                    <QuestionInfoItem>
-                        <span>Viewed</span>
-                        <time dateTime={`${data.modified_date}`}>{`${data.modified_date}`}</time>
-                    </QuestionInfoItem>
-                </QuestionInfo>
-                <QuestionContent>
-                    <Advertisement>
-                        <img src={advertisementImg}/>
-                    </Advertisement>
-                    <QuestionLayout>
-                        <QuestionLayoutLeft>
-                            <VoteGroup/>
-                        </QuestionLayoutLeft>
-                        <QuestionLayouttRight>
-                            <QuestionDetailContent>
-                                {data.question_content}
-                                <QuestionTagLayout>
-                                    <QuestionTag tagList={data.tag}/>
-                                </QuestionTagLayout>
-
-                            </QuestionDetailContent>
-                        </QuestionLayouttRight>
-                    </QuestionLayout>
-                </QuestionContent>
-        </QuestionDetailContainer>
-    );
-};
 
 export default ViewQuestionDetail;

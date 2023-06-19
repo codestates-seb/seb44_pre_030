@@ -6,7 +6,7 @@ import ViewQuestionDetail from '../components/question/ViewQuestionDetail';
 const QuestionDetail = () => {
   return (
     <div>
-   
+
     </div>
   );
 };
