@@ -48,6 +48,9 @@ const colorpalette = {
     questionRegistrationBtnActiveColor:'hsl(209,100%,37.5%)',
 
     questionDetailInfoFontColor:'hsl(210,8%,45%)',
+    questionDetailUserInfoColor:'hsl(206,100%,40%)',
+    questionDetailUserInfoHoverColor:' hsl(206,100%,52%)',
+    questionDetailUserInfoBgColor:' hsl(205,53%,88%)',
 }
 
 export default colorpalette;
