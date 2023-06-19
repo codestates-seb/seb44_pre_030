@@ -131,8 +131,7 @@ const Answer = () => {
 };
 
 const Container = styled.div`
-  width: 600px;
-  margin-left: 17%;
+  width:730px;
 `;
 const AnswerTitle = styled.div`
   display: flex;

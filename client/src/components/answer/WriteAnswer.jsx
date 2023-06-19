@@ -72,41 +72,43 @@ const WriteAnswer = () => {
             }}
           />
         </AnswerContainerInput>
-        {openInfo ? (
-          <AnswerInfo>
-            Thanks for contributing an answer to Stack Overflow!
-            <ul>
-              <li>
-                Please be sure to answer the question. Provide details and share
-                your research!
-              </li>
-            </ul>
-            But avoid...
-            <ul>
-              <li>
-                Asking for help, clarification, or responding to other answers.
-              </li>
-              <li>
-                Making statements based on opinion; back them up with references
-                or personal experience.
-              </li>
-              To learn more, see our tips on writing great answers.
-            </ul>
-            <button
-              onClick={() => {
-                setOpenInfo(!openInfo);
-              }}
-              className="closeInfo-btn"
-            >
-              <AiFillCloseCircle />
+        <div>
+          {openInfo ? (
+            <AnswerInfo>
+              Thanks for contributing an answer to Stack Overflow!
+              <ul>
+                <li>
+                  Please be sure to answer the question. Provide details and share
+                  your research!
+                </li>
+              </ul>
+              But avoid...
+              <ul>
+                <li>
+                  Asking for help, clarification, or responding to other answers.
+                </li>
+                <li>
+                  Making statements based on opinion; back them up with references
+                  or personal experience.
+                </li>
+                To learn more, see our tips on writing great answers.
+              </ul>
+              <button
+                onClick={() => {
+                  setOpenInfo(!openInfo);
+                }}
+                className="closeInfo-btn"
+              >
+                <AiFillCloseCircle />
+              </button>
+            </AnswerInfo>
+          ) : null}
+          <AnswerBtn>
+            <button className="askquestion_Btn" onClick={answerPosting}>
+              Post Your Answer
             </button>
-          </AnswerInfo>
-        ) : null}
-        <AnswerBtn>
-          <button className="askquestion_Btn" onClick={answerPosting}>
-            Post Your Answer
-          </button>
-        </AnswerBtn>
+          </AnswerBtn>
+        </div>
       </Container>
     </>
   );
@@ -115,21 +117,17 @@ const WriteAnswer = () => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 727px;
 `;
 
 const AnswerContainerTitle = styled.div`
   margin: 20px 0;
-  transform: translateX(25%);
-  width: 400px;
 `;
 const AnswerContainerInput = styled.div`
   display: flex;
   margin-top: 10px;
   height: 450px;
   .wrapper-class {
-    width: 80%;
-    margin: 0 auto;
     margin-bottom: 4rem;
     border: 3px solid lightgray;
   }
@@ -141,10 +139,8 @@ const AnswerContainerInput = styled.div`
     background-color: #f1f1f1;
   }
 `;
+
 const AnswerInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 500px;
   position: relative;
   margin-bottom: 10px;
   background-color: #fdf7e2;
@@ -185,6 +181,7 @@ const AnswerBtn = styled.div`
     border-radius: 5px;
     border: #1681d2;
     font-weight: 500;
+    cursor: pointer;
   }
   .askquestion_Btn:hover {
     background: hsl(206, 100%, 40%);

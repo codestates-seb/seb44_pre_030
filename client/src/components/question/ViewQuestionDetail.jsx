@@ -58,10 +58,6 @@ const ViewQuestionDetail = () => {
 const QuestionDetailContainer = styled.div`
     display: flex;
     flex-direction: column;
-    padding:15px;
-    padding-right: 0;
-    width:1091px;
-    margin-left: 285px;
 `
 const QuestionDetailHeader = styled.div`
     display: flex;
