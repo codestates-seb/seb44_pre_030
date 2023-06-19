@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RequiredArgsConstructor
@@ -16,6 +15,16 @@ import java.io.IOException;
 @RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
+
+    @GetMapping("/logined")
+    ResponseEntity logined(){
+        return new ResponseEntity("login end", HttpStatus.OK);
+    }
+
+    @PostMapping("/login/fail")
+    ResponseEntity fail(){
+        return new ResponseEntity("fail", HttpStatus.OK);
+    }
 
     @PostMapping("/signup")
     ResponseEntity signupMember(@RequestBody MemberPostDto dto/*, HttpServletResponse response*/) throws IOException {

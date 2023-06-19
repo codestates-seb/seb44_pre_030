@@ -54,8 +54,8 @@ public class Member implements UserDetails {
     LocalDateTime lastLogin;
 
     public enum MemberRole{
-        USER("USER"),
-        ADMIN("ADMIN");
+        ROLE_USER("ROLE_USER"),
+        ROLE_ADMIN("ROLE_ADMIN");
 
         @Getter
         @Setter
@@ -65,7 +65,6 @@ public class Member implements UserDetails {
             this.value = value;
         }
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){

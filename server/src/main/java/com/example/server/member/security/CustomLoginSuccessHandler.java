@@ -1,5 +1,6 @@
 package com.example.server.member.security;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -15,6 +16,6 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
                                         Authentication authentication) throws IOException {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        response.sendRedirect("/main");
+        response.sendRedirect("/member/logined");
     }
 }

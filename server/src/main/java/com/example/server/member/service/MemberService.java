@@ -11,14 +11,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class MemberService {
     private final MemberJpaRepository memberJpaRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+
     public long signup(MemberPostDto dto){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String password = passwordEncoder.encode(dto.getPassword());
 
         Member member = Member.builder()
                 .email(dto.getEmail())
                 .password(password)
                 .displayName(dto.getDisplayName())
+                .role(Member.MemberRole.ROLE_USER)
                 .location(dto.getLocation())
                 .title(dto.getTitle())
                 .aboutMe(dto.getAboutMe())
@@ -38,22 +40,31 @@ public class MemberService {
     public long update(long memberId, MemberPostDto dto){
         Member member = memberJpaRepository.findMemberByMemberId(memberId);
 
-        member = Member.builder()
-                .displayName(dto.getDisplayName())
-                .location(dto.getLocation())
-                .title(dto.getTitle())
-                .aboutMe(dto.getAboutMe())
-                .website(dto.getWebsite())
-                .twitter(dto.getTwitter())
-                .github(dto.getGithub())
-                .build();
+        if (dto.getDisplayName() != null) {
+            member.setDisplayName(dto.getDisplayName());
+        }
+        if (dto.getLocation() != null) {
+            member.setLocation(dto.getLocation());
+        }
+        if (dto.getTitle() != null) {
+            member.setTitle(dto.getTitle());
+        }
+        if (dto.getAboutMe() != null) {
+            member.setAboutMe(dto.getAboutMe());
+        }
+        if (dto.getWebsite() != null) {
+            member.setWebsite(dto.getWebsite());
+        }
+        if (dto.getTwitter() != null) {
+            member.setTwitter(dto.getTwitter());
+        }
+        if (dto.getGithub() != null) {
+            member.setGithub(dto.getGithub());
+        }
 
         Member saveMember = memberJpaRepository.save(member);
-        long saveMemberId = -1;
 
-        if(saveMember != null) saveMemberId = saveMember.getId();
-
-        return saveMemberId;
+        return saveMember.getId();
     }
 
     public Member getMember(long memberId){

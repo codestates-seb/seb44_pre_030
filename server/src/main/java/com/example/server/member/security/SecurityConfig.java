@@ -11,27 +11,37 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final CustomUserDetailService customUserDetailService;
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
-                .cors().disable()
+                .httpBasic()
+                .and()
+                .cors().configurationSource(corsConfigurationSource())
+                .and()
                 .csrf().disable()
                 .authorizeRequests()
-//                .antMatchers("/member/update").hasAuthority("USER")
-//                .antMatchers("/**/create/**").hasAuthority("USER")
+//                .antMatchers("/member/update/**").hasAuthority("ROLE_USER")
+//                .antMatchers("/member/get/**").hasAuthority("ROLE_USER")
+//                .antMatchers("/**/create/**").hasAuthority("ROLE_USER")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+//                .loginPage("/member/login")
+                .loginProcessingUrl("/member/login")
+                .defaultSuccessUrl("/")
                 .successHandler(customLoginSuccessHandler())
-                .failureForwardUrl("/fail")
+                .failureForwardUrl("/member/login/fail")
                 .and()
                 .logout()
                 .logoutUrl("/logout");
@@ -48,11 +58,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public CustomAuthenticationProvider customAuthenticationProvider(){
-        return new CustomAuthenticationProvider(userDetailsService(), passwordEncoder());
+        return new CustomAuthenticationProvider(customUserDetailService, passwordEncoder());
     }
 
     @Override
-    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder){
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
         authenticationManagerBuilder.authenticationProvider(customAuthenticationProvider());
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.addAllowedOrigin("*");
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
