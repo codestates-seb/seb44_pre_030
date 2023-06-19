@@ -1,14 +1,21 @@
+import React from 'react';
 import styled from 'styled-components';
 import { BiWorld } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
   return (
     <SidebarContainer>
           <SidebarBlock>
+            <Link to="/">
           <HomeButton>Home</HomeButton>
-          <PublicDviv>PUBLIC</PublicDviv>
+          </Link>
+          <div>PUBLIC</div>
          <QuesetionsButton><BiWorld className="icon" size={21} />Questions</QuesetionsButton>
         <SidebarButton><Block/>Tags</SidebarButton>
+        <Link to="/mypage/:id">
+        <SidebarButton><Block/>Users</SidebarButton>
+        </Link>
         <SidebarButton><Block/><CompaniesLink href='https://stackoverflow.com/jobs/companies'>Companies</CompaniesLink></SidebarButton> 
       </SidebarBlock>
     </SidebarContainer>
@@ -16,8 +23,9 @@ const Sidebar = () => {
 };
 
 const SidebarContainer = styled.div`
-  width: 180px;
-  height: 700px;
+  margin-right: 1px;
+  width: 256px;
+  height: 80vw;
   padding-top: 10px;
   padding-left: 75px;
   border-right: 1px solid #d6d9dc;
@@ -25,7 +33,7 @@ const SidebarContainer = styled.div`
 `;
 
 const SidebarBlock = styled.div`
-  width: 159px;
+  width: 180px;
   color: rgb(93, 92, 92);
   margin-top: 41px;
   display: flex;
@@ -100,10 +108,6 @@ const Block =styled.div`
   width: 20px;
   height: 10px;
   background-color: none;
-`
-
-const PublicDviv =styled.div`
-  margin-left: 6px;
 `
 
 const CompaniesLink = styled.a`

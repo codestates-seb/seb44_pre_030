@@ -2,6 +2,7 @@ import React from 'react';
 import WriteAnswer from '../components/answer/WriteAnswer';
 import Answer from '../components/answer/Answer';
 import Sidebar from '../components/sidebar/Sidebar';
+import ViewQuestionDetail from '../components/question/ViewQuestionDetail';
 
 const QuestionDetail = () => {
   return (
