@@ -6,6 +6,7 @@ import AskQuestionBtn from './AskQuestionBtn';
 import { NumberForMatter } from '../../utils/NumberForMatter';
 import VoteGroup from '../vote/VoteGroup';
 import advertisementImg from '../../assets/questionDetail/advertisement.svg'
+import QuestionTag from './QuestionTag';
 
 
 const QuestionDetailContainer = styled.div`
@@ -69,6 +70,9 @@ const QuestionLayouttRight = styled.div`
 const QuestionDetailContent = styled.div`
     
 `
+const QuestionTagLayout = styled.div`
+    margin: 1.5rem 0 0.75rem 0;
+`
 const ViewQuestionDetail = () => {
     const questionDetail = useLocation();
     const data = questionDetail.state.question;
@@ -103,9 +107,12 @@ const ViewQuestionDetail = () => {
                             <VoteGroup/>
                         </QuestionLayoutLeft>
                         <QuestionLayouttRight>
-                
                             <QuestionDetailContent>
                                 {data.question_content}
+                                <QuestionTagLayout>
+                                    <QuestionTag tagList={data.tag}/>
+                                </QuestionTagLayout>
+
                             </QuestionDetailContent>
                         </QuestionLayouttRight>
                     </QuestionLayout>

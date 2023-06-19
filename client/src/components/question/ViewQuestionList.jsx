@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import colorpalette from '../../styles/colorpalette';
 import { NumberForMatter } from '../../utils/NumberForMatter';
+import QuestionTag from './QuestionTag';
 
 
 const QuestionList = () => {
@@ -41,13 +42,7 @@ const QuestionList = () => {
                                     {list.question_content}
                                 </PostContentExcerpt>
                                 <PostContentMeta>
-                                    <PostTags>
-                                        {list.tag.map((tag,i)=>{
-                                            return (
-                                                <Tag key={i}>{tag}</Tag>
-                                            )
-                                        })}
-                                    </PostTags>
+                                    <QuestionTag tagList={list.tag}/>
                                     <PostUserCard>
                                         <img src={list.User.profile_image_url}></img>
                                         <Link className='UserName' to={`mypage/${list.User.user_id}`}>{NumberForMatter(list.User.name)}</Link>
@@ -133,21 +128,21 @@ const PostContentMeta = styled.div`
     justify-content: space-between;
     align-items: center;
 `
-const PostTags = styled.ul`
-    display: flex;
-`
-const Tag = styled.li`
-    font-size:12px;
-    background-color: ${colorpalette.questionPostTagBackgroundColor};
-    padding:5px;
-    margin-right:5px;
-    border-radius: 3px;
-    color:${colorpalette.questionPostTagColor};
-    cursor: pointer;
-    &:hover{
-        background-color: ${colorpalette.questionPostTagHoverBackgroundColor};
-    }
-`
+// const PostTags = styled.ul`
+//     display: flex;
+// `
+// const Tag = styled.li`
+//     font-size:12px;
+//     background-color: ${colorpalette.questionPostTagBackgroundColor};
+//     padding:5px;
+//     margin-right:5px;
+//     border-radius: 3px;
+//     color:${colorpalette.questionPostTagColor};
+//     cursor: pointer;
+//     &:hover{
+//         background-color: ${colorpalette.questionPostTagHoverBackgroundColor};
+//     }
+// `
 const PostUserCard = styled.div`
     display: flex;
     align-items: center;
