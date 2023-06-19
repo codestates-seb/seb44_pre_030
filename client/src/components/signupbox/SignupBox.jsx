@@ -1,31 +1,83 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import logo from '../../assets/footer/logo3.svg';
 import googlelogo from '../../assets/oauth/googlelogo.svg';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const SignupBox = () => {
+
+  const [displayName, setDisplayName] = useState("");
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const {replace} = useNavigate();
+
+ 
+    
+    
+    const register = () =>{
+      var pw = password;
+      var num = pw.search(/[0-9]/g);
+      var eng = pw.search(/[a-z]/ig);
+      var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+   
+    if(pw.length < 8 || pw.length > 20 || email === ""){
+     console.log(" 비밀번호 8자리 ~ 20자리 이내로 입력해주세요.");
+     return false;
+    }else if(pw.search(/\s/) != -1){
+     return false;
+    }else if( (num < 0 && eng < 0) || (eng < 0 && spe < 0) ){
+     console.log("영문,숫자 혼합하여 입력해주세요.");
+     return false;
+    }else {
+       axios
+      .post('http://localhost:1337/api/auth/local/register', {
+        username: displayName,
+        email: email,
+        password: password,
+      })
+      .then(response => {
+        // Handle success.
+        console.log('Well done!');
+        console.log('User profile', response.data.user);
+        console.log('User token', response.data.jwt);
+    
+        replace("/")
+      })
+      .catch(error => {
+        // Handle error.
+        console.log('An error occurred:', error.response);
+      });
+      }
+    }
+    
+  
+   
+
+  
+
     return (
       <AllContainer>
         <OauthBtn><img src={googlelogo}></img>Sign up with Google</OauthBtn>
         <InputContainer>
           <SmallContainer>
           <TextBox For="DisplayName">Display name</TextBox>
-          <InputBox id="DisplayName"></InputBox>
+          <InputBox id="DisplayName" value={displayName} onChange={(event) => {setDisplayName(event.target.value)}}></InputBox>
           </SmallContainer>
           <SmallContainer>
           <TextBox For="Email">Email</TextBox>
-          <InputBox id="Email"></InputBox>
+          <InputBox id="Email" value={email} onChange={(event) => {setEmail(event.target.value)}}></InputBox>
           </SmallContainer>
           <SmallContainer>
           <TextBox For="Password">Password</TextBox>
-          <InputBox id="Password"></InputBox>
+          <InputBox type="password" id="Password" value={password} onChange={(event) => {setPassword(event.target.value)}}/>
           </SmallContainer>
          <Expainbox>Passwords must contain at least eight
             characters, including at least 1 letter and 1
             number.
         </Expainbox>
-          <SignupBtn>Sign up</SignupBtn>
+          <SignupBtn onClick={() => {register()}}>Sign up</SignupBtn>
           <Expainbox>By clicking "Sign up", you agree to our terms of
             service and acknowledge that you have read
             and understand our privacy policy and code of
