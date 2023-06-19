@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
-
+import { Link } from 'react-router-dom';
 import {MdSearch} from 'react-icons/md'
 import HeaderLogoImg from '../../assets/header/headerLogo.svg.svg'
 import colorpalette from '../../styles/colorpalette';
@@ -29,8 +29,12 @@ const Header = () => {
             </SecondChild>
             <ThirdChild>
                 <ol>
+                    <Link to ="/login">
                     <UserButton><a>{ThirdChildData[0]}</a></UserButton>
+                    </Link>
+                    <Link to ="/signup">
                     <UserButton><a>{ThirdChildData[1]}</a></UserButton>
+                    </Link>
                 </ol>
             </ThirdChild>
         </HeaderContainer>

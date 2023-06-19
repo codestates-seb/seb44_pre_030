@@ -1,7 +1,10 @@
 import React from 'react';
+import LoginBox from '../components/loginbox/loginbox';
+
 
 const Login = () => {
-  return <div>Login</div>;
+  return (
+ <LoginBox/>
+  )
 };
-
 export default Login;

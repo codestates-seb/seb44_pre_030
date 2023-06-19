@@ -2,18 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import logo from '../../assets/footer/logo3.svg';
 import googlelogo from '../../assets/oauth/googlelogo.svg';
-import {Link} from 'react-router-dom';
 
-const LoginBox = () => {
+
+const SignupBox = () => {
     return (
       <AllContainer>
-        <LogImgbox>
-          <Link to="/">
-        <LogoImg src={logo}/>
-        </Link>
-        </LogImgbox>
-        <OauthBtn><img src={googlelogo}></img>Log in with Google</OauthBtn>
+        <OauthBtn><img src={googlelogo}></img>Sign up with Google</OauthBtn>
         <InputContainer>
+          <SmallContainer>
+          <TextBox For="DisplayName">Display name</TextBox>
+          <InputBox id="DisplayName"></InputBox>
+          </SmallContainer>
           <SmallContainer>
           <TextBox For="Email">Email</TextBox>
           <InputBox id="Email"></InputBox>
@@ -22,7 +21,16 @@ const LoginBox = () => {
           <TextBox For="Password">Password</TextBox>
           <InputBox id="Password"></InputBox>
           </SmallContainer>
-          <LoginBtn>Log in</LoginBtn>
+         <Expainbox>Passwords must contain at least eight
+            characters, including at least 1 letter and 1
+            number.
+        </Expainbox>
+          <SignupBtn>Sign up</SignupBtn>
+          <Expainbox>By clicking "Sign up", you agree to our terms of
+            service and acknowledge that you have read
+            and understand our privacy policy and code of
+            conduct
+          </Expainbox>
         </InputContainer>
         </AllContainer>
     );
@@ -37,14 +45,14 @@ const AllContainer = styled.div`
   align-items: center;
   justify-content: center;
 `
-const LogImgbox = styled.div`
-  width: 250px;
-  text-align: center;
+const Expainbox = styled.div`
+  width: 197px;
+  height: 150px;
+  margin-top: 3px;
   margin-bottom: 20px;
-`
-const LogoImg = styled.img`
-  width: 35px;
-  cursor: pointer;
+  font-size: 10px;
+  margin-left: 26px;
+  color: gray;
 `
 
 const OauthBtn = styled.button`
@@ -75,7 +83,7 @@ const OauthBtn = styled.button`
 
 const InputContainer = styled.div`
     width: 250px;
-    height: 210px;
+    height: 500px;
     border-radius: 6px;
     background-color: white;
     box-shadow: 1px 1px 2px 2px rgb(229, 229, 229);
@@ -93,11 +101,12 @@ const InputBox = styled.input`
   width: 190px;
   height: 25px;
 `
-const LoginBtn = styled.button`
+const SignupBtn = styled.button`
   width: 200px;
   height: 35px;
   margin-top: 17px;
   margin-left: 23px;
+  margin-bottom: 20px;
   color : white;
   background-color: rgba(29, 154, 249, 1);
   border: none;
@@ -112,5 +121,5 @@ const LoginBtn = styled.button`
 
 }
 `
-export default LoginBox;
+export default SignupBox;
   
