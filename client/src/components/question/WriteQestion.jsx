@@ -164,7 +164,7 @@ const ProblemInputContainer = styled.div`
 `
 const ProblemInputWrapper = styled.section`
     height: 250px;
-
+    overflow: scroll;
     .wrapper-class{
         margin: 0 auto;
         margin-bottom: 4rem;
