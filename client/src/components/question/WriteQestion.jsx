@@ -93,7 +93,7 @@ const WriteQestion = () => {
 };
 
 const QuestionContainer = styled.main`
-    margin: 58px auto  86px 148px;
+    padding:15px;
     & .questionWriteContainer{
         width:850px;
         border-radius: 5px;
@@ -110,9 +110,11 @@ const QuestionContainer = styled.main`
         border: none;
         border-radius: 3px;
     }
+    
 `
 const QuestionWriteTitle = styled.div`
-    margin-bottom: 71px;
+    margin-top: 20px;
+    margin-bottom: 41px;
 `
 const QuestionNotice = styled.div`
     background-color: ${colorpalette.questionNoticeColor};
@@ -136,6 +138,9 @@ const QuestionNotice = styled.div`
 `
 const InputContainer = styled.form`
 
+    & div{
+        background-color: ${colorpalette.signatureWhite};
+    }
     & .inputBoxtitle{
         margin-bottom: 5px;
     }
