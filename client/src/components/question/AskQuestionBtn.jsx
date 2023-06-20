@@ -14,7 +14,7 @@ const AskQuestionBtnContainer = styled.div`
   color: ${colorpalette.signatureWhite};
   width: 5.9rem;
   height: 2.5rem;
-  transform: translateX(6%);
+ 
 
   &:hover {
     background-color: ${colorpalette.questionRegistrationBtnHoverColor};

@@ -129,14 +129,13 @@ const AnswerContainerInput = styled.div`
   height: 450px;
   .wrapper-class {
     margin-bottom: 4rem;
-    border: 3px solid lightgray;
+    border: 1px solid lightgray;
   }
   .editor {
     height: 254px !important;
     border: 1px solid #f1f1f1 !important;
     padding: 5px !important;
     border-radius: 2px !important;
-    background-color: #f1f1f1;
   }
 `;
 

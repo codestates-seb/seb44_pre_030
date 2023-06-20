@@ -1,22 +1,65 @@
-import React from 'react';
+import React,{useEffect, useRef,useState} from 'react';
 import styled from 'styled-components';
 import { BiWorld } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
+  const [homeFocus,setHomeFocus] = useState(false);
+  const [questionFocus,setQuestionFocus] = useState(false);
+  const [userFocus,setUserFocus] = useState(false);
+  const [companiesFocus,setCompaniesFocus] = useState(false);
+  const sidebarRef = useRef(null);
+
+  const handleHomeFocus = () => {
+    setHomeFocus(true);
+    setQuestionFocus(false);
+    setUserFocus(false);
+    setCompaniesFocus(false);
+  }
+  const handleQuestionFocus = () => {
+    setHomeFocus(false);
+    setQuestionFocus(true);
+    setUserFocus(false);
+    setCompaniesFocus(false);
+  }
+  const handleUserFocus = () => {
+    setHomeFocus(false);
+    setQuestionFocus(false);
+    setUserFocus(true);
+    setCompaniesFocus(false);
+  }
+  const handleCompaniesFocus = () => {
+    setHomeFocus(false);
+    setQuestionFocus(false);
+    setUserFocus(false);
+    setCompaniesFocus(true);
+  }
+  useEffect(()=>{
+    const handleClickOutside = (e) => {
+      if(sidebarRef.current && !sidebarRef.current.contains(e.target)){
+        setHomeFocus(false);
+        setQuestionFocus(false);
+        setUserFocus(false);
+        setCompaniesFocus(false);
+      }
+    };
+    document.addEventListener('click',handleClickOutside);
+    return document.removeEventListener('click',handleClickOutside)
+  },[sidebarRef,homeFocus,questionFocus,userFocus,companiesFocus]);
+
+
   return (
     <SidebarContainer>
-          <SidebarBlock>
+          <SidebarBlock ref={sidebarRef}>
             <Link to="/">
-          <HomeButton>Home</HomeButton>
+          <HomeButton onClick={handleHomeFocus} className={homeFocus?'focusHomeBtn':''}>Home</HomeButton>
           </Link>
-          <div>PUBLIC</div>
-         <QuesetionsButton><BiWorld className="icon" size={21} />Questions</QuesetionsButton>
-        <SidebarButton><Block/>Tags</SidebarButton>
+          <div className='public'>PUBLIC</div>
+         <QuesetionsButton onClick={handleQuestionFocus} className={questionFocus?'focusQuestionBtn':''}><BiWorld className="icon" size={21} />Questions</QuesetionsButton>
         <Link to="/mypage/:id">
-        <SidebarButton><Block/>Users</SidebarButton>
+        <SidebarButton onClick={handleUserFocus} className={userFocus?'focusUserBtn':''}><Block/>Users</SidebarButton>
         </Link>
-        <SidebarButton><Block/><CompaniesLink href='https://stackoverflow.com/jobs/companies'>Companies</CompaniesLink></SidebarButton> 
+        <SidebarButton onClick={handleCompaniesFocus} className={companiesFocus?'focusCompaniesBtn':''}><Block/><CompaniesLink href='https://stackoverflow.com/jobs/companies'>Companies</CompaniesLink></SidebarButton> 
       </SidebarBlock>
     </SidebarContainer>
   );
@@ -24,25 +67,39 @@ const Sidebar = () => {
 
 const SidebarContainer = styled.div`
   margin-right: 1px;
-  width: 256px;
-  height: 100vh;
-  padding-top: 10px;
-  padding-left: 75px;
+  width: 168px;
+  padding-top: 24px;
+  padding-left: 5px;
   border-right: 1px solid #d6d9dc;
-  font-size: 12px;
+  font-size: 14px;
 `;
 
 const SidebarBlock = styled.div`
-  width: 180px;
+  width: 165px;
   color: rgb(93, 92, 92);
-  margin-top: 41px;
   display: flex;
   flex-direction: column;
+  & .public{
+    padding-left: 5px;
+  }
+  & button{
+    width:162px;
+    height: 40px;
+    cursor: pointer;
+    padding-left: 5px;
+  }
+  & .focusHomeBtn,
+  & .focusQuestionBtn,
+  & .focusUserBtn,
+  & .focusCompaniesBtn{
+    background-color: #f3f3f3;
+    border-right: 3px solid orange;
+    color:black;
+    font-weight: 700;
+  }
 `
 const QuesetionsButton = styled.button`
   background-color: white;
-  width: 180px;
-  height: 40px;
   text-align: left;
   color: rgb(77, 77, 77);
   border :0;
@@ -51,20 +108,18 @@ const QuesetionsButton = styled.button`
   font-size: 13px;
   display: flex;
   align-items:center;
-  cursor: pointer;
+  margin-top: 5px;
+  & .icon{
+    margin-right: 5px;
+  }
   &:hover{
     color : black;
-  &:active{
-    background-color: #f3f3f3;
-    border-right: 3px solid orange;
   }
-  }
+  
 `
 const SidebarButton = styled.button`
   display: flex;
   background-color: white;
-  width: 180px;
-  height: 40px;
   text-align: left;
   color: rgb(74, 74, 74);
   border :0;
@@ -72,21 +127,15 @@ const SidebarButton = styled.button`
   box-shadow: none;
   font-size: 13px;
   margin-right: 20px;
-  cursor: pointer;
   align-items:center;
   &:hover{
     color : black;
-  &:active{
-    background-color: #f3f3f3;
-    border-right: 3px solid orange;
   }
-  }
+
 `
 
 const HomeButton = styled.button`
   background-color: white;
-  width: 180px;
-  height: 50px;
   text-align: left;
   color: rgb(88, 88, 88);
   border :0;
@@ -95,14 +144,11 @@ const HomeButton = styled.button`
   font-size: 13px;
   display: flex;
   align-items:center;
-  cursor: pointer;
+  margin-bottom: 10px;
   &:hover{
     color : black;
-  &:active{
-    background-color: #f3f3f3;
-    border-right: 3px solid orange;
   }
-  }
+  
 `
 const Block =styled.div`
   width: 20px;

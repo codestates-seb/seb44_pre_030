@@ -21,6 +21,7 @@ import styled from 'styled-components';
 
 const MainDiv = styled.div`
   display: flex;
+  margin-left: 124px;
 `;
 
 function App() {

@@ -72,6 +72,7 @@ const EditQuestionContainer = styled.div`
     width:728px;
     padding:15px;
     padding-right:0;
+    margin-top: 10px;
 `
 const EditQuestionNotice = styled.div`
     width:100%;
@@ -171,5 +172,6 @@ const PostBtn = styled.div`
     padding:10px;
     border-radius: ${colorpalette.headerBorderRadius};
     margin-top: 20px;
+    margin-bottom: 50px;
 `
 export default EditQuestionComponent;
