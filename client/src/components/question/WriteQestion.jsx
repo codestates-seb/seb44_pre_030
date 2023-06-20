@@ -197,7 +197,7 @@ const TagInputContainer = styled.div`
 const SubmitBtn = styled.button`
     background-color: ${colorpalette.questionWriteBtnColor};
     color:${colorpalette.signatureWhite};
-
+    cursor: pointer;
     &:hover{
         background-color: ${colorpalette.questionWriteBtnHoverColor};
     }
@@ -207,6 +207,7 @@ const SubmitBtn = styled.button`
 `
 const ResetBtn = styled.button`
     color: ${colorpalette.questionResetBtnFontColor};
+    cursor: pointer;
     &:hover{
         background-color: ${colorpalette.questionResetBtnHoverColor};
     }
