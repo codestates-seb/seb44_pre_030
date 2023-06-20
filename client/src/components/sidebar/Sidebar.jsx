@@ -1,22 +1,65 @@
-import React from 'react';
+import React,{useEffect, useRef,useState} from 'react';
 import styled from 'styled-components';
 import { BiWorld } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
+  const [homeFocus,setHomeFocus] = useState(false);
+  const [questionFocus,setQuestionFocus] = useState(false);
+  const [userFocus,setUserFocus] = useState(false);
+  const [companiesFocus,setCompaniesFocus] = useState(false);
+  const sidebarRef = useRef(null);
+
+  const handleHomeFocus = () => {
+    setHomeFocus(true);
+    setQuestionFocus(false);
+    setUserFocus(false);
+    setCompaniesFocus(false);
+  }
+  const handleQuestionFocus = () => {
+    setHomeFocus(false);
+    setQuestionFocus(true);
+    setUserFocus(false);
+    setCompaniesFocus(false);
+  }
+  const handleUserFocus = () => {
+    setHomeFocus(false);
+    setQuestionFocus(false);
+    setUserFocus(true);
+    setCompaniesFocus(false);
+  }
+  const handleCompaniesFocus = () => {
+    setHomeFocus(false);
+    setQuestionFocus(false);
+    setUserFocus(false);
+    setCompaniesFocus(true);
+  }
+  useEffect(()=>{
+    const handleClickOutside = (e) => {
+      if(sidebarRef.current && !sidebarRef.current.contains(e.target)){
+        setHomeFocus(false);
+        setQuestionFocus(false);
+        setUserFocus(false);
+        setCompaniesFocus(false);
+      }
+    };
+    document.addEventListener('click',handleClickOutside);
+    return document.removeEventListener('click',handleClickOutside)
+  },[sidebarRef,homeFocus,questionFocus,userFocus,companiesFocus]);
+
+
   return (
     <SidebarContainer>
-          <SidebarBlock>
+          <SidebarBlock ref={sidebarRef}>
             <Link to="/">
-          <HomeButton>Home</HomeButton>
+          <HomeButton onClick={handleHomeFocus} className={homeFocus?'focusHomeBtn':''}>Home</HomeButton>
           </Link>
           <div className='public'>PUBLIC</div>
-         <QuesetionsButton><BiWorld className="icon" size={21} />Questions</QuesetionsButton>
-        <SidebarButton><Block/>Tags</SidebarButton>
+         <QuesetionsButton onClick={handleQuestionFocus} className={questionFocus?'focusQuestionBtn':''}><BiWorld className="icon" size={21} />Questions</QuesetionsButton>
         <Link to="/mypage/:id">
-        <SidebarButton><Block/>Users</SidebarButton>
+        <SidebarButton onClick={handleUserFocus} className={userFocus?'focusUserBtn':''}><Block/>Users</SidebarButton>
         </Link>
-        <SidebarButton><Block/><CompaniesLink href='https://stackoverflow.com/jobs/companies'>Companies</CompaniesLink></SidebarButton> 
+        <SidebarButton onClick={handleCompaniesFocus} className={companiesFocus?'focusCompaniesBtn':''}><Block/><CompaniesLink href='https://stackoverflow.com/jobs/companies'>Companies</CompaniesLink></SidebarButton> 
       </SidebarBlock>
     </SidebarContainer>
   );
@@ -45,6 +88,15 @@ const SidebarBlock = styled.div`
     cursor: pointer;
     padding-left: 5px;
   }
+  & .focusHomeBtn,
+  & .focusQuestionBtn,
+  & .focusUserBtn,
+  & .focusCompaniesBtn{
+    background-color: #f3f3f3;
+    border-right: 3px solid orange;
+    color:black;
+    font-weight: 700;
+  }
 `
 const QuesetionsButton = styled.button`
   background-color: white;
@@ -63,12 +115,6 @@ const QuesetionsButton = styled.button`
   &:hover{
     color : black;
   }
-  &:focus{
-    background-color: #f3f3f3;
-    border-right: 3px solid orange;
-    color:black;
-    font-weight: 700;
-  }
   
 `
 const SidebarButton = styled.button`
@@ -85,13 +131,7 @@ const SidebarButton = styled.button`
   &:hover{
     color : black;
   }
-  &:focus{
-    background-color: #f3f3f3;
-    border-right: 3px solid orange;
-    color:black;
-    font-weight: 700;
-  }
-  
+
 `
 
 const HomeButton = styled.button`
@@ -107,12 +147,6 @@ const HomeButton = styled.button`
   margin-bottom: 10px;
   &:hover{
     color : black;
-  }
-  &:focus{
-    background-color: #f3f3f3;
-    border-right: 3px solid orange;
-    color:black;
-    font-weight: 700;
   }
   
 `
