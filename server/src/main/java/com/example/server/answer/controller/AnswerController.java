@@ -48,8 +48,8 @@ public class AnswerController {
     }
 
     @DeleteMapping("/{answer-id}")
-    public ResponseEntity cancelAnswer() {
-
+    public ResponseEntity cancelAnswer(@PathVariable("answer-id") @Positive long answerId) {
+        answerService.cancelAnswer(answerId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
