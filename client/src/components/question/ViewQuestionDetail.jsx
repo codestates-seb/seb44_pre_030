@@ -51,10 +51,15 @@ const ViewQuestionDetail = () => {
                         </QuestionLayouttRight>
                     </QuestionLayout>
                     <QuestionUserAuthority>
+
                         <QuestionEdit>
                             {
                             data.User?
-                            <><Link to={`/question/edit/${data.User.user_id}`}>Edit</Link><Link to='/'>Delete</Link></>
+                            (<>
+                                <Link to={`/question/edit/${data.User.user_id}`} state={{ question: data }}>Edit</Link>
+
+                                <Link to='/'>Delete</Link>
+                            </>)
                             :
                             <div></div>
                             }

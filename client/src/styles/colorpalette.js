@@ -51,6 +51,14 @@ const colorpalette = {
     questionDetailUserInfoColor:'hsl(206,100%,40%)',
     questionDetailUserInfoHoverColor:' hsl(206,100%,52%)',
     questionDetailUserInfoBgColor:' hsl(205,53%,88%)',
+
+    questionEditNoticeBorderColor:'hsl(47,69%,69%)',
+    questionEditNoticeBgColor:'hsl(47,87%,94%)',
+    questionEditNoticeFontColor:' hsl(210,8%,25%)',
+    questionEditSaveBtnColor:'hsl(206,100%,52%)',
+    questionEditSaveBtnHoverColor:'hsl(206,100%,40%)',
+    questionEditCancelBtnHoverColor:'hsl(206,100%,97%)',
+    questionEditCancelBtnFontColor:'hsl(206,100%,40%)',
 }
 
 export default colorpalette;
