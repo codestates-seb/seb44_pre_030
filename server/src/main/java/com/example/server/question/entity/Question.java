@@ -27,6 +27,10 @@ public class Question {
 
     String content;
 
+    long view;
+
+    long vote;
+
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     LocalDateTime createdAt;
 
