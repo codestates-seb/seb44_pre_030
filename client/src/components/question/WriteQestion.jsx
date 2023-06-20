@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { styled } from 'styled-components';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { Editor } from "react-draft-wysiwyg";
@@ -23,14 +23,29 @@ const InputData = {
 
 const WriteQestion = () => {
     const [editorState,setEditorState] = useState(EditorState.createEmpty());
-    const [editorFocused, setEditorFocused] = useState(false);
+    const [titleValue,SetTitleValue] = useState('');
+    const [titleError,setTitleError] = useState(false);
+    const [editorError,setEditorError] = useState(false);
 
     const handleEditorStateChange = (newEditorState) =>{
         setEditorState(newEditorState);
     }
-    const handleEditorFocus = () => {
-        setEditorFocused(true);
+
+    const handleTitleValue = (e) => {
+        SetTitleValue(e.target.value);
     }
+    const CheckInputData = (e) => {
+        e.preventDefault();
+        setTitleError(!titleValue);
+        setEditorError(editorState.getCurrentContent().getPlainText().trim() === '')
+    }
+    const ResetInputData = ()=>{
+        SetTitleValue('');
+        setEditorState(EditorState.createEmpty());
+    }
+
+    useEffect(()=>{
+    },[titleValue])
     return (
         <QuestionContainer>
             <QuestionWriteTitle>
@@ -50,7 +65,7 @@ const WriteQestion = () => {
                 <TitleInputContainer className='questionWriteContainer'>
                     <h3 className='inputBoxtitle'>{InputData.titleInput.title}</h3>
                     <span className='input-description'>{InputData.titleInput.description}</span>
-                    <input className='DataInput' type='text' placeholder={InputData.titleInput.placeholder}></input>
+                    <input className={`DataInput ${titleError?'error':''}`} type='text' placeholder={InputData.titleInput.placeholder} onChange={handleTitleValue} value={titleValue}></input>
                 </TitleInputContainer>
 
                 <ProblemInputContainer className='questionWriteContainer'>
@@ -59,9 +74,8 @@ const WriteQestion = () => {
 
                     <ProblemInputWrapper className='ProblemInputWrapper'>
                         <Editor
-                            onFocus={handleEditorFocus}
                             wrapperClassName='wrapper-class'
-                            editorClassName={editorFocused?"editor-focus":"editor"}
+                            editorClassName={`editor ${editorError?'error':''}`}
                             toolbarClassName="toolbar-class"
                             localization={{
                                 locale: 'ko',
@@ -84,8 +98,8 @@ const WriteQestion = () => {
                     <input className='DataInput' type='text' placeholder={InputData.tagInput.placeholder}></input>
                 </TagInputContainer>
 
-                <SubmitBtn type='submit'>Post your question</SubmitBtn>
-                <ResetBtn>Discard draft</ResetBtn>
+                <SubmitBtn onClick={CheckInputData} type='submit'>Post your question</SubmitBtn>
+                <ResetBtn onClick={ResetInputData} type='button'>Discard draft</ResetBtn>
             </InputContainer>
 
         </QuestionContainer>
@@ -159,6 +173,9 @@ const InputContainer = styled.form`
         border-color: ${colorpalette.headerSearchBorderFocusColor};
         box-shadow: 0 0 10px ${colorpalette.headerSearchBorderShadowColor};
     }
+    & .error{
+        border-color:tomato;
+    }
     margin-bottom: 70px;
 `
 const TitleInputContainer = styled.div`
@@ -168,27 +185,23 @@ const ProblemInputContainer = styled.div`
     height: 348px;
 `
 const ProblemInputWrapper = styled.section`
-    height: 250px;
-    overflow: scroll;
+    height: 280px;
     .wrapper-class{
         margin: 0 auto;
         margin-bottom: 4rem;
+        max-height: 230px;
+
     }
     .editor {
         height: 180px !important;
         border: 1px solid ${colorpalette.headerSearchBorderColor};
         padding: 10px;
         border-radius: 2px !important;
+        overflow: scroll;
     }
-    .editor-focus{
-        padding: 10px;
-        height: 180px !important;
-        outline:none !important;
-        border-color: ${colorpalette.headerSearchBorderFocusColor};
-        box-shadow: 0 0 10px ${colorpalette.headerSearchBorderShadowColor};
+    .error{
+        border:1px solid tomato;
     }
-    
-
 `
 
 const TagInputContainer = styled.div`
@@ -197,7 +210,7 @@ const TagInputContainer = styled.div`
 const SubmitBtn = styled.button`
     background-color: ${colorpalette.questionWriteBtnColor};
     color:${colorpalette.signatureWhite};
-
+    cursor: pointer;
     &:hover{
         background-color: ${colorpalette.questionWriteBtnHoverColor};
     }
@@ -207,6 +220,7 @@ const SubmitBtn = styled.button`
 `
 const ResetBtn = styled.button`
     color: ${colorpalette.questionResetBtnFontColor};
+    cursor: pointer;
     &:hover{
         background-color: ${colorpalette.questionResetBtnHoverColor};
     }
