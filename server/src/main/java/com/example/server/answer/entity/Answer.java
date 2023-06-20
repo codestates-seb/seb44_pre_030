@@ -4,6 +4,7 @@ import com.example.server.member.entity.Member;
 import com.example.server.question.entity.Question;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -30,6 +31,7 @@ public class Answer {
     @Column(nullable=false)
     String content;
 
+    Long vote;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    LocalDateTime createdAt;
+    LocalDateTime createdAt = LocalDateTime.now();;
 }

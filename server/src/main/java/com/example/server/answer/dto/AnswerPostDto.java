@@ -20,5 +20,15 @@ public class AnswerPostDto {
     @NotBlank(message = "내용은 공백이 아니어야 합니다.")
     private String content;
 
-    //question 객체와 멤버 객체 가지고 오기
+    public Member getMember() {
+        Member member = new Member();
+        member.setId(memberId);
+        return member;
+    }
+
+    public Question getQuestion() {
+        Question question = new Question();
+        question.setId(questionId);
+        return question;
+    }
 }

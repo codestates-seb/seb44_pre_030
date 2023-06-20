@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AnswerService {
 
@@ -16,9 +18,21 @@ public class AnswerService {
     }
 
     public Answer createAnswer(Answer answer) {
-        //TODO: verify user does not have a answer previously
-
-        Answer createdAnswer = new Answer();
+        //TODO: verify answer
         return answerRepository.save(answer);
+    }
+
+    public Answer updateAnswer(Answer answer) {
+        Answer findAnswer = findVerifiedAnswer(answer.getId());
+        return answerRepository.save(answer);
+    }
+
+    public Answer findVerifiedAnswer(long answerId) {
+        Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
+        //TODO: use custom error object after merge
+        Answer findAnswer =
+                optionalAnswer.orElseThrow(()->
+                        new Error());
+        return findAnswer;
     }
 }

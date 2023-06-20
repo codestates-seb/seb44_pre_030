@@ -1,5 +1,6 @@
 package com.example.server.answer.mapper;
 
+import com.example.server.answer.dto.AnswerPatchDto;
 import com.example.server.answer.dto.AnswerPostDto;
 import com.example.server.answer.entity.Answer;
 import com.example.server.member.entity.Member;
@@ -8,11 +9,17 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface AnswerMapper {
-
     default Answer answerPostDtoToAnswer(AnswerPostDto answerPostDto) {
         Answer answer = new Answer();
-        //question, answer 객체 가져오기
+        Member member = answerPostDto.getMember();
+        Question question = answerPostDto.getQuestion();
+
         answer.setContent(answerPostDto.getContent());
+        answer.setMember(member);
+        answer.setQuestion(question);
         return answer;
     };
+
+    Answer answerPatchDtoToAnswer(AnswerPatchDto answerPatchDto);
+
 }
