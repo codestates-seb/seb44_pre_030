@@ -25,7 +25,6 @@ const Sidebar = () => {
 const SidebarContainer = styled.div`
   margin-right: 1px;
   width: 168px;
-  height: 100vh;
   padding-top: 24px;
   padding-left: 5px;
   border-right: 1px solid #d6d9dc;

@@ -40,7 +40,7 @@ const QuestionList = () => {
           </Link>
         </div>
         <div className="headContents flex-column">
-          <span>{questionList.length} questions</span>
+          <span>{`${NumberForMatter(questionList.length)} questions`}</span>
           <aside className="subFilterBtn">
             {buttonFilter.map((fil, idx) => (
               <button
