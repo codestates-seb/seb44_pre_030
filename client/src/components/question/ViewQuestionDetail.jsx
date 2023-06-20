@@ -19,7 +19,7 @@ const ViewQuestionDetail = () => {
         <QuestionDetailContainer>
             <QuestionDetailHeader>
                 <h1>{data.question_title}</h1>
-                <AskQuestionBtn/>
+                <Link to={`/question/ask`}><AskQuestionBtn/></Link>
             </QuestionDetailHeader>
             <QuestionInfo>
                     <QuestionInfoItem>
