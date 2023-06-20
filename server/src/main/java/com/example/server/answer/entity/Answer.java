@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    Long id;
     @ManyToOne
     @JoinColumn(name = "questionId")
     Question question;
@@ -27,6 +27,7 @@ public class Answer {
     @JoinColumn(name = "memberId")
     Member member;
 
+    @Column(nullable=false)
     String content;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
