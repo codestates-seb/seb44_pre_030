@@ -29,6 +29,7 @@ const colorpalette = {
     questionResetBtnHoverColor:'hsl(358,75%,97%)',
     questionResetBtnActiveColor:'hsl(358,76%,90%)',
     questionEditorBorderColor:'#f1f1f1',
+    questionPageBgColor:'#F8F9F9',
 
     questionListPostTitleFontColor:'hsl(206,100%,40%)',
     questionListPostTitleHoverFontcolor:'hsl(206,100%,52%)',
