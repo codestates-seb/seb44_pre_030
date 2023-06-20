@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { styled } from 'styled-components';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { Editor } from "react-draft-wysiwyg";
@@ -23,7 +23,7 @@ const InputData = {
 
 const WriteQestion = () => {
     const [editorState,setEditorState] = useState(EditorState.createEmpty());
-    const [titleValue,SetTitleValue] = useState();
+    const [titleValue,SetTitleValue] = useState('');
     const [titleError,setTitleError] = useState(false);
     const [editorError,setEditorError] = useState(false);
 
@@ -39,6 +39,13 @@ const WriteQestion = () => {
         setTitleError(!titleValue);
         setEditorError(editorState.getCurrentContent().getPlainText().trim() === '')
     }
+    const ResetInputData = ()=>{
+        SetTitleValue('');
+        setEditorState(EditorState.createEmpty());
+    }
+
+    useEffect(()=>{
+    },[titleValue])
     return (
         <QuestionContainer>
             <QuestionWriteTitle>
@@ -58,7 +65,7 @@ const WriteQestion = () => {
                 <TitleInputContainer className='questionWriteContainer'>
                     <h3 className='inputBoxtitle'>{InputData.titleInput.title}</h3>
                     <span className='input-description'>{InputData.titleInput.description}</span>
-                    <input className={`DataInput ${titleError?'error':''}`} type='text' placeholder={InputData.titleInput.placeholder} onchange={handleTitleValue}></input>
+                    <input className={`DataInput ${titleError?'error':''}`} type='text' placeholder={InputData.titleInput.placeholder} onChange={handleTitleValue} value={titleValue}></input>
                 </TitleInputContainer>
 
                 <ProblemInputContainer className='questionWriteContainer'>
@@ -92,7 +99,7 @@ const WriteQestion = () => {
                 </TagInputContainer>
 
                 <SubmitBtn onClick={CheckInputData} type='submit'>Post your question</SubmitBtn>
-                <ResetBtn>Discard draft</ResetBtn>
+                <ResetBtn onClick={ResetInputData} type='button'>Discard draft</ResetBtn>
             </InputContainer>
 
         </QuestionContainer>
@@ -178,17 +185,19 @@ const ProblemInputContainer = styled.div`
     height: 348px;
 `
 const ProblemInputWrapper = styled.section`
-    height: 250px;
-    overflow: scroll;
+    height: 280px;
     .wrapper-class{
         margin: 0 auto;
         margin-bottom: 4rem;
+        max-height: 230px;
+
     }
     .editor {
         height: 180px !important;
         border: 1px solid ${colorpalette.headerSearchBorderColor};
         padding: 10px;
         border-radius: 2px !important;
+        overflow: scroll;
     }
     .error{
         border:1px solid tomato;
