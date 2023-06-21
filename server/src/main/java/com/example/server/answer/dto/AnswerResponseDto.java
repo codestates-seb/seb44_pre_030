@@ -2,9 +2,13 @@ package com.example.server.answer.dto;
 
 import com.example.server.member.entity.Member;
 import com.example.server.question.entity.Question;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 public class AnswerResponseDto {
     private long memberId;
     private long questionId;
