@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
@@ -26,10 +28,13 @@ public class Member implements UserDetails {
     long id;
 
     @Email
+    @NotBlank
     String email;
 
+    @NotBlank
     String displayName;
 
+    @NotBlank
     String password;
 
     @Enumerated(EnumType.STRING)
@@ -53,17 +58,24 @@ public class Member implements UserDetails {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     LocalDateTime lastLogin;
 
+    @Getter
     public enum MemberRole{
-        ROLE_USER("ROLE_USER"),
-        ROLE_ADMIN("ROLE_ADMIN");
+        ROLE_USER("ROLE_USER", "일반사용자"),
+        ROLE_ADMIN("ROLE_ADMIN", "관리자");
 
-        @Getter
-        @Setter
+        private String key;
         private String value;
 
-        MemberRole(String value) {
+        MemberRole(String key, String value) {
+            this.key = key;
             this.value = value;
         }
+    }
+
+    public Member update(String name){
+        this.displayName = name;
+
+        return this;
     }
 
     @Override

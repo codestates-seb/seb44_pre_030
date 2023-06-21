@@ -8,8 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberPostDto {
-    String email;
-    String password;
     String displayName;
     String location;
     String title;

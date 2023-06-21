@@ -4,6 +4,8 @@ spring:
     username: root
     password: a9250991518A!
     driver-class-name: com.mysql.cj.jdbc.Driver
+  profiles:
+    include: oauth
 
   jpa:
     properties:
@@ -12,5 +14,4 @@ spring:
         hbm2ddl:
           auto: create
     show-sql: true
-
 

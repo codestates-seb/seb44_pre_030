@@ -1,18 +1,24 @@
 package com.example.server.member.service;
 
 import com.example.server.member.dto.MemberPostDto;
+import com.example.server.member.dto.MemberSignupDto;
 import com.example.server.member.entity.Member;
 import com.example.server.member.repository.MemberJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
+import java.time.LocalDateTime;
+
+@Validated
 @RequiredArgsConstructor
 @Service
 public class MemberService {
     private final MemberJpaRepository memberJpaRepository;
 
-    public long signup(MemberPostDto dto){
+    public long signup(@Valid MemberSignupDto dto){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String password = passwordEncoder.encode(dto.getPassword());
 
@@ -21,12 +27,7 @@ public class MemberService {
                 .password(password)
                 .displayName(dto.getDisplayName())
                 .role(Member.MemberRole.ROLE_USER)
-                .location(dto.getLocation())
-                .title(dto.getTitle())
-                .aboutMe(dto.getAboutMe())
-                .website(dto.getWebsite())
-                .twitter(dto.getTwitter())
-                .github(dto.getGithub())
+                .createdAt(LocalDateTime.now())
                 .build();
 
         Member saveMember = memberJpaRepository.save(member);
