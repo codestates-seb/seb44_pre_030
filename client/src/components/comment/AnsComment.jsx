@@ -9,6 +9,20 @@ const AnsComment = () => {
   const [newComment, setNewComment] = useState('');
   const commentUser_id = localStorage.getItem('commentUser_id');
 
+  const commentPosting = () => {
+    axios
+      .post(`/comments`, {
+        answerId: 1,
+        content: newComment,
+        memberId: 1,
+      })
+      .then(res => {
+        console.log(res);
+        alert('댓글 등록');
+        window.location.reload();
+      })
+      .catch(error => console.log(error));
+  };
   const handleCommentContent = e => {
     setNewComment(e.target.value);
   };
@@ -63,7 +77,7 @@ const AnsComment = () => {
             value={newComment}
             onChange={handleCommentContent}
           />
-          <button>submit</button>
+          <button onClick={commentPosting}>submit</button>
         </CommentWrite>
       ) : null}
     </>

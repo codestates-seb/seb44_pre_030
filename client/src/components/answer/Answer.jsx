@@ -25,10 +25,9 @@ const Answer = () => {
       });
   }, [answerFilter]);
 
-  const deleteAnswer = answerId => {
-    console.log(answerId);
+  const deleteAnswer = asId => {
     axios
-      .delete(`/answers/${asId.id}`, {})
+      .delete(`/answers/${asId.id}`)
       .then(res => {
         console.log(res);
         alert('답변 삭제 완료');
@@ -94,7 +93,7 @@ const Answer = () => {
                     </button>
                     <button
                       onClick={() => {
-                        deleteAnswer(answer.Answer_id);
+                        deleteAnswer(answer.answerId);
                       }}
                     >
                       delete
@@ -119,10 +118,7 @@ const Answer = () => {
                   </div>
                 </div>
               </SideContents>
-              <AnsComment
-                answerComment={answer.answerAnswers}
-                answerId={answer.Answer_id}
-              />
+              <AnsComment />
             </TextContents>
           </div>
         </DetailContents>
