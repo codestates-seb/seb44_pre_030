@@ -32,7 +32,7 @@ public class CommentController {
 
         URI location = UriCreator.createUri("/comments", comment.getId());
 
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity(comment, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{comment-id}")
