@@ -3,6 +3,7 @@ package com.example.server.question.entity;
 import com.example.server.answer.entity.Answer;
 import com.example.server.member.entity.Member;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -29,6 +30,7 @@ public class Question {
     @JoinColumn(name = "memberId")
     private Member member; // 작성자, 작성자 id, 작성자 사진 url 은 회원 로직 작성 완료 후 데이터 입력 예정
     @OneToMany(mappedBy = "question")
+    @JsonManagedReference
     private List<Answer> answers; // answer 매핑관계
 
     @Column(nullable = false, length = 100)

@@ -2,6 +2,7 @@ package com.example.server.comment.entity;
 
 import com.example.server.answer.entity.Answer;
 import com.example.server.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
@@ -21,6 +22,7 @@ public class Comment {
     Long id;
     @ManyToOne
     @JoinColumn(name = "answerId")
+    @JsonBackReference
     Answer answer;
 
     @ManyToOne

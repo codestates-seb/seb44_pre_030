@@ -11,5 +11,7 @@ public interface QuestionMapper {
     Question PostToEntity(QuestionDto.Post post);
     Question PatchToEntity(QuestionDto.Patch patch);
     QuestionDto.Response EntityToResponse(Question question);
+
+    QuestionDto.DetailResponse EntityToDetailResponse(Question question);
     List<QuestionDto.Response> ListEntityToListResponse(List<Question> questionList);
 }
