@@ -2,6 +2,7 @@ package com.example.server.answer.controller;
 
 import com.example.server.answer.dto.AnswerPatchDto;
 import com.example.server.answer.dto.AnswerPostDto;
+import com.example.server.answer.dto.AnswerResponseDto;
 import com.example.server.answer.entity.Answer;
 import com.example.server.answer.mapper.AnswerMapper;
 import com.example.server.answer.service.AnswerService;
@@ -33,7 +34,10 @@ public class AnswerController {
     public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerPostDto) {
         Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(answerPostDto));
         URI location = UriCreator.createUri("/answers", answer.getId());
-        return new ResponseEntity(answer, HttpStatus.CREATED);
+
+        Answer createdAnswer = answerService.findAnswer(answer.getId());
+        System.out.println(createdAnswer.getMember().getEmail());
+        return new ResponseEntity(mapper.answerToAnswerResponseDto(createdAnswer), HttpStatus.CREATED);
         //return ResponseEntity.created(location).build();
     }
 

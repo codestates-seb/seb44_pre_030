@@ -7,6 +7,7 @@ import com.example.server.answer.entity.Answer;
 import com.example.server.member.entity.Member;
 import com.example.server.question.entity.Question;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface AnswerMapper {
@@ -22,5 +23,7 @@ public interface AnswerMapper {
     };
 
     Answer answerPatchDtoToAnswer(AnswerPatchDto answerPatchDto);
+
+    AnswerResponseDto answerToAnswerResponseDto(Answer answer);
 
 }
