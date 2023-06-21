@@ -53,7 +53,7 @@ public class QuestionController {
 
         Question question = questionService.findQuestion(id);
 
-        return new ResponseEntity(questionMapper.EntityToResponse(question),HttpStatus.OK);
+        return new ResponseEntity(questionMapper.EntityToDetailResponse(question),HttpStatus.OK);
     }
 
     // 리스트 조회시 추가사항 : 정렬 최신순 및

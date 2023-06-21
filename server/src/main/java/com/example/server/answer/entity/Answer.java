@@ -2,6 +2,7 @@ package com.example.server.answer.entity;
 
 import com.example.server.member.entity.Member;
 import com.example.server.question.entity.Question;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -22,6 +23,7 @@ public class Answer {
     Long id;
     @ManyToOne
     @JoinColumn(name = "questionId")
+    @JsonBackReference
     Question question;
 
     @ManyToOne
