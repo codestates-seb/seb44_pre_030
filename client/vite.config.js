@@ -4,6 +4,16 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    proxy: {
+      '/createquestion':{
+        target:'http://ec2-43-201-23-173.ap-northeast-2.compute.amazonaws.com:8080/question/ask',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/createquestion/, ''),
+      }
+    }
+  },
   define: {
     global: {},
   },
