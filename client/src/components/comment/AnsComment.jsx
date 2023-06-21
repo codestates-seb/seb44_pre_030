@@ -7,6 +7,7 @@ const AnsComment = () => {
   const [commentsList, setCommentsList] = useState([]);
   const [editCommentOn, setEditCommentOn] = useState(false);
   const [newComment, setNewComment] = useState('');
+  const [updateCommentOn, setUpdateCommentOn] = useState(false);
   const commentUser_id = localStorage.getItem('commentUser_id');
 
   const commentPosting = () => {
@@ -40,6 +41,18 @@ const AnsComment = () => {
       });
   }, []);
 
+  const commentDelete = commentId => {
+    axios
+      .delete(`/comments/${commentId}`)
+      .then(res => {
+        console.log(res);
+        console.log('댓글 삭제 완료');
+        navigate(`/`);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
   return (
     <>
       <CommentView>
@@ -49,10 +62,18 @@ const AnsComment = () => {
               <span>{comment.comment_content}</span>
               <span className="comment-user">-{comment.commentUserName}</span>
               <span>{displayAt(new Date(comment.commented_At))}</span>
-              {Number(commentUser_id) !== comment.user_id ? (
+              {Number(commentUser_id) === comment.user_id ? (
                 <>
-                  <button>Edit</button>
-                  <button>Delete</button>
+                  <button
+                    onClick={() => {
+                      setUpdateCommentOn(!updateCommentOn);
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button onClick={() => commentDelete(comment.comment_id)}>
+                    Delete
+                  </button>
                 </>
               ) : null}
             </div>

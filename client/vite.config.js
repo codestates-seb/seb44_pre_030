@@ -27,6 +27,13 @@ export default defineConfig({
         secure: false,
         rewrite: path => path.replace(/^\/comments/, ''),
       },
+      '/comments/id': {
+        target:
+          'http://ec2-43-201-23-173.ap-northeast-2.compute.amazonaws.com:8080/comments/id',
+        changeOrigin: true,
+        secure: false,
+        rewrite: path => path.replace(/^\/answers\/\d+/, '/comments'),
+      },
     },
   },
   define: {
