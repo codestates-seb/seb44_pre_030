@@ -20,28 +20,14 @@ const WriteAnswer = () => {
   };
   const answerPosting = () => {
     axios
-      .post(`http://localhost:3000/api/answer`, {
-        User: {
-          name: '승현',
-        },
-        Answer_id: 5,
-        Content: createAnswer,
-        answered_At: '',
-        User_id: 1,
-        count: 0,
-        question_id: 1,
-        question_title:
-          "How can I attach a javascript file to a page I'm repeatedly reloading with a fetch call?",
-        question_content:
-          " have a php file with a script linking to a javascript file that I'm reloading multiple times in a div with a fetch call. The first time I call it with fetch it's fine. However, when I'm returned the page with a fetch call for the second time, I'm getting errors that variables have already been declared which means the script is trying to reload every time I call that file. I can't insert it on the page from the start because the initial page is different from the subsequent fetches. Any ideas how I can attach a js script to a file that I'm fetching multiple times without errors on conflicting variables?",
-        question_data: '2022-01-23',
-        question_good_count: 1322,
-        answer_count: 1112,
-        question_view: 3000,
-        tag: ['js', 'python'],
+      .post(`/answers`, {
+        questionId: 1,
+        content: createAnswer,
+        memberId: 1,
       })
       .then(res => {
         console.log(res);
+        alert('답변 등록');
         window.location.reload();
       })
       .catch(error => console.log(error));
@@ -78,18 +64,19 @@ const WriteAnswer = () => {
               Thanks for contributing an answer to Stack Overflow!
               <ul>
                 <li>
-                  Please be sure to answer the question. Provide details and share
-                  your research!
+                  Please be sure to answer the question. Provide details and
+                  share your research!
                 </li>
               </ul>
               But avoid...
               <ul>
                 <li>
-                  Asking for help, clarification, or responding to other answers.
+                  Asking for help, clarification, or responding to other
+                  answers.
                 </li>
                 <li>
-                  Making statements based on opinion; back them up with references
-                  or personal experience.
+                  Making statements based on opinion; back them up with
+                  references or personal experience.
                 </li>
                 To learn more, see our tips on writing great answers.
               </ul>

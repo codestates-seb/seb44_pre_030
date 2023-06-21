@@ -3,10 +3,12 @@ import { EditorState } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { Editor } from 'react-draft-wysiwyg';
 import { styled } from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function EditAnswerCompo({ asId }) {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const navigate = useNavigate();
   const handleEditorStateChange = newEditorState => {
     setEditorState(newEditorState);
   };
@@ -15,6 +17,22 @@ function EditAnswerCompo({ asId }) {
   const handleAnswerContent = e => {
     setEditAnswer(e.blocks[0].text);
     console.log(editAnswer);
+  };
+  const answerEditHandler = () => {
+    console.log(editAnswer);
+    axios
+      .patch(`/answers/${asId.id}`, {
+        answerId: asId.id,
+        content: editAnswer,
+      })
+      .then(res => {
+        console.log(res);
+        alert('답변 수정 완료');
+        navigate(`/`);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
   return (
     <div>
@@ -44,7 +62,12 @@ function EditAnswerCompo({ asId }) {
         </BodyContainer>
         <div className="answer-preview">{editAnswer}</div>
         <BtnContainer>
-          <button className="save flex-center btn-blue-style">Save Edit</button>
+          <button
+            className="save flex-center btn-blue-style"
+            onClick={answerEditHandler}
+          >
+            Save Edit
+          </button>
           <button className="cancel flex-center btn-skyblue-style">
             <Link to={`/`}>Cancel</Link>
           </button>
