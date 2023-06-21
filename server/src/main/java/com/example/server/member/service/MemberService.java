@@ -26,7 +26,7 @@ public class MemberService {
                 .email(dto.getEmail())
                 .password(password)
                 .displayName(dto.getDisplayName())
-                .role(Member.MemberRole.ROLE_USER)
+                .role(Member.MemberRole.USER)
                 .createdAt(LocalDateTime.now())
                 .build();
 

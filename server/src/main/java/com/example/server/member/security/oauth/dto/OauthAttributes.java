@@ -33,7 +33,7 @@ public class OauthAttributes {
         return Member.builder()
                 .displayName(name)
                 .email(email)
-                .role(Member.MemberRole.ROLE_USER)
+                .role(Member.MemberRole.USER)
                 .build();
     }
 }

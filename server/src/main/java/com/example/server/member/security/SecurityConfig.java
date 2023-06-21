@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/members/update/**").hasAuthority("ROLE_USER")
                 .antMatchers("/members/get/**").hasAuthority("ROLE_USER")
-                .antMatchers("/**/create/**").hasAuthority("ROLE_USER")
+//                .antMatchers("/**/create/**").hasAuthority("ROLE_USER")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
@@ -75,8 +75,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-
-        configuration.addAllowedOrigin("http://ec2-43-200-169-238.ap-northeast-2.compute.amazonaws.com:8080/"); /* URL 설정해야함 */
+        //http://ec2-43-200-169-238.ap-northeast-2.compute.amazonaws.com:8080/
+        configuration.addAllowedOrigin("http://localhost:8080"); /* URL 설정해야함 */
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);

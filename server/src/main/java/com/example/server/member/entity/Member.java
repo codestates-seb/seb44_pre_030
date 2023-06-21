@@ -60,15 +60,13 @@ public class Member implements UserDetails {
 
     @Getter
     public enum MemberRole{
-        ROLE_USER("ROLE_USER", "일반사용자"),
-        ROLE_ADMIN("ROLE_ADMIN", "관리자");
+        USER("ROLE_USER"),
+        ADMIN("ROLE_ADMIN");
 
         private String key;
-        private String value;
 
-        MemberRole(String key, String value) {
+        MemberRole(String key) {
             this.key = key;
-            this.value = value;
         }
     }
 
@@ -81,7 +79,7 @@ public class Member implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
         Set<GrantedAuthority> roles = new HashSet<>();
-        roles.add(new SimpleGrantedAuthority(role.getValue()));
+        roles.add(new SimpleGrantedAuthority(role.getKey()));
 
         return roles;
     }
