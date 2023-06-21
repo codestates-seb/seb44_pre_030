@@ -28,10 +28,11 @@ const Answer = () => {
   const deleteAnswer = answerId => {
     console.log(answerId);
     axios
-      .delete(`http://localhost:3000/api/answer/${answerId}`)
+      .delete(`/answers/${asId.id}`, {})
       .then(res => {
-        window.location.reload();
         console.log(res);
+        alert('답변 삭제 완료');
+        navigate(`/`);
       })
       .catch(error => {
         console.log(error);
@@ -131,7 +132,7 @@ const Answer = () => {
 };
 
 const Container = styled.div`
-  width:730px;
+  width: 730px;
 `;
 const AnswerTitle = styled.div`
   display: flex;
