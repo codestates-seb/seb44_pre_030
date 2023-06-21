@@ -25,7 +25,7 @@ import java.util.Set;
 public class Member implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    Long id;
 
     @Email
     @NotBlank
