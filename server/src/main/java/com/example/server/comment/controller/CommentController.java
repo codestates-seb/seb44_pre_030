@@ -28,7 +28,7 @@ public class CommentController {
     }
     @PostMapping
     public ResponseEntity postComment(@Valid @RequestBody CommentPostDto commentPostDto) {
-        Comment comment = commentService.createComment(mapper.commentPostDtoToComment(commentPostDto));
+        Comment comment = commentService.createComment(mapper.commentPostDtoComment(commentPostDto));
 
         URI location = UriCreator.createUri("/comments", comment.getId());
 
@@ -37,14 +37,16 @@ public class CommentController {
 
     @PatchMapping("/{comment-id}")
     public ResponseEntity patchComment(@PathVariable("comment-id") @Positive long commentId,
-                                       @Valid @RequestBody CommentPatchDto commentPostDto) {
-        Comment comment = commentService.updateComment(mapper.commentPatchDtoToComment(commentPostDto));
+                                       @Valid @RequestBody CommentPatchDto commentPatchDto) {
+        commentPatchDto.setId(commentId);
+        Comment comment = commentService.updateComment(mapper.commentPatchDtoToComment(commentPatchDto));
+
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{comment-id}")
     public ResponseEntity cancelComment(@PathVariable("comment-id") @Positive long commentId) {
-        commentService.deleteComment(commentId);
+        commentService.cancelComment(commentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

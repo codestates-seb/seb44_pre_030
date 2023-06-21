@@ -2,11 +2,15 @@ package com.example.server.comment.dto;
 
 import com.example.server.answer.entity.Answer;
 import com.example.server.member.entity.Member;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 public class CommentPostDto {
     @Positive
     private long answerId;

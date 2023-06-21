@@ -14,7 +14,7 @@ public interface CommentMapper {
         Comment comment = new Comment();
         Member member = commentPostDto.getMember();
         Answer answer = commentPostDto.getAnswer();
-
+        comment.setContent(commentPostDto.getContent());
         comment.setMember(member);
         comment.setAnswer(answer);
 

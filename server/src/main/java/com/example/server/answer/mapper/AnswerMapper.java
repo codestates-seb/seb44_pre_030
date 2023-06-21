@@ -2,6 +2,7 @@ package com.example.server.answer.mapper;
 
 import com.example.server.answer.dto.AnswerPatchDto;
 import com.example.server.answer.dto.AnswerPostDto;
+import com.example.server.answer.dto.AnswerResponseDto;
 import com.example.server.answer.entity.Answer;
 import com.example.server.member.entity.Member;
 import com.example.server.question.entity.Question;

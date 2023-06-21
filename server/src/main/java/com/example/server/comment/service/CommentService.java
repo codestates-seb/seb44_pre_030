@@ -25,7 +25,7 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-    public void deleteComment(long commentId) {
+    public void cancelComment(long commentId) {
         Comment comment = findVerifiedComment(commentId);
         commentRepository.delete(comment);
     }
@@ -33,11 +33,9 @@ public class CommentService {
     public Comment findVerifiedComment(long commentId) {
         Optional<Comment> optionalComment= commentRepository.findById(commentId);
         //TODO: use custom error object after merge
-        Comment fidnComment =
+        Comment findComment =
                 optionalComment.orElseThrow(()->
                         new Error());
-        return fidnComment;
+        return findComment;
     }
-
-
 }
