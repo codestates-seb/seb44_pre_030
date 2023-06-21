@@ -38,4 +38,9 @@ public class CommentService {
                         new Error());
         return findComment;
     }
+
+    public Comment findComment(long commentId) {
+        Comment comment = findVerifiedComment(commentId);
+        return comment;
+    }
 }

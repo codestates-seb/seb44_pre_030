@@ -3,6 +3,7 @@ package com.example.server.comment.mapper;
 import com.example.server.answer.entity.Answer;
 import com.example.server.comment.dto.CommentPatchDto;
 import com.example.server.comment.dto.CommentPostDto;
+import com.example.server.comment.dto.CommentResponseDto;
 import com.example.server.comment.entity.Comment;
 import com.example.server.member.entity.Member;
 import org.mapstruct.Mapper;
@@ -22,4 +23,6 @@ public interface CommentMapper {
     }
 
     Comment commentPatchDtoToComment(CommentPatchDto commentPatchDto);
+
+    CommentResponseDto commentToCommentResponseDto(Comment comment);
 }
