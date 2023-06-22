@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import ViewQuestionDetail from '../components/question/ViewQuestionDetail';
 import WriteAnswer from '../components/answer/WriteAnswer';
 import Answer from '../components/answer/Answer';
 
 const QuestionDetail = () => {
+  const [questionDetail,setQuestionDetail] = useState([]);
+  useEffect(()=>{
+    axios.get(`/QuestionDetail`)
+    .then(res => {
+        console.log('detail',res.data.data);
+        setQuestionDetail(rea.data.data);
+      })
+      .catch(error => console.log(error));
+  },[])
   return (
     <QuestionDetailPageContainer>
       <ViewQuestionDetail />
