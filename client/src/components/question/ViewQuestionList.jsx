@@ -9,13 +9,6 @@ import AskQuestionBtn from './AskQuestionBtn';
 
 const QuestionList = () => {
   const [questionList, setQuestionList] = useState([]);
-  useEffect(() => {
-    const getQuestion = async () => {
-      const questions = await axios.get(`http://localhost:3000/api/answer`);
-      setQuestionList(questions.data);
-    };
-    getQuestion();
-  }, []);
 
   const [index, setIndex] = useState(0);
   const [filter, setFilter] = useState('Newest');
@@ -25,6 +18,17 @@ const QuestionList = () => {
     { filterName: 'Active' },
     { filterName: 'Score' },
   ];
+
+  const image_url = ['https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon','https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon','https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon'];
+  const tag = ['React','Java','JavaScript'];
+  useEffect(() => {
+    axios.get(`/QuestionList`)
+    .then(res => {
+       setQuestionList(res.data.data)
+        console.log(res.data.data);
+      })
+      .catch(error => console.log(error));
+}, []);
 
   const selectFilter = index => {
     setIndex(index);
@@ -60,39 +64,39 @@ const QuestionList = () => {
       <ul>
         {questionList.map(list => {
           return (
-            <li className="post" key={list.User.user_id}>
+            <li className="post" key={list.id}>
               <PostSummaryWrapper>
                 <PostSummaryStatsItem>
                   <span className="postVoteText">{`${NumberForMatter(
-                    list.question_good_count,
+                    list.vote,
                   )} votes`}</span>
                 </PostSummaryStatsItem>
                 <PostSummaryStatsItem>
                   <span>{`${NumberForMatter(list.answer_count)} answers`}</span>
                 </PostSummaryStatsItem>
                 <PostSummaryStatsItem>
-                  <span>{`${NumberForMatter(list.question_view)} views`}</span>
+                  <span>{`${NumberForMatter(list.view)} views`}</span>
                 </PostSummaryStatsItem>
               </PostSummaryWrapper>
               <PostContentWrapper>
                 <PostContentTitle>
                   <Link
-                    to={`/question/${list.User.user_id}`}
+                    to={`/question/${list.id}`}
                     state={{ question: list }}
                   >
-                    <span>{list.question_title}</span>
+                    <span>{list.title}</span>
                   </Link>
                 </PostContentTitle>
-                <PostContentExcerpt>{list.question_content}</PostContentExcerpt>
+                <PostContentExcerpt>{list.content}</PostContentExcerpt>
                 <PostContentMeta>
                   <QuestionTag tagList={list.tag} />
                   <PostUserCard>
                     <img src={list.User.profile_image_url}></img>
                     <Link
                       className="UserName"
-                      to={`mypage/${list.User.user_id}`}
+                      to={`mypage/${list.member}`}
                     >
-                      {NumberForMatter(list.User.name)}
+                      {NumberForMatter(list.member)}
                     </Link>
                     <div>
                       <span className="userCardAnswerCount">
