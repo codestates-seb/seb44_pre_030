@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.Collections;
 
 @RequiredArgsConstructor
@@ -47,7 +48,10 @@ public class CustomOauth2UserService implements OAuth2UserService<OAuth2UserRequ
         Member member = memberJpaRepository.findMemberByMemberEmail(attributes.getEmail())
                 .map(entity -> entity.update(attributes.getName()))
                 .orElse(attributes.toEntity());
+        if(member.getCreatedAt() == null)
+            member.setCreatedAt(LocalDateTime.now());
 
+        member.setLastLogin(LocalDateTime.now());
         return memberJpaRepository.save(member);
     }
 }

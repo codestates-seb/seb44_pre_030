@@ -2,6 +2,8 @@ package com.example.server.member.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,7 +36,6 @@ public class Member implements UserDetails {
     @NotBlank
     String displayName;
 
-    @NotBlank
     String password;
 
     @Enumerated(EnumType.STRING)
@@ -52,6 +53,7 @@ public class Member implements UserDetails {
 
     String github;
 
+    @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     LocalDateTime createdAt;
 

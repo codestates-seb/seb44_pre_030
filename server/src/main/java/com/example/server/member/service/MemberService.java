@@ -5,6 +5,7 @@ import com.example.server.member.dto.MemberSignupDto;
 import com.example.server.member.entity.Member;
 import com.example.server.member.repository.MemberJpaRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -12,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 
+@Slf4j
 @Validated
 @RequiredArgsConstructor
 @Service
@@ -19,6 +21,12 @@ public class MemberService {
     private final MemberJpaRepository memberJpaRepository;
 
     public long signup(@Valid MemberSignupDto dto){
+        log.info("회원가입 실행");
+        if(doubleCheck(dto.getEmail())) {
+            log.info("이메일 중복 발생");
+            return -1;
+        }
+
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String password = passwordEncoder.encode(dto.getPassword());
 
@@ -31,11 +39,9 @@ public class MemberService {
                 .build();
 
         Member saveMember = memberJpaRepository.save(member);
-        long saveMemberId = -1;
 
-        if(saveMember != null) saveMemberId = saveMember.getId();
-
-        return saveMemberId;
+        log.info("회원가입 성공");
+        return saveMember.getId();
     }
 
     public long update(long memberId, MemberPostDto dto){
@@ -78,5 +84,9 @@ public class MemberService {
         memberJpaRepository.deleteById(memberId);
 
         return true;
+    }
+
+    public boolean doubleCheck(String email){
+        return memberJpaRepository.findMemberByMemberEmail(email).isPresent();
     }
 }
