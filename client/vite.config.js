@@ -7,11 +7,11 @@ export default defineConfig({
   server: {
     proxy: {
 
-      '/createquestion':{
-        target:'http://ec2-43-201-23-173.ap-northeast-2.compute.amazonaws.com:8080/question/ask',
+      '/createQuestion':{
+        target:'http://ec2-13-209-35-180.ap-northeast-2.compute.amazonaws.com:8080/question/ask',
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/createquestion/, ''),
+        rewrite: (path) => path.replace(/^\/createQuestion/, ''),
       },
       '/answers': {
         target:

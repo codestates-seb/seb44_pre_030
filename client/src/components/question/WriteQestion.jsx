@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState } from "draft-js";
+import {useNavigate } from 'react-router-dom';
 
 import colorpalette from '../../styles/colorpalette';
 import axios from 'axios';
@@ -27,6 +28,7 @@ const WriteQestion = () => {
     const [titleValue,SetTitleValue] = useState('');
     const [titleError,setTitleError] = useState(false);
     const [editorError,setEditorError] = useState(false);
+    const navigate = useNavigate();
 
     const handleEditorStateChange = (newEditorState) =>{
         setEditorState(newEditorState);
@@ -43,7 +45,7 @@ const WriteQestion = () => {
         }
         else{
             const plainText = editorState.getCurrentContent().getPlainText();
-            axios.post(`/createquestion`
+            axios.post(`/createQuestion`
             ,
             {
                 content: plainText,
@@ -51,7 +53,7 @@ const WriteQestion = () => {
             }).then(res => {
                 console.log(res);
                 alert('질문 등록');
-                window.location.reload();
+                navigate('/');
               })
               .catch(error => console.log(error));
         }
