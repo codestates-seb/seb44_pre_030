@@ -7,28 +7,32 @@ import AskQuestionBtn from './AskQuestionBtn';
 import VoteGroup from '../vote/VoteGroup';
 import advertisementImg from '../../assets/questionDetail/advertisement.svg'
 import QuestionTag from './QuestionTag';
+import { ExtractingImage } from '../../utils/ExtractingImage';
 
 
-const ViewQuestionDetail = () => {    
+const ViewQuestionDetail = ({question}) => {    
 
+    console.log(question)
+    const tag = ['python','js'];
+    const image_url = ['https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon','https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon','https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon'];
     return (
         <QuestionDetailContainer>
             <QuestionDetailHeader>
-                <h1>{data.question_title}</h1>
+                <h1>{question.title}</h1>
                 <Link to={`/question/ask`}><AskQuestionBtn/></Link>
             </QuestionDetailHeader>
             <QuestionInfo>
                     <QuestionInfoItem>
                         <span>Asked</span>
-                        <time dateTime={`${data.question_date}`}>{`${data.question_date}`}</time>
+                        <time dateTime={`${question.createdAt}`}>{`${question.createdAt}`}</time>
                     </QuestionInfoItem>
                     <QuestionInfoItem>
                         <span>Modified</span>
-                        <span>{NumberForMatter(`${data.question_view}`)}</span>
+                        <span>{NumberForMatter(`${question.vote}`)}</span>
                     </QuestionInfoItem>
                     <QuestionInfoItem>
                         <span>Viewed</span>
-                        <time dateTime={`${data.modified_date}`}>{`${data.modified_date}`}</time>
+                        <time dateTime={`${question.modifiedAt}`}>{`${question.modifiedAt}`}</time>
                     </QuestionInfoItem>
                 </QuestionInfo>
                 <QuestionContent>
@@ -40,33 +44,28 @@ const ViewQuestionDetail = () => {
                             <VoteGroup/>
                         </QuestionLayoutLeft>
                         <QuestionLayouttRight>
-                            {data.question_content}
+                            {question.content}
                             <QuestionTagLayout>
-                                <QuestionTag tagList={data.tag}/>
+                                <QuestionTag tagList={tag}/>
                             </QuestionTagLayout>
                         </QuestionLayouttRight>
                     </QuestionLayout>
                     <QuestionUserAuthority>
 
                         <QuestionEdit>
-                            {
-                            data.User?
-                            (<>
-                                <Link to={`/question/edit/${data.User.user_id}`} state={{ question: data }}>Edit</Link>
+               
+                            <Link to={`/question/edit/${question.id}`}>Edit</Link>
 
-                                <Link to='/'>Delete</Link>
-                            </>)
-                            :
-                            <div></div>
-                            }
+                            <Link to='/'>Delete</Link>
+                       
                         </QuestionEdit>
                 
                         <QuestionUserInfo>
                             <div>
-                                <img src={`${data.User.profile_image_url}`}/>
+                                <img src={ExtractingImage(image_url)}/>
                             </div>
                             <div>
-                                <Link className='userInfoName' to={`/mypage/${data.User.user_id}`}>{`${data.User.name}`}</Link>
+                                <Link className='userInfoName'>'박채연'</Link>
                             </div>
                         </QuestionUserInfo>
            

@@ -24,7 +24,12 @@ const QuestionList = () => {
 
   const tag = ['React','Java','JavaScript'];
   useEffect(() => {
-    axios.get(`/QuestionList`)
+    axios.get(`/api`,{
+      params: {
+        page: 1,
+        size: 15
+      }
+    })
     .then(res => {
        setQuestionList(res.data.data)
         console.log(res.data.data);
@@ -65,7 +70,7 @@ const QuestionList = () => {
       </QuestionFilter>
       <ul>
         {questionList.map(list => {
-          console.log('list',NumberForMatter(list.view));
+          console.log('list',NumberForMatter(list));
           return (
             <li className="post" key={list.id}>
               <PostSummaryWrapper>
