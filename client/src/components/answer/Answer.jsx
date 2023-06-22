@@ -6,24 +6,24 @@ import VoteGroup from '../vote/VoteGroup';
 import AnsComment from '../comment/AnsComment';
 import { displayAt } from '../../utils/daycalcFormatter';
 
-const Answer = () => {
+const Answer = ({question}) => {
   const User_id = localStorage.getItem('User_id');
   const [answerList, setAnswerList] = useState([]);
   const [answerFilter, setAnswerFilter] = useState('score');
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3000/api/answer`)
-      .then(res => {
-        const answers = res.data;
-        if (answers) {
-          setAnswerList(answers);
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, [answerFilter]);
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:3000/api/answer`)
+  //     .then(res => {
+  //       const answers = res.data;
+  //       if (answers) {
+  //         setAnswerList(answers);
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }, [answerFilter]);
 
   const deleteAnswer = answerId => {
     console.log(answerId);
@@ -67,7 +67,7 @@ const Answer = () => {
   return (
     <Container>
       <AnswerTitle>
-        <h2>{answerList.length} Answer</h2>
+        <h2>{question.answers.length} Answer</h2>
         <select onChange={answerFilterHandler}>
           {answerFilters.map(item => (
             <option key={item.id} value={item.value}>

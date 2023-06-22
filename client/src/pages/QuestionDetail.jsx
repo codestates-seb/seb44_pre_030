@@ -1,15 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
 import ViewQuestionDetail from '../components/question/ViewQuestionDetail';
 import WriteAnswer from '../components/answer/WriteAnswer';
 import Answer from '../components/answer/Answer';
 
 const QuestionDetail = () => {
+  const [questionDetail,setQuestionDetail] = useState([]);
+  let  params = useParams();
+
+  console.log(params.id);
+
+  useEffect(()=>{
+    axios.get(`/api/question/${params.id}`)
+    .then(res => {
+        if(res.data){
+          setQuestionDetail(res.data);
+          console.log(questionDetail)
+        }
+      })
+      .catch(error => console.log(error));
+  },[params.id])
+
   return (
     <QuestionDetailPageContainer>
-      <ViewQuestionDetail />
-      <Answer />
-      <WriteAnswer />
+       <ViewQuestionDetail question={questionDetail}/>
+      <Answer question={questionDetail}/>
+      {/* <WriteAnswer /> */} 
     </QuestionDetailPageContainer>
   );
 };
