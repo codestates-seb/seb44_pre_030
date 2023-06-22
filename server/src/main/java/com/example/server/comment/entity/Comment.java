@@ -2,6 +2,7 @@ package com.example.server.comment.entity;
 
 import com.example.server.answer.entity.Answer;
 import com.example.server.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
@@ -18,9 +19,10 @@ import java.time.LocalDateTime;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    Long id;
     @ManyToOne
     @JoinColumn(name = "answerId")
+    @JsonBackReference
     Answer answer;
 
     @ManyToOne

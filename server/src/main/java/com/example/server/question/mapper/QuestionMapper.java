@@ -14,6 +14,7 @@ public interface QuestionMapper {
     Question PostToEntity(QuestionDto.Post post);
     // Patch Mapper
     Question PatchToEntity(QuestionDto.Patch patch);
+<<<<<<< HEAD
 
     // MemberDto Response -> 멤버에서 반환해줄 값들만 응답으로 돌려보내는 Dto
     default MemberDto convertMemberToDto(Member member) {
@@ -51,5 +52,10 @@ public interface QuestionMapper {
     }
 
     // List Question Response
+=======
+    QuestionDto.Response EntityToResponse(Question question);
+
+    QuestionDto.DetailResponse EntityToDetailResponse(Question question);
+>>>>>>> 8ad2e317cc9b942ddddab37f0940bf6af06b2431
     List<QuestionDto.Response> ListEntityToListResponse(List<Question> questionList);
 }
