@@ -52,6 +52,5 @@ public interface QuestionMapper {
 
     // List Question Respon
     QuestionDto.DetailResponse EntityToDetailResponse(Question question);
->>>>>>> 8ad2e317cc9b942ddddab37f0940bf6af06b2431
     List<QuestionDto.Response> ListEntityToListResponse(List<Question> questionList);
 }
