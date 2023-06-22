@@ -6,6 +6,7 @@ import colorpalette from '../../styles/colorpalette';
 import { NumberForMatter } from '../../utils/NumberForMatter';
 import QuestionTag from './QuestionTag';
 import AskQuestionBtn from './AskQuestionBtn';
+import { ExtractingImage } from '../../utils/ExtractingImage';
 
 const QuestionList = () => {
   const [questionList, setQuestionList] = useState([]);
@@ -20,6 +21,7 @@ const QuestionList = () => {
   ];
 
   const image_url = ['https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon','https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon','https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon'];
+
   const tag = ['React','Java','JavaScript'];
   useEffect(() => {
     axios.get(`/QuestionList`)
@@ -63,6 +65,7 @@ const QuestionList = () => {
       </QuestionFilter>
       <ul>
         {questionList.map(list => {
+          console.log('list',NumberForMatter(list.view));
           return (
             <li className="post" key={list.id}>
               <PostSummaryWrapper>
@@ -89,9 +92,9 @@ const QuestionList = () => {
                 </PostContentTitle>
                 <PostContentExcerpt>{list.content}</PostContentExcerpt>
                 <PostContentMeta>
-                  <QuestionTag tagList={list.tag} />
+                  <QuestionTag tagList={tag} />
                   <PostUserCard>
-                    <img src={list.User.profile_image_url}></img>
+                    <img src={ExtractingImage(image_url)}></img>
                     <Link
                       className="UserName"
                       to={`mypage/${list.member}`}
