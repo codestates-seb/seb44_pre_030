@@ -32,6 +32,11 @@ public class AnswerService {
         answerRepository.delete(answer);
     }
 
+
+    public Answer findAnswer(long answerId) {
+        Answer answer = findVerifiedAnswer(answerId);
+        return answer;
+    }
     public Answer findVerifiedAnswer(long answerId) {
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
         //TODO: use custom error object after merge

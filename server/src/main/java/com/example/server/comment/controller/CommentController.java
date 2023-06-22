@@ -31,8 +31,8 @@ public class CommentController {
         Comment comment = commentService.createComment(mapper.commentPostDtoComment(commentPostDto));
 
         URI location = UriCreator.createUri("/comments", comment.getId());
-
-        return new ResponseEntity(comment, HttpStatus.CREATED);
+//        Comment createdComment = commentService.findComment(comment.getId());
+        return ResponseEntity.created(location).build();
     }
 
     @PatchMapping("/{comment-id}")

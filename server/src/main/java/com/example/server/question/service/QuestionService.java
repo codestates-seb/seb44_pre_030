@@ -2,6 +2,7 @@ package com.example.server.question.service;
 
 import com.example.server.exception.BusinessLogicException;
 import com.example.server.exception.ErrorResponse;
+import com.example.server.member.entity.Member;
 import com.example.server.question.entity.Question;
 import com.example.server.question.helper.ServiceHelper;
 import com.example.server.question.repository.QuestionRepository;
@@ -9,11 +10,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class QuestionService implements ServiceHelper {
 
     private final QuestionRepository questionRepository;
@@ -41,6 +45,7 @@ public class QuestionService implements ServiceHelper {
     @Override
     public Question findQuestion(long QuestionId) {
 
+        // 멤버가 조회를 할때마다 View 하나씩 증가
         Question question = findExistQuestion(QuestionId);
 
         return questionRepository.save(question);
@@ -61,7 +66,7 @@ public class QuestionService implements ServiceHelper {
         questionRepository.deleteById(question.getId());
     }
 
-    // Question -> 데이터베이스에 없다면 에러 발생
+    // question -> 만일 찾는 질문이 있다면 값을 찾아서 리턴한다.
     private Question findExistQuestion(long id){
 
         Optional<Question> findQuestion = questionRepository.findById(id);
@@ -69,5 +74,4 @@ public class QuestionService implements ServiceHelper {
         return findQuestion.orElseThrow(
                 () -> new BusinessLogicException(ErrorResponse.QUESTION_NOT_FOUND));
     }
-
 }
