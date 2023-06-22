@@ -24,7 +24,7 @@ import java.util.List;
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // 질문 Id
+    Long id; // 질문 Id
 
     @ManyToOne
     @JoinColumn(name = "memberId")

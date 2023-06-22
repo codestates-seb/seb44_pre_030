@@ -16,11 +16,13 @@ public interface QuestionMapper {
     Question PatchToEntity(QuestionDto.Patch patch);
 
     // MemberDto Response -> 멤버에서 반환해줄 값들만 응답으로 돌려보내는 Dto
+    //--> 이 함수에만 추가할 사항 추가하시면 본문으로 응답을 보낼수 있습니다.
     default MemberDto convertMemberToDto(Member member) {
         MemberDto memberDto = MemberDto.builder()
                 .id(member.getId())
                 .displayName(member.getDisplayName())
                 .email(member.getEmail())
+                .role(member.getRole())
                 .build();
         return memberDto;
     }

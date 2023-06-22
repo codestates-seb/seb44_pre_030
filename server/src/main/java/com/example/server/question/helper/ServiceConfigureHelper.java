@@ -21,6 +21,7 @@ public interface ServiceConfigureHelper {
         }
 
         return Question.builder()
+                .id(question.getId())
                 .member(question.getMember())
                 .title(question.getTitle())
                 .content(question.getContent())

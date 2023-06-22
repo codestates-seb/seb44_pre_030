@@ -35,9 +35,11 @@ public class QuestionController implements ControllerUriHelper {
     @PostMapping("/questions")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post post) {
 
-        Question question = questionService.createQuestion(questionMapper.PostToEntity(post));
+        Question postquestion = questionMapper.PostToEntity(post);
 
-        URI location = createUri(DEFAULT_URL + "/ask", question.getId());
+        Question question = questionService.createQuestion(postquestion);
+
+        URI location = createUri(DEFAULT_URL, question.getId());
 
         return ResponseEntity.created(location).body("질문 Post 완료");
 
@@ -59,7 +61,7 @@ public class QuestionController implements ControllerUriHelper {
 
         Question question = questionService.findQuestion(id);
 
-        return new ResponseEntity(questionMapper.EntityToDetailResponse(question),HttpStatus.OK);
+        return new ResponseEntity(questionMapper.EntityToResponse(question),HttpStatus.OK);
     }
 
     // 리스트 조회시 추가사항 : 정렬 최신순 및

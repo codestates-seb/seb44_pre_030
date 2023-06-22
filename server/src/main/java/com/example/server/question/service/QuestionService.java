@@ -29,8 +29,6 @@ public class QuestionService implements ServiceHelper {
     @Override
     public Question createQuestion(Question question) {
 
-        VerifiedExistQuestion(question.getId()); // 고유 질문 id 중복 여부
-
         Question firstQuestion = postQuestion(question); // 초기설정 Question
 
         return questionRepository.save(firstQuestion);
@@ -68,17 +66,7 @@ public class QuestionService implements ServiceHelper {
         questionRepository.deleteById(question.getId());
     }
 
-    // Question -> 데이터베이스에 없다면 에러 발생
-
-    private void VerifiedExistQuestion(long id){
-
-        Optional<Question> ExistQuestion = questionRepository.findById(id);
-
-        if(ExistQuestion.isPresent()){
-            throw new BusinessLogicException(ErrorResponse.QUESTION_EXIST);
-        }
-    }
-
+    // question -> 만일 찾는 질문이 있다면 값을 찾아서 리턴한다.
     private Question findExistQuestion(long id){
 
         Optional<Question> findQuestion = questionRepository.findById(id);
