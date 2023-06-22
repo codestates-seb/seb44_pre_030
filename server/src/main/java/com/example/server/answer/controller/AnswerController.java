@@ -34,11 +34,9 @@ public class AnswerController {
     public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto answerPostDto) {
         Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(answerPostDto));
         URI location = UriCreator.createUri("/answers", answer.getId());
-
-        Answer createdAnswer = answerService.findAnswer(answer.getId());
-        System.out.println(createdAnswer.getMember().getEmail());
-        return new ResponseEntity(mapper.answerToAnswerResponseDto(createdAnswer), HttpStatus.CREATED);
-        //return ResponseEntity.created(location).build();
+        // Answer createdAnswer = answerService.findAnswer(answer.getId());
+        // return new ResponseEntity(mapper.answerToAnswerResponseDto(createdAnswer), HttpStatus.CREATED);
+        return ResponseEntity.created(location).build();
     }
 
     @PatchMapping("/{answer-id}")
