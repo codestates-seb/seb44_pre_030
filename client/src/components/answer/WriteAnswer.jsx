@@ -16,12 +16,11 @@ const WriteAnswer = ({ qsId }) => {
 
   const handleAnswerContent = e => {
     setCreateAnswer(e.blocks[0].text);
-    console.log(createAnswer);
   };
   const answerPosting = () => {
     axios
-      .post(`/answers`, {
-        questionId: qsId.id,
+      .post(`/api/answers`, {
+        questionId: qsId,
         content: createAnswer,
         memberId: 1,
       })

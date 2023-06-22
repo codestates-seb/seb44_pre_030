@@ -10,12 +10,12 @@ const Answer = ({ qsId }) => {
   const User_id = localStorage.getItem('User_id');
   const [answerList, setAnswerList] = useState([]);
   const [answerFilter, setAnswerFilter] = useState('score');
-
   useEffect(() => {
     axios
-      .get(`/question`)
+      .get(`/api/question/${qsId}`)
       .then(res => {
         const answers = res.data.answers;
+        console.log('answers', answers);
         if (answers) {
           setAnswerList(answers);
         }
@@ -23,17 +23,16 @@ const Answer = ({ qsId }) => {
       .catch(error => {
         console.log(error);
       });
-  }, [answerFilter]);
-  console.log(answerList);
-  console.log('qsId.id: ', qsId.id);
+  }, [qsId]);
+  // console.log('answerList', answerList);
 
   const deleteAnswer = asId => {
     axios
-      .delete(`/answers/${asId.id}`)
+      .delete(`/api/answers/${asId}`)
       .then(res => {
         console.log(res);
         alert('답변 삭제 완료');
-        navigate(`/`);
+        window.location.reload();
       })
       .catch(error => {
         console.log(error);

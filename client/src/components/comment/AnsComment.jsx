@@ -14,8 +14,8 @@ const AnsComment = ({ asId, qsId }) => {
 
   const commentPosting = () => {
     axios
-      .post(`/comments`, {
-        answerId: asId.id,
+      .post(`/api/comments`, {
+        answerId: asId,
         content: newComment,
         memberId: 1,
       })
@@ -32,9 +32,10 @@ const AnsComment = ({ asId, qsId }) => {
 
   useEffect(() => {
     axios
-      .get(`/question/${qsId.id}`)
+      .get(`/api/question/${qsId}`)
       .then(res => {
         const comments = res.data.answers.comments;
+        console.log('Res', comments);
         if (comments) {
           setCommentsList(comments);
         }
