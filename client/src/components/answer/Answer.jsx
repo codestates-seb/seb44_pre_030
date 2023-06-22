@@ -66,6 +66,7 @@ const Answer = ({ qsId }) => {
   const answerFilterHandler = e => {
     setAnswerFilter(e.target.value);
   };
+
   return (
     <Container>
       <AnswerTitle>
@@ -79,23 +80,20 @@ const Answer = ({ qsId }) => {
         </select>
       </AnswerTitle>
       {answerList.map(answer => (
-        <DetailContents key={answer.Answer_id}>
+        <DetailContents key={answer.id}>
           <div>
-            <VoteGroup
-              answerId={answer.Answer_id}
-              answerVoteCount={answer.count}
-            />
+            <VoteGroup answerId={answer.id} answerVoteCount={answer.vote} />
             <TextContents>
-              <span>{answer.Content}</span>
+              <span>{answer.content}</span>
               <SideContents>
-                {Number(answer.User_id) !== Number(User_id) ? (
+                {Number(answer.member.id) !== Number(User_id) ? (
                   <div className="sideMenu">
                     <button>
-                      <Link to={`/answer/edit/${answer.answers.id}`}>Edit</Link>
+                      <Link to={`/answer/edit/${answer.id}`}>Edit</Link>
                     </button>
                     <button
                       onClick={() => {
-                        deleteAnswer(answer.answerId);
+                        deleteAnswer(answer.id);
                       }}
                     >
                       delete
@@ -114,15 +112,13 @@ const Answer = ({ qsId }) => {
                       alt="profileAvatar"
                     />
                     <span>
-                      <p>{answer.User.name}</p>
-                      <p>
-                        asked {displayAt(new Date(answer.answers.createdAt))}
-                      </p>
+                      <p>{answer.member.displayName}</p>
+                      <p>asked {displayAt(new Date(answer.createdAt))}</p>
                     </span>
                   </div>
                 </div>
               </SideContents>
-              <AnsComment asId={answer.answers.id} qsId={qsId} />
+              <AnsComment asId={answer.id} qsId={qsId} />
             </TextContents>
           </div>
         </DetailContents>
