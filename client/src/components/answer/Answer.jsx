@@ -13,7 +13,7 @@ const Answer = ({ qsId }) => {
 
   useEffect(() => {
     axios
-      .get(`/question/${qsId.id}`)
+      .get(`/question`)
       .then(res => {
         const answers = res.data.answers;
         if (answers) {

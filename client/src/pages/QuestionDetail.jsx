@@ -4,14 +4,24 @@ import ViewQuestionDetail from '../components/question/ViewQuestionDetail';
 import WriteAnswer from '../components/answer/WriteAnswer';
 import Answer from '../components/answer/Answer';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const QuestionDetail = () => {
   const qsId = useParams();
+  axios
+    .get(`/question/${qsId.id}`)
+    .then(res => {
+      const answers = res.data.answers;
+      console.log(answers);
+    })
+    .catch(error => {
+      console.log(error);
+    });
   return (
     <QuestionDetailPageContainer>
-      <ViewQuestionDetail />
+      {/* <ViewQuestionDetail /> */}
       <Answer qsId={qsId} />
-      <WriteAnswer qsId={qsId} />
+      {/* <WriteAnswer qsId={qsId} /> */}
     </QuestionDetailPageContainer>
   );
 };
