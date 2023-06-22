@@ -8,10 +8,10 @@ import Answer from '../components/answer/Answer';
 const QuestionDetail = () => {
   const [questionDetail,setQuestionDetail] = useState([]);
   useEffect(()=>{
-    axios.get(`/QuestionDetail`)
+    axios.get(`/question/`)
     .then(res => {
         console.log('detail',res.data.data);
-        setQuestionDetail(rea.data.data);
+        setQuestionDetail(res.data.data);
       })
       .catch(error => console.log(error));
   },[])

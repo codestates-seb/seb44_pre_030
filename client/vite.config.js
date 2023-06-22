@@ -19,7 +19,7 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/QuestionList/, ''),
       },
-      '/QuestionDetail':{
+      '/question/id':{
         target:'http://ec2-13-209-35-180.ap-northeast-2.compute.amazonaws.com:8080/question/id',
         changeOrigin: true,
         secure: false,
