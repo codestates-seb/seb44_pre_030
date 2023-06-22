@@ -46,7 +46,7 @@ public class StubData {
 
         // RequestBody Area
         stubDataRequestBody = new HashMap<>();
-        stubDataRequestBody.put(HttpMethod.POST, new QuestionDto.Post("title","Content"));
+        stubDataRequestBody.put(HttpMethod.POST, new QuestionDto.Post("title","Content",new Member()));
 
         // ResponseBody Area
         stubDataResponseBody = new HashMap<>();

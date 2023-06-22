@@ -38,7 +38,6 @@ public class Question {
 
     private Long view; // 조회수 -> EndPoint 요청에 응답했을 시 (* 보류사항 : 쿠키사용 가능 시 1회원 당 1뷰 로직 작성)
     private Long vote; // 좋아요 수
-    private Long answer_count; // 답변 수
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime createdAt; // 작성날짜

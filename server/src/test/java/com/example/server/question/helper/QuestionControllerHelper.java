@@ -1,10 +1,8 @@
 package com.example.server.question.helper;
 
-import org.junit.jupiter.api.Test;
-
 import java.net.URI;
 
-public interface QuestionControllerHelper extends ControllerHelper{
+public interface QuestionControllerHelper extends ControllerUriHelper {
     void PostQuestionTest() throws Exception;
     void PatchQuestionTest() throws Exception;
     void GetQuestionTest() throws Exception;

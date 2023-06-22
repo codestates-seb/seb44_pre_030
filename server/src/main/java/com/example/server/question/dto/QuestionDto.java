@@ -18,6 +18,7 @@ public class QuestionDto {
     public static class Post{
         private String title;
         private String content;
+        private Member member;
     }
 
     @Getter
@@ -43,12 +44,11 @@ public class QuestionDto {
     @AllArgsConstructor
     public static class Response{
         private long id;
-        private Member member;
+        private MemberDto member;
         private String title;
         private String content;
         private Long view;
         private Long vote;
-        private Long answer_count;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
     }

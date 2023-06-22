@@ -2,22 +2,26 @@ package com.example.server.question.controller;
 
 import com.example.server.question.dto.QuestionDto;
 import com.example.server.question.entity.Question;
+import com.example.server.question.helper.ControllerUriHelper;
 import com.example.server.question.mapper.QuestionMapper;
 import com.example.server.question.response.MultiResponse;
 import com.example.server.question.service.QuestionService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.net.URI;
 import java.util.List;
 
 @RestController
 @Validated
-public class QuestionController {
+@Transactional
+public class QuestionController implements ControllerUriHelper {
 
     private final QuestionService questionService;
     private final QuestionMapper questionMapper;
@@ -28,15 +32,19 @@ public class QuestionController {
     }
 
     // 질문 작성 페이지
-    @PostMapping("/question/ask")
+    @PostMapping("/questions")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post post) {
 
         Question question = questionService.createQuestion(questionMapper.PostToEntity(post));
 
-        return new ResponseEntity<>(questionMapper.EntityToResponse(question), HttpStatus.CREATED);
+        URI location = createUri(DEFAULT_URL + "/ask", question.getId());
+
+        return ResponseEntity.created(location).body("질문 Post 완료");
+
+//        return new ResponseEntity<>(questionMapper.EntityToResponse(question), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/question/edit/{id}")
+    @PatchMapping("/questions/{id}")
     public ResponseEntity patchQuestion(@Positive @PathVariable("id") long id,
                                         @Valid @RequestBody QuestionDto.Patch patch) {
         patch.setId(id);
@@ -44,11 +52,9 @@ public class QuestionController {
         Question question = questionService.updateQuestion(questionMapper.PatchToEntity(patch));
 
         return new ResponseEntity<>(questionMapper.EntityToResponse(question),HttpStatus.OK);
-
-
     }
 
-    @GetMapping("/question/{id}")
+    @GetMapping("/questions/{id}")
     public ResponseEntity getQuestion(@Positive @PathVariable("id") long id) {
 
         Question question = questionService.findQuestion(id);
@@ -57,7 +63,7 @@ public class QuestionController {
     }
 
     // 리스트 조회시 추가사항 : 정렬 최신순 및
-    @GetMapping("/")
+    @GetMapping("/questions")
     public ResponseEntity ListOfGetQuestions(@Positive @RequestParam int page,
                                              @Positive @RequestParam int size) {
 
