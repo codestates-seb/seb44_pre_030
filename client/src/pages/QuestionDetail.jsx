@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
+import axios from 'axios';
 import ViewQuestionDetail from '../components/question/ViewQuestionDetail';
 import WriteAnswer from '../components/answer/WriteAnswer';
 import Answer from '../components/answer/Answer';
@@ -16,9 +17,9 @@ const QuestionDetail = () => {
   },[])
   return (
     <QuestionDetailPageContainer>
-      <ViewQuestionDetail />
+      {/* <ViewQuestionDetail />
       <Answer />
-      <WriteAnswer />
+      <WriteAnswer /> */}
     </QuestionDetailPageContainer>
   );
 };
