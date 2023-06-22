@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-@Configuration
+@Component
 @RequiredArgsConstructor
 public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
     private final MemberJpaRepository memberJpaRepository;
