@@ -85,7 +85,6 @@ const QuestionList = () => {
                 <PostContentTitle>
                   <Link
                     to={`/question/${list.id}`}
-                    state={{ question: list }}
                   >
                     <span>{list.title}</span>
                   </Link>
