@@ -76,6 +76,7 @@ const ViewQuestionDetail = ({ question }) => {
       </QuestionContent>
     </QuestionDetailContainer>
   );
+
 };
 
 const QuestionDetailContainer = styled.div`
