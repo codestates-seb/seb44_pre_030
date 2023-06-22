@@ -8,6 +8,8 @@ const AnsComment = ({ asId, qsId }) => {
   const [editCommentOn, setEditCommentOn] = useState(false);
   const [newComment, setNewComment] = useState('');
   const [updateCommentOn, setUpdateCommentOn] = useState(false);
+  const [updateCommentContent, setUpdateCommentContent] = useState('');
+  const [updateId, setUpdateId] = useState(null);
   const commentUser_id = localStorage.getItem('commentUser_id');
 
   const commentPosting = () => {
@@ -27,6 +29,7 @@ const AnsComment = ({ asId, qsId }) => {
   const handleCommentContent = e => {
     setNewComment(e.target.value);
   };
+
   useEffect(() => {
     axios
       .get(`/question/${qsId.id}`)
@@ -59,7 +62,7 @@ const AnsComment = ({ asId, qsId }) => {
         {commentsList.map((comment, idx) => {
           return (
             <div className="comment-list" key={idx}>
-              <span>{comment.comment_content}</span>
+              <span>{comment.content}</span>
               <span className="comment-user">-{comment.commentUserName}</span>
               <span>{displayAt(new Date(comment.commented_At))}</span>
               {Number(commentUser_id) === comment.user_id ? (
@@ -67,6 +70,8 @@ const AnsComment = ({ asId, qsId }) => {
                   <button
                     onClick={() => {
                       setUpdateCommentOn(!updateCommentOn);
+                      setUpdateCommentContent(comment.content);
+                      setUpdateId(comment.id);
                     }}
                   >
                     Edit
@@ -80,6 +85,16 @@ const AnsComment = ({ asId, qsId }) => {
           );
         })}
       </CommentView>
+      {updateCommentOn ? (
+        <CommentUpdate
+          updateId={updateId}
+          updateCommentContent={updateCommentContent}
+          setUpdateCommentOn={setUpdateCommentOn}
+          setUpdataCommentContent={setUpdateCommentContent}
+          answerId={asId}
+          qsId={qsId}
+        />
+      ) : null}
       <CommentOpenBtn>
         <button
           className="addComment"
@@ -143,7 +158,7 @@ const CommentOpenBtn = styled.div`
   }
 `;
 
-const CommentWrite = styled.div`
+export const CommentWrite = styled.div`
   display: flex;
   margin: 10px 0;
   background-color: #f7f7f7;

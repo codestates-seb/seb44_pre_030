@@ -10,7 +10,7 @@ const Answer = ({ qsId }) => {
   const User_id = localStorage.getItem('User_id');
   const [answerList, setAnswerList] = useState([]);
   const [answerFilter, setAnswerFilter] = useState('score');
-  console.log(qsId.id);
+
   useEffect(() => {
     axios
       .get(`/question/${qsId.id}`)
@@ -25,6 +25,8 @@ const Answer = ({ qsId }) => {
       });
   }, [answerFilter]);
   console.log(answerList);
+  console.log('qsId.id: ', qsId.id);
+
   const deleteAnswer = asId => {
     axios
       .delete(`/answers/${asId.id}`)
