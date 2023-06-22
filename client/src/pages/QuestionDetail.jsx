@@ -3,13 +3,15 @@ import { styled } from 'styled-components';
 import ViewQuestionDetail from '../components/question/ViewQuestionDetail';
 import WriteAnswer from '../components/answer/WriteAnswer';
 import Answer from '../components/answer/Answer';
+import { useParams } from 'react-router-dom';
 
 const QuestionDetail = () => {
+  const qsId = useParams();
   return (
     <QuestionDetailPageContainer>
       <ViewQuestionDetail />
-      <Answer />
-      <WriteAnswer />
+      <Answer qsId={qsId} />
+      <WriteAnswer qsId={qsId} />
     </QuestionDetailPageContainer>
   );
 };

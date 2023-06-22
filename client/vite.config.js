@@ -8,31 +8,38 @@ export default defineConfig({
     proxy: {
       '/answers': {
         target:
-          'http://ec2-43-201-23-173.ap-northeast-2.compute.amazonaws.com:8080/answers',
+          'http://ec2-13-209-35-180.ap-northeast-2.compute.amazonaws.com:8080/answers',
         changeOrigin: true,
         secure: false,
         rewrite: path => path.replace(/^\/answers/, ''),
       },
       '/answers/id': {
         target:
-          'http://ec2-43-201-23-173.ap-northeast-2.compute.amazonaws.com:8080/answers/id',
+          'http://ec2-13-209-35-180.ap-northeast-2.compute.amazonaws.com:8080/answers/id',
         changeOrigin: true,
         secure: false,
         rewrite: path => path.replace(/^\/answers\/\d+/, '/answers'),
       },
       '/comments': {
         target:
-          'http://ec2-43-201-23-173.ap-northeast-2.compute.amazonaws.com:8080/comments',
+          'http://ec2-13-209-35-180.ap-northeast-2.compute.amazonaws.com:8080/comments',
         changeOrigin: true,
         secure: false,
         rewrite: path => path.replace(/^\/comments/, ''),
       },
       '/comments/id': {
         target:
-          'http://ec2-43-201-23-173.ap-northeast-2.compute.amazonaws.com:8080/comments/id',
+          'http://ec2-13-209-35-180.ap-northeast-2.compute.amazonaws.com:8080/comments/id',
         changeOrigin: true,
         secure: false,
-        rewrite: path => path.replace(/^\/answers\/\d+/, '/comments'),
+        rewrite: path => path.replace(/^\/comments\/\d+/, '/comments'),
+      },
+      '/question/id': {
+        target:
+          'http://ec2-13-209-35-180.ap-northeast-2.compute.amazonaws.com:8080/question/id',
+        changeOrigin: true,
+        secure: false,
+        rewrite: path => path.replace(/^\/question\/\d+/, '/question'),
       },
     },
   },

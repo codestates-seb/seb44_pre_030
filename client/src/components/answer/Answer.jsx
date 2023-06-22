@@ -6,16 +6,16 @@ import VoteGroup from '../vote/VoteGroup';
 import AnsComment from '../comment/AnsComment';
 import { displayAt } from '../../utils/daycalcFormatter';
 
-const Answer = () => {
+const Answer = ({ qsId }) => {
   const User_id = localStorage.getItem('User_id');
   const [answerList, setAnswerList] = useState([]);
   const [answerFilter, setAnswerFilter] = useState('score');
-
+  console.log(qsId.id);
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/answer`)
+      .get(`/question/${qsId.id}`)
       .then(res => {
-        const answers = res.data;
+        const answers = res.data.answers;
         if (answers) {
           setAnswerList(answers);
         }
@@ -24,7 +24,7 @@ const Answer = () => {
         console.log(error);
       });
   }, [answerFilter]);
-
+  console.log(answerList);
   const deleteAnswer = asId => {
     axios
       .delete(`/answers/${asId.id}`)
@@ -89,7 +89,7 @@ const Answer = () => {
                 {Number(answer.User_id) !== Number(User_id) ? (
                   <div className="sideMenu">
                     <button>
-                      <Link to={`/answer/edit/${answer.Answer_id}`}>Edit</Link>
+                      <Link to={`/answer/edit/${answer.answers.id}`}>Edit</Link>
                     </button>
                     <button
                       onClick={() => {
@@ -113,12 +113,14 @@ const Answer = () => {
                     />
                     <span>
                       <p>{answer.User.name}</p>
-                      <p>asked {displayAt(new Date(answer.answered_At))}</p>
+                      <p>
+                        asked {displayAt(new Date(answer.answers.createdAt))}
+                      </p>
                     </span>
                   </div>
                 </div>
               </SideContents>
-              <AnsComment />
+              <AnsComment asId={answer.answers.id} qsId={qsId} />
             </TextContents>
           </div>
         </DetailContents>

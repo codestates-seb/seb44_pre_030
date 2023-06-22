@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { displayAt } from '../../utils/daycalcFormatter';
 import { styled } from 'styled-components';
 
-const AnsComment = () => {
+const AnsComment = ({ asId, qsId }) => {
   const [commentsList, setCommentsList] = useState([]);
   const [editCommentOn, setEditCommentOn] = useState(false);
   const [newComment, setNewComment] = useState('');
@@ -13,7 +13,7 @@ const AnsComment = () => {
   const commentPosting = () => {
     axios
       .post(`/comments`, {
-        answerId: 1,
+        answerId: asId.id,
         content: newComment,
         memberId: 1,
       })
@@ -29,9 +29,9 @@ const AnsComment = () => {
   };
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/comment`)
+      .get(`/question/${qsId.id}`)
       .then(res => {
-        const comments = res.data;
+        const comments = res.data.answers.comments;
         if (comments) {
           setCommentsList(comments);
         }
@@ -71,7 +71,7 @@ const AnsComment = () => {
                   >
                     Edit
                   </button>
-                  <button onClick={() => commentDelete(comment.comment_id)}>
+                  <button onClick={() => commentDelete(comment.id)}>
                     Delete
                   </button>
                 </>
