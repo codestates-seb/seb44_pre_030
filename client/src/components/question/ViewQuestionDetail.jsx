@@ -1,5 +1,4 @@
-import React from 'react';
-import { useLocation } from "react-router-dom";
+import React, { useEffect } from 'react';
 import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { NumberForMatter } from '../../utils/NumberForMatter';
@@ -10,10 +9,7 @@ import advertisementImg from '../../assets/questionDetail/advertisement.svg'
 import QuestionTag from './QuestionTag';
 
 
-const ViewQuestionDetail = () => {
-    const questionDetail = useLocation();
-    const data = questionDetail.state.question;
-
+const ViewQuestionDetail = () => {    
 
     return (
         <QuestionDetailContainer>
