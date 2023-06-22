@@ -6,6 +6,13 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
+
+      '/createQuestion':{
+        target:'http://ec2-13-209-35-180.ap-northeast-2.compute.amazonaws.com:8080/question/ask',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/createQuestion/, ''),
+      },
       '/answers': {
         target:
           'http://ec2-13-209-35-180.ap-northeast-2.compute.amazonaws.com:8080/answers',

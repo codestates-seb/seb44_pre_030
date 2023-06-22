@@ -3,8 +3,10 @@ import { styled } from 'styled-components';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState } from "draft-js";
+import {useNavigate } from 'react-router-dom';
 
 import colorpalette from '../../styles/colorpalette';
+import axios from 'axios';
 
 
 const noticeListData = [
@@ -26,6 +28,7 @@ const WriteQestion = () => {
     const [titleValue,SetTitleValue] = useState('');
     const [titleError,setTitleError] = useState(false);
     const [editorError,setEditorError] = useState(false);
+    const navigate = useNavigate();
 
     const handleEditorStateChange = (newEditorState) =>{
         setEditorState(newEditorState);
@@ -36,15 +39,33 @@ const WriteQestion = () => {
     }
     const CheckInputData = (e) => {
         e.preventDefault();
-        setTitleError(!titleValue);
-        setEditorError(editorState.getCurrentContent().getPlainText().trim() === '')
+        if(!titleValue || editorState.getCurrentContent().getPlainText() === ''){
+            setTitleError(!titleValue);
+            setEditorError(editorState.getCurrentContent().getPlainText().trim() === '')
+        }
+        else{
+            const plainText = editorState.getCurrentContent().getPlainText();
+            axios.post(`/createQuestion`
+            ,
+            {
+                content: plainText,
+                title: titleValue,
+            }).then(res => {
+                console.log(res);
+                alert('질문 등록');
+                navigate('/');
+              })
+              .catch(error => console.log(error));
+        }
     }
     const ResetInputData = ()=>{
         SetTitleValue('');
         setEditorState(EditorState.createEmpty());
     }
 
+
     useEffect(()=>{
+
     },[titleValue])
     return (
         <QuestionContainer>
