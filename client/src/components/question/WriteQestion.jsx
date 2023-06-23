@@ -45,7 +45,7 @@ const WriteQestion = () => {
         }
         else{
             const plainText = editorState.getCurrentContent().getPlainText();
-            axios.post(`/createQuestion`
+            axios.post(`/api/question/ask`
             ,
             {
                 content: plainText,
