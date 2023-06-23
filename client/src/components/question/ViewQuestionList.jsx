@@ -32,7 +32,6 @@ const QuestionList = () => {
     })
     .then(res => {
        setQuestionList(res.data.data)
-        console.log(res.data.data);
       })
       .catch(error => console.log(error));
 }, []);

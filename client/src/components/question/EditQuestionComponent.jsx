@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from 'react';
-import { useLocation } from "react-router-dom";
+import axios from 'axios';
 import styled from 'styled-components'
+import {useParams,useNavigate,Link} from 'react-router-dom'
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState,ContentState } from "draft-js";
 import colorpalette from '../../styles/colorpalette';
@@ -8,19 +9,52 @@ import QuestionTag from './QuestionTag';
 
 const NoticeData = ['Your edit will be placed in a queue until it is peer reviewed.','We welcome edits that make the post easier to understand and more valuable for readers. Because community members review edits, please try to make the post substantially better than how you found it, for example, by fixing grammar or adding additional resources and hyperlinks.'];
 const EditQuestionComponent  = () => {
+    const [questionContent,setQuestionContent] = useState([]);
+    const [titleContent,setTitleContent] = useState('')
     const [editorState,setEditorState] = useState(EditorState.createEmpty());
-    const questionEdit = useLocation();
-    const data = questionEdit.state.question;
+    const params = useParams();
+    const navigate = useNavigate();
+    const tag = ['React','Java','JavaScript'];
     
-    const handleEditorStateChange = (newEditorState) =>{
+    const handleEditorStateChange = (newEditorState) => {
         setEditorState(newEditorState);
     }
 
+    const handleTitleContent = (e) => {
+        setTitleContent(e.target.value)
+    }
+
+    const handleEditContent = () => {
+        axios.patch(`/api/question/edit/${params.id}`,{
+            content:editorState.getCurrentContent().getPlainText(),
+            title:titleContent,
+        })
+        .then(res=>{
+            console.log(res);
+            navigate(`/question/${params.id}`);
+        })
+        .chatch(error=>console.log(error))
+    }
     useEffect(()=>{
-        const contentState = ContentState.createFromText(data.question_content);
-        const initialState = EditorState.createWithContent(contentState)
-        setEditorState(initialState)
-    },[data.question_content])
+        axios.get(`/api/question/${params.id}`)
+        .then(res=>{
+            if(res.data){
+              setQuestionContent(res.data)
+            }
+        })
+        .catch(error=>console.log(error))
+    },[params.id])
+
+    useEffect(()=>{
+        if(questionContent && questionContent.title){
+            setTitleContent(questionContent.title);
+        }
+        if(questionContent && questionContent.content ){
+             const contentState = ContentState.createFromText(questionContent.content);
+             const initialState = EditorState.createWithContent(contentState);
+            setEditorState(initialState);
+        }
+    },[questionContent])
 
     return (
         <EditQuestionContainer>
@@ -30,7 +64,7 @@ const EditQuestionComponent  = () => {
             <EditQuestionForm>
                 <PostEditorTitle>
                     <h3>Title</h3>
-                    <input className='questionEditTitle' type='text' value={data.question_title}></input>
+                    <input className='questionEditTitle' type='text' value={titleContent} onChange={handleTitleContent}></input>
                 </PostEditorTitle>
                     <h3>Body</h3>
                     <ProblemInputWrapper className='ProblemInputWrapper'>
@@ -54,12 +88,12 @@ const EditQuestionComponent  = () => {
                   <PostEditorTags>
                     <h3>Tags</h3>
                     <div className='questionEditorTag' type='text'>
-                        <QuestionTag tagList={data.tag}/>
+                        <QuestionTag tagList={tag}/>
                     </div>
                   </PostEditorTags>
                 <PostBtnWrpper>
-                    <PostBtn className='saveBtn'>Save edits</PostBtn>
-                    <PostBtn className='calcelBtn'>Cancel</PostBtn>
+                    <PostBtn className='saveBtn' onClick={handleEditContent}>Save edits</PostBtn>
+                    <Link to={`/question/${params.id}`}><PostBtn className='calcelBtn'>Cancel</PostBtn></Link>
                 </PostBtnWrpper>
             </EditQuestionForm>
         </EditQuestionContainer>
@@ -137,7 +171,7 @@ const ProblemInputWrapper = styled.section`
         padding: 10px;
         height: 180px !important;
         outline:none !important;
-        border-color: import QuestionTag from './QuestionTag';
+        border-color: ${colorpalette.headerSearchBorderFocusColor};;
         box-shadow: 0 0 10px ${colorpalette.headerSearchBorderShadowColor};
     }
     
@@ -167,6 +201,7 @@ const PostBtnWrpper = styled.div`
     } 
 `
 const PostBtn = styled.div`
+    cursor: pointer;
     margin-right: 10px;
     height: 38px;
     padding:10px;
