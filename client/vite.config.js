@@ -6,38 +6,31 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-
-      // '/createQuestion':{
-      //   target:'http://ec2-13-209-35-180.ap-northeast-2.compute.amazonaws.com:8080/question/ask',
-      //   changeOrigin: true,
-      //   secure: false,
-      //   rewrite: (path) => path.replace(/^\/createQuestion/, ''),
-      // },
-      // '/QuestionList':{
-      //   target:'http://ec2-13-209-35-180.ap-northeast-2.compute.amazonaws.com:8080/?page=1&size=15',
-      //   changeOrigin: true,
-      //   secure: false,
-      //   rewrite: (path) => path.replace(/^\/QuestionList/, ''),
-      // },
-      '/api':{
-        target:`http://ec2-13-209-35-180.ap-northeast-2.compute.amazonaws.com:8080`,
+      '/api': {
+        target: `http://ec2-13-209-35-180.ap-northeast-2.compute.amazonaws.com:8080`,
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        rewrite: path => path.replace(/^\/api/, ''),
       },
-      // '/answers': {
+      // '/comments': {
       //   target:
-      //     'http://ec2-43-201-23-173.ap-northeast-2.compute.amazonaws.com:8080/answers',
+      //     'http://ec2-13-209-35-180.ap-northeast-2.compute.amazonaws.com:8080/comments',
       //   changeOrigin: true,
       //   secure: false,
-      //   rewrite: path => path.replace(/^\/answers/, ''),
+      //   rewrite: path => path.replace(/^\/comments/, ''),
       // },
-      // '/answers/id': {
+      // '/comments/id': {
       //   target:
-      //     'http://ec2-43-201-23-173.ap-northeast-2.compute.amazonaws.com:8080/answers/id',
+      //     'http://ec2-13-209-35-180.ap-northeast-2.compute.amazonaws.com:8080/comments/id',
       //   changeOrigin: true,
       //   secure: false,
-      //   rewrite: path => path.replace(/^\/answers\/\d+/, '/answers'),
+      //   rewrite: path => path.replace(/^\/comments\/\d+/, '/comments'),
+      // },
+      // '/question/:id': {
+      //   target: `http://ec2-13-209-35-180.ap-northeast-2.compute.amazonaws.com:8080/question/:id`,
+      //   changeOrigin: true,
+      //   secure: false,
+      //   rewrite: path => path.replace(/^\/question\/\d+/, '/question/:id'),
       // },
     },
   },

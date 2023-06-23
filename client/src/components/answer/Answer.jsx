@@ -6,32 +6,35 @@ import VoteGroup from '../vote/VoteGroup';
 import AnsComment from '../comment/AnsComment';
 import { displayAt } from '../../utils/daycalcFormatter';
 
-const Answer = ({question}) => {
+
+const Answer = ({ qsId }) => {
   const User_id = localStorage.getItem('User_id');
   const [answerList, setAnswerList] = useState([]);
   const [answerFilter, setAnswerFilter] = useState('score');
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:3000/api/answer`)
-  //     .then(res => {
-  //       const answers = res.data;
-  //       if (answers) {
-  //         setAnswerList(answers);
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }, [answerFilter]);
-
-  const deleteAnswer = answerId => {
-    console.log(answerId);
+  useEffect(() => {
     axios
-      .delete(`http://localhost:3000/api/answer/${answerId}`)
+      .get(`/api/question/${qsId}`)
       .then(res => {
-        window.location.reload();
+        const answers = res.data.answers;
+        console.log('answers', answers);
+        if (answers) {
+          setAnswerList(answers);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, [qsId]);
+  // console.log('answerList', answerList);
+
+
+  const deleteAnswer = asId => {
+    axios
+      .delete(`/api/answers/${asId}`)
+      .then(res => {
         console.log(res);
+        alert('답변 삭제 완료');
+        window.location.reload();
       })
       .catch(error => {
         console.log(error);
@@ -64,6 +67,7 @@ const Answer = ({question}) => {
   const answerFilterHandler = e => {
     setAnswerFilter(e.target.value);
   };
+
   return (
     <Container>
       <AnswerTitle>
@@ -77,23 +81,20 @@ const Answer = ({question}) => {
         </select>
       </AnswerTitle>
       {answerList.map(answer => (
-        <DetailContents key={answer.Answer_id}>
+        <DetailContents key={answer.id}>
           <div>
-            <VoteGroup
-              answerId={answer.Answer_id}
-              answerVoteCount={answer.count}
-            />
+            <VoteGroup answerId={answer.id} answerVoteCount={answer.vote} />
             <TextContents>
-              <span>{answer.Content}</span>
+              <span>{answer.content}</span>
               <SideContents>
-                {Number(answer.User_id) !== Number(User_id) ? (
+                {Number(answer.member.id) !== Number(User_id) ? (
                   <div className="sideMenu">
                     <button>
-                      <Link to={`/answer/edit/${answer.Answer_id}`}>Edit</Link>
+                      <Link to={`/answer/edit/${answer.id}`}>Edit</Link>
                     </button>
                     <button
                       onClick={() => {
-                        deleteAnswer(answer.Answer_id);
+                        deleteAnswer(answer.id);
                       }}
                     >
                       delete
@@ -112,16 +113,13 @@ const Answer = ({question}) => {
                       alt="profileAvatar"
                     />
                     <span>
-                      <p>{answer.User.name}</p>
-                      <p>asked {displayAt(new Date(answer.answered_At))}</p>
+                      <p>{answer.member.displayName}</p>
+                      <p>asked {displayAt(new Date(answer.createdAt))}</p>
                     </span>
                   </div>
                 </div>
               </SideContents>
-              <AnsComment
-                answerComment={answer.answerAnswers}
-                answerId={answer.Answer_id}
-              />
+              <AnsComment asId={answer.id} qsId={qsId} />
             </TextContents>
           </div>
         </DetailContents>
@@ -131,7 +129,7 @@ const Answer = ({question}) => {
 };
 
 const Container = styled.div`
-  width:730px;
+  width: 730px;
 `;
 const AnswerTitle = styled.div`
   display: flex;

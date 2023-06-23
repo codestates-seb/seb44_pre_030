@@ -19,10 +19,8 @@ function EditAnswerCompo({ asId }) {
     console.log(editAnswer);
   };
   const answerEditHandler = () => {
-    console.log(editAnswer);
     axios
       .patch(`/answers/${asId.id}`, {
-        answerId: asId.id,
         content: editAnswer,
       })
       .then(res => {

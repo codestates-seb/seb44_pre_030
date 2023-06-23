@@ -2,33 +2,34 @@ import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
 import ViewQuestionDetail from '../components/question/ViewQuestionDetail';
 import WriteAnswer from '../components/answer/WriteAnswer';
 import Answer from '../components/answer/Answer';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const QuestionDetail = () => {
-  const [questionDetail,setQuestionDetail] = useState([]);
-  let  params = useParams();
 
-  console.log(params.id);
+  const [questionDetail, setQuestionDetail] = useState([]);
+  let params = useParams();
 
-  useEffect(()=>{
-    axios.get(`/api/question/${params.id}`)
-    .then(res => {
-        if(res.data){
+  useEffect(() => {
+    axios
+      .get(`/api/question/${params.id}`)
+      .then(res => {
+        if (res.data) {
           setQuestionDetail(res.data);
-          console.log(questionDetail)
+          console.log('questionDetail', questionDetail);
         }
       })
       .catch(error => console.log(error));
-  },[params.id])
-
+  }, [params.id]);
   return (
     <QuestionDetailPageContainer>
-       <ViewQuestionDetail question={questionDetail}/>
-      <Answer question={questionDetail}/>
-      {/* <WriteAnswer /> */} 
+      <ViewQuestionDetail question={questionDetail} />
+      <Answer qsId={params.id} />
+      <WriteAnswer qsId={params.id} />
+
     </QuestionDetailPageContainer>
   );
 };
