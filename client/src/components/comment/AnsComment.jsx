@@ -2,8 +2,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { displayAt } from '../../utils/daycalcFormatter';
 import { styled } from 'styled-components';
+import CommentUpdate from './CommentUpdate';
 
-const AnsComment = ({ asId, qsId }) => {
+const AnsComment = ({ answerComment, asId, qsId }) => {
   const [commentsList, setCommentsList] = useState([]);
   const [editCommentOn, setEditCommentOn] = useState(false);
   const [newComment, setNewComment] = useState('');
@@ -11,6 +12,7 @@ const AnsComment = ({ asId, qsId }) => {
   const [updateCommentContent, setUpdateCommentContent] = useState('');
   const [updateId, setUpdateId] = useState(null);
   const commentUser_id = localStorage.getItem('commentUser_id');
+  console.log('answerComment', answerComment);
 
   const commentPosting = () => {
     axios
@@ -30,28 +32,13 @@ const AnsComment = ({ asId, qsId }) => {
     setNewComment(e.target.value);
   };
 
-  useEffect(() => {
-    axios
-      .get(`/api/question/${qsId}`)
-      .then(res => {
-        const comments = res.data.answers.comments;
-        console.log('Res', comments);
-        if (comments) {
-          setCommentsList(comments);
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
-
   const commentDelete = commentId => {
     axios
-      .delete(`/comments/${commentId}`)
+      .delete(`/api/comments/${commentId}`)
       .then(res => {
         console.log(res);
-        console.log('댓글 삭제 완료');
-        navigate(`/`);
+        alert('댓글 삭제 완료');
+        window.location.reload();
       })
       .catch(error => {
         console.log(error);
@@ -60,13 +47,13 @@ const AnsComment = ({ asId, qsId }) => {
   return (
     <>
       <CommentView>
-        {commentsList.map((comment, idx) => {
+        {answerComment.map((comment, idx) => {
           return (
             <div className="comment-list" key={idx}>
               <span>{comment.content}</span>
-              <span className="comment-user">-{comment.commentUserName}</span>
-              <span>{displayAt(new Date(comment.commented_At))}</span>
-              {Number(commentUser_id) === comment.user_id ? (
+              <span className="comment-user">-{'정승현'}</span>
+              <span>{displayAt(new Date(comment.createdAt))}</span>
+              {Number(commentUser_id) !== comment.member.id ? (
                 <>
                   <button
                     onClick={() => {

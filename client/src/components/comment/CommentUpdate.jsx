@@ -15,15 +15,15 @@ const CommentUpdate = ({
   };
   const handleUpdateContentClick = updateId => {
     axios
-      .patch(`/comments/${updateId}`, {
+      .patch(`/api/comments/${updateId}`, {
         content: updateCommentContent,
       })
       .then(res => {
         console.log(res);
         setUpdateCommentOn(false);
+        window.location.reload();
       })
       .catch(error => console.log(error));
-    window.location.reload();
   };
   return (
     <CommentWrite>
@@ -33,7 +33,7 @@ const CommentUpdate = ({
         value={updateCommentContent}
         onChange={handleUpdateContent}
       />
-      <button onClick={() => handleUpdateContentClick}></button>
+      <button onClick={() => handleUpdateContentClick(updateId)}>Edit</button>
     </CommentWrite>
   );
 };
