@@ -159,6 +159,7 @@ const QuestionUserAuthority = styled.div`
 `;
 const QuestionEdit = styled.div`
   display: flex;
+  cursor: pointer;
   font-size: ${colorpalette.headerFontSize};
   color: ${colorpalette.headerFontColor};
 
