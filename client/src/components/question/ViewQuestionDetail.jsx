@@ -61,7 +61,7 @@ const ViewQuestionDetail = ({ question }) => {
           <QuestionEdit>
             <Link to={`/question/edit/${question.id}`}>Edit</Link>
 
-            <Link to="/">Delete</Link>
+            <div>Delete</div>
           </QuestionEdit>
 
           <QuestionUserInfo>
@@ -145,6 +145,7 @@ const QuestionUserAuthority = styled.div`
   height: 79px;
 `;
 const QuestionEdit = styled.div`
+  display: flex;
   font-size: ${colorpalette.headerFontSize};
   color: ${colorpalette.headerFontColor};
 
