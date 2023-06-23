@@ -33,7 +33,7 @@ public class AnswerController {
         Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(answerPostDto));
         URI location = UriCreator.createUri("/answers", answer.getId());
 
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).body(answer.getId());
     }
 
     @PatchMapping("/{answer-id}")

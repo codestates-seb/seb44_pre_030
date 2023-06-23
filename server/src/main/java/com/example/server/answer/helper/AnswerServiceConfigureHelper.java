@@ -29,9 +29,9 @@ public interface AnswerServiceConfigureHelper {
 
     default Answer patchAnswer(Answer answer, Answer result) {
         Optional.ofNullable(answer.getContent())
-                .ifPresent(answer::setContent);
+                .ifPresent(result::setContent);
         Optional.ofNullable(answer.getVote())
-                .ifPresent(answer::setVote);
+                .ifPresent(result::setVote);
         return result;
     }
 }
