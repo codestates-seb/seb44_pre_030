@@ -5,8 +5,6 @@ import { useParams } from 'react-router-dom';
 import ViewQuestionDetail from '../components/question/ViewQuestionDetail';
 import WriteAnswer from '../components/answer/WriteAnswer';
 import Answer from '../components/answer/Answer';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
 
 const QuestionDetail = () => {
 

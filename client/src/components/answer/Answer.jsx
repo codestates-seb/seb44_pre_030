@@ -71,7 +71,7 @@ const Answer = ({ qsId }) => {
   return (
     <Container>
       <AnswerTitle>
-        <h2>{question.answers.length} Answer</h2>
+        <h2>{answerList.length} Answer</h2>
         <select onChange={answerFilterHandler}>
           {answerFilters.map(item => (
             <option key={item.id} value={item.value}>
