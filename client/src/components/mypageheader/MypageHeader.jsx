@@ -5,13 +5,17 @@ import { FaForumbee } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 
-const MypageHeader = () => {
+const MypageHeader = ({profile}) => {
     return (
         <AllContainer>
            <Container>
             <ProfileNameBox>
             <ProfileImg src={ProfileSvg}/>
-                <ProfileName>username</ProfileName>
+            <ContentBox>
+                <ProfileName>{profile}</ProfileName>
+                <ProfileTitle>mypage</ProfileTitle>
+                <ProfileLocation>korea</ProfileLocation>
+                </ContentBox>
             </ProfileNameBox>
             <BtnBox>
             <Link to="/mypage/edit/:id">
@@ -45,6 +49,11 @@ const NavBox = styled.div`
     width: 1600px;
     height: 40px;
     margin-left: 20px;
+`
+
+const ContentBox = styled.div`
+    display: flex;
+    flex-direction: column;
 `
 
 const NavBtn = styled.button`
@@ -88,6 +97,16 @@ const ProfileNameBox = styled.div`
 const ProfileName = styled.div`
     margin-left: 15px;
     font-size: 40px;
+`
+const ProfileTitle = styled.div`
+    margin-left: 15px;
+    font-size: 20px;
+    color: #a2a2a2;
+`
+const ProfileLocation = styled.div`
+    margin-left: 15px;
+    font-size: 20px;
+    color: #a2a2a2;
 `
 
 const BtnBox = styled.div`

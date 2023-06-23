@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import googlelogo from '../../assets/oauth/googlelogo.svg';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-
+import { GoogleOAuthProvider } from '@react-oauth/google'
+import { GoogleLogin } from '@react-oauth/google';
+import {useNavigate} from 'react-router-dom';
 
 
 const SignupBox = () => {
@@ -11,55 +11,62 @@ const SignupBox = () => {
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const {replace} = useNavigate();
+  const replace = useNavigate();
 
- 
-    
-    
-    const register = () =>{
-      var pw = password;
-      var num = pw.search(/[0-9]/g);
-      var eng = pw.search(/[a-z]/ig);
-      var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-   
-    if(pw.length < 8 || pw.length > 20 || email === ""){
-     console.log(" 비밀번호 8자리 ~ 20자리 이내로 입력해주세요.");
+  const register = () =>{
+  var pw = password;
+  var em = email;
+  var num = pw.search(/[0-9]/g);
+  var eng = pw.search(/[a-z]/ig);
+  var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+  var emailRegEx = em.search(/^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i);
+   if(email === "" || emailRegEx < 0){
+    alert("이메일을 형식에 맞게 입력해주세요.");
+    return false;
+   }
+    else if(pw.length < 8 || pw.length > 20){
+     alert(" 비밀번호 8자리 ~ 20자리 이내로 입력해주세요.");
      return false;
     }else if(pw.search(/\s/) != -1){
      return false;
     }else if( (num < 0 && eng < 0) || (eng < 0 && spe < 0) ){
-     console.log("영문,숫자 혼합하여 입력해주세요.");
+     alert("영문,숫자 혼합하여 입력해주세요.");
      return false;
     }else {
-       axios
-      .post('http://localhost:1337/api/auth/local/register', {
-        username: displayName,
+      axios
+      .post("http://localhost:1337/api/auth/local/register", {
+        username: email,
         email: email,
         password: password,
+        displayName: displayName,
       })
       .then(response => {
         // Handle success.
         console.log('Well done!');
         console.log('User profile', response.data.user);
-        console.log('User token', response.data.jwt);
-    
-        replace("/")
       })
       .catch(error => {
         // Handle error.
         console.log('An error occurred:', error.response);
       });
-      }
+    }
     }
     
-  
-   
-
-  
-
     return (
       <AllContainer>
-        <OauthBtn><img src={googlelogo}></img>Sign up with Google</OauthBtn>
+        <OauthBtn>
+        <GoogleOAuthProvider clientId="668048382423-t9ksgi5lv9urphnrv4dm428gc01bh32o.apps.googleusercontent.com">
+        <GoogleLogin width={250}
+        onSuccess={(credentailRespones)=> {
+          console.log(credentailRespones);
+          replace("/")
+          }}
+        onError={() => {
+           console.log('Login Failed');
+        }}
+        />
+      </GoogleOAuthProvider>
+      </OauthBtn>
         <InputContainer>
           <SmallContainer>
           <TextBox For="DisplayName">Display name</TextBox>
@@ -89,7 +96,7 @@ const SignupBox = () => {
   };
 
 const AllContainer = styled.div`
-  height: 700px;
+  height: 100vh;
   width: 100%;
   background-color: rgba(242, 243, 243, 1);
   display: flex;

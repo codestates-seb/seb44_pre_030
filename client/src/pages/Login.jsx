@@ -2,9 +2,9 @@ import React from 'react';
 import LoginBox from '../components/loginbox/loginbox';
 
 
-const Login = () => {
+const Login = ({setIsLogin, setUserInfo}) => {
   return (
- <LoginBox/>
+ <LoginBox setIsLogin={setIsLogin} setUserInfo={setUserInfo}/>
   )
 };
 export default Login;

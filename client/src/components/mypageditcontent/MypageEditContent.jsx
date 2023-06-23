@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import styled from 'styled-components';
@@ -7,14 +7,37 @@ import { BiLink } from 'react-icons/bi';
 import { FaTwitter } from 'react-icons/fa';
 import { BsGithub } from 'react-icons/bs';
 import ProfileSvg from '../../assets/mypage/profileimg.svg'
+import { Link } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import axios from 'axios';
 
-const MypageEditContent = () => {
+const MypageEditContent = ({userInfo}) => {
 
-    const [editorState, setEditorState] = useState(EditorState.createEmpty());
-
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [displayName, setDisplayName] = useState(userInfo.data.attributes.displayname)
+  const [userId, setUserId] = useState(userInfo.data.id)
+  const replace = useNavigate();
   const onEditorStateChange = (editorState) => {
     // editorState에 값 설정
     setEditorState(editorState);
+  };
+
+  const updateProfile = (userId) => {
+    // 프로필 정보 업데이트 요청을 보내는 함수
+      axios
+      .put(`http://localhost:1337/api/users/${userId}`,{
+        displayname: "nanana",
+          email: displayName,
+      })
+          .then(response => {
+            // Handle success.
+            console.log('put ok');
+            console.log(response.data)
+          })
+          .catch(error => {
+            // Handle error.
+            console.log('An error occurred:', error.response);
+          });
   };
     return (
         <AllContainer>
@@ -29,11 +52,11 @@ const MypageEditContent = () => {
             </AllInputBox>
             <AllInputBox>
             <TitleText For="username">Display name</TitleText>
-            <InputBox id="username"></InputBox>
+            <InputBox id="username" value={displayName} onChange={e => setDisplayName(e.target.value)}></InputBox>
             <TitleText For="location">Location</TitleText>
             <InputBox id="location"></InputBox>
             <TitleText For="title">Title</TitleText>
-            <InputBox id="title"></InputBox>
+            <InputBox id="title" placeholder='No title has been set'></InputBox>
             </AllInputBox>
             <WriteBox>
             <TitleText>About me</TitleText>
@@ -102,12 +125,14 @@ const MypageEditContent = () => {
             <PrivateContainer>
                <LinkBox>
             <TitleText For="username">Full name</TitleText>
-            <InputBox id="username"></InputBox>
+            <InputBox id="username" value={`${userInfo.data.attributes.displayname}`}></InputBox>
             </LinkBox>
             </PrivateContainer>
             </div>
-            <SaveProfileBtn>Save profile</SaveProfileBtn>
+            <SaveProfileBtn onClick={updateProfile(userId)}>Save profile</SaveProfileBtn>
+            <Link to="/mypage/:id">
             <CanceleBtn>Cancel</CanceleBtn>
+            </Link>
         </AllContainer>
     );
 };

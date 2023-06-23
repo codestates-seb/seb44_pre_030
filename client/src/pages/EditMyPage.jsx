@@ -5,13 +5,13 @@ import MypageEditContent from '../components/mypageditcontent/MypageEditContent'
 import styled from 'styled-components';
 
 
-const EditMyPage = () => {
+const EditMyPage = ({userInfo, profile}) => {
   return (    
     <div>
-    <MypageHeader></MypageHeader>
+    <MypageHeader profile={profile}></MypageHeader>
     <FlexBox>
     <MypageSidebar></MypageSidebar>
-    <MypageEditContent></MypageEditContent>
+    <MypageEditContent userInfo={userInfo}></MypageEditContent>
     </FlexBox>
     </div>
   );
