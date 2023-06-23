@@ -27,6 +27,7 @@ const Answer = ({ qsId }) => {
   // console.log('answerList', answerList);
 
   const deleteAnswer = asId => {
+    console.log(asId);
     axios
       .delete(`/api/answers/${asId}`)
       .then(res => {
@@ -117,7 +118,11 @@ const Answer = ({ qsId }) => {
                   </div>
                 </div>
               </SideContents>
-              <AnsComment asId={answer.id} qsId={qsId} />
+              <AnsComment
+                answerComment={answer.comments}
+                asId={answer.id}
+                qsId={qsId}
+              />
             </TextContents>
           </div>
         </DetailContents>

@@ -16,17 +16,16 @@ function EditAnswerCompo({ asId }) {
 
   const handleAnswerContent = e => {
     setEditAnswer(e.blocks[0].text);
-    console.log(editAnswer);
   };
   const answerEditHandler = () => {
     axios
-      .patch(`/answers/${asId.id}`, {
+      .patch(`/api/answers/${asId.id}`, {
         content: editAnswer,
       })
       .then(res => {
         console.log(res);
         alert('답변 수정 완료');
-        navigate(`/`);
+        navigate(-1);
       })
       .catch(error => {
         console.log(error);

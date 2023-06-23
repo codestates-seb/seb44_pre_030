@@ -17,7 +17,6 @@ const QuestionDetail = () => {
       .then(res => {
         if (res.data) {
           setQuestionDetail(res.data);
-          console.log('questionDetail', questionDetail);
         }
       })
       .catch(error => console.log(error));
