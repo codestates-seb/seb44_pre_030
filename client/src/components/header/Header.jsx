@@ -32,7 +32,7 @@ const Header = ({isLogin, setIsLogin}) => {
                 </form>
             </SecondChild>
             <ThirdChild>
-
+                
                 {!isLogin ? (<ol>
                     <Link to ="/login">
                     <UserButton>{ThirdChildData[0]}</UserButton>
@@ -135,7 +135,7 @@ const SearchWrapper = styled.div`
 `
 const ThirdChild = styled.div`
 
-    & ul{
+    & ol{
         display: flex;
     }
 
@@ -166,6 +166,11 @@ const UserButton = styled.li`
     margin-right: 0.625rem;
     border-radius: 3px;
     padding:3px;
+    color : white;
+    background-color: rgba(29, 154, 249, 1);
+    border: none;
+    border-radius: 3px;
+    box-shadow: inset 0px 2px 0px 0px rgba(119, 194, 251, 1);
     cursor: pointer;
 
 `
