@@ -1,7 +1,7 @@
 import './App.css';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
-import Sidebar from './components/sidebar/sidebar';
+import Sidebar from './components/sidebar/Sidebar';
 import { Route, Routes } from 'react-router-dom';
 import QuestionList from './pages/QuestionList';
 import Signup from './pages/Signup';
@@ -20,9 +20,10 @@ import TagsList from './pages/TagsList';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 
-const MainDiv =styled.div`
+const MainDiv = styled.div`
   display: flex;
-`
+  margin-left: 124px;
+`;
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -63,7 +64,6 @@ function App() {
       </Routes>
       </MainDiv>
       <Footer />
-
     </>
   );
 }

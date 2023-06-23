@@ -21,9 +21,9 @@ const Header = ({isLogin, setIsLogin}) => {
                 <Link to='/'><img src={HeaderLogoImg}/></Link>
             </FirstChild>
             <SecondChild>
-                <ol>
+                <ul>
                 {SecondChildData.map((data,index)=><li key={index}><a>{data}</a></li>)}
-                </ol>
+                </ul>
                 <form className="header-search">
                     <SearchWrapper>
                         <input type='text' placeholder='Search...'></input>
@@ -32,6 +32,7 @@ const Header = ({isLogin, setIsLogin}) => {
                 </form>
             </SecondChild>
             <ThirdChild>
+
                 {!isLogin ? (<ol>
                     <Link to ="/login">
                     <UserButton>{ThirdChildData[0]}</UserButton>
@@ -46,6 +47,7 @@ const Header = ({isLogin, setIsLogin}) => {
                     <Link to ="/login">
                     <UserButton onClick={handleLogout}> {ThirdChildData[3]}</UserButton>
                     </Link> </ol>)}
+
             </ThirdChild>
         </HeaderContainer>
     );
@@ -81,7 +83,7 @@ const FirstChild = styled.div`
 `
 const SecondChild = styled.div`
     display: flex;
-    & ol{
+    & ul{
         display: flex;
         width:30%;
     }
@@ -133,8 +135,25 @@ const SearchWrapper = styled.div`
 `
 const ThirdChild = styled.div`
 
-    & ol{
+    & ul{
         display: flex;
+    }
+
+    & .loginBtn{
+        border: 1px solid ${colorpalette.headerLoginFontColor};
+        background-color: ${colorpalette.headerLoginColor};
+        color:${colorpalette.headerLoginFontColor};
+    }
+    & .loginBtn:hover{
+        background-color: ${colorpalette.headerLoginHoverColor};
+    }
+    & .signUpBtn{
+        border: 1px solid ${colorpalette.headerSignUpBorderColor};
+        background-color: ${colorpalette.headerSignUpColor};
+        color:${colorpalette.signatureWhite};
+    }
+    & .signUpBtn:hover{
+        background-color: ${colorpalette.headerSignUpHoverColor};
     }
 `
 const UserButton = styled.li`
@@ -148,22 +167,7 @@ const UserButton = styled.li`
     border-radius: 3px;
     padding:3px;
     cursor: pointer;
-    &:first-child{
-        border: 1px solid ${colorpalette.headerLoginFontColor};
-        background-color: ${colorpalette.headerLoginColor};
-        color:${colorpalette.headerLoginFontColor};
-    }
-    &:first-child:hover{
-        background-color: ${colorpalette.headerLoginHoverColor};
-    }
-    &:last-child{
-        border: 1px solid ${colorpalette.headerSignUpBorderColor};
-        background-color: ${colorpalette.headerSignUpColor};
-        color:${colorpalette.signatureWhite};
-    }
-    &:last-child:hover{
-        background-color: ${colorpalette.headerSignUpHoverColor};
-    }
+
 `
 
 export default Header;

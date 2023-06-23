@@ -4,12 +4,32 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState } from 'draft-js';
 import { AiFillCloseCircle } from 'react-icons/ai';
+import axios from 'axios';
 
-const WriteAnswer = () => {
+const WriteAnswer = ({ qsId }) => {
   const [openInfo, setOpenInfo] = useState(true);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const handleEditorStateChange = newEditorState => {
     setEditorState(newEditorState);
+  };
+  const [createAnswer, setCreateAnswer] = useState('');
+
+  const handleAnswerContent = e => {
+    setCreateAnswer(e.blocks[0].text);
+  };
+  const answerPosting = () => {
+    axios
+      .post(`/api/answers`, {
+        questionId: qsId,
+        content: createAnswer,
+        memberId: 1,
+      })
+      .then(res => {
+        console.log(res);
+        alert('답변 등록');
+        window.location.reload();
+      })
+      .catch(error => console.log(error));
   };
   return (
     <>
@@ -28,6 +48,7 @@ const WriteAnswer = () => {
             placeholder="답변 내용을 입력하세요."
             editorState={editorState}
             onEditorStateChange={handleEditorStateChange}
+            onContentStateChange={handleAnswerContent}
             toolbar={{
               list: { inDropdown: true },
               textAlign: { inDropdown: true },
@@ -36,39 +57,44 @@ const WriteAnswer = () => {
             }}
           />
         </AnswerContainerInput>
-        {openInfo ? (
-          <AnswerInfo>
-            Thanks for contributing an answer to Stack Overflow!
-            <ul>
-              <li>
-                Please be sure to answer the question. Provide details and share
-                your research!
-              </li>
-            </ul>
-            But avoid...
-            <ul>
-              <li>
-                Asking for help, clarification, or responding to other answers.
-              </li>
-              <li>
-                Making statements based on opinion; back them up with references
-                or personal experience.
-              </li>
-              To learn more, see our tips on writing great answers.
-            </ul>
-            <button
-              onClick={() => {
-                setOpenInfo(!openInfo);
-              }}
-              className="closeInfo-btn"
-            >
-              <AiFillCloseCircle />
+        <div>
+          {openInfo ? (
+            <AnswerInfo>
+              Thanks for contributing an answer to Stack Overflow!
+              <ul>
+                <li>
+                  Please be sure to answer the question. Provide details and
+                  share your research!
+                </li>
+              </ul>
+              But avoid...
+              <ul>
+                <li>
+                  Asking for help, clarification, or responding to other
+                  answers.
+                </li>
+                <li>
+                  Making statements based on opinion; back them up with
+                  references or personal experience.
+                </li>
+                To learn more, see our tips on writing great answers.
+              </ul>
+              <button
+                onClick={() => {
+                  setOpenInfo(!openInfo);
+                }}
+                className="closeInfo-btn"
+              >
+                <AiFillCloseCircle />
+              </button>
+            </AnswerInfo>
+          ) : null}
+          <AnswerBtn>
+            <button className="askquestion_Btn" onClick={answerPosting}>
+              Post Your Answer
             </button>
-          </AnswerInfo>
-        ) : null}
-        <AnswerBtn>
-          <button className="askquestion_Btn">Post Your Answer</button>
-        </AnswerBtn>
+          </AnswerBtn>
+        </div>
       </Container>
     </>
   );
@@ -77,35 +103,29 @@ const WriteAnswer = () => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 727px;
 `;
 
 const AnswerContainerTitle = styled.div`
   margin: 20px 0;
-  transform: translateX(25%);
 `;
 const AnswerContainerInput = styled.div`
   display: flex;
   margin-top: 10px;
   height: 450px;
   .wrapper-class {
-    width: 50%;
-    margin: 0 auto;
     margin-bottom: 4rem;
-    border: 3px solid lightgray;
+    border: 1px solid lightgray;
   }
   .editor {
     height: 254px !important;
     border: 1px solid #f1f1f1 !important;
     padding: 5px !important;
     border-radius: 2px !important;
-    background-color: #f1f1f1;
   }
 `;
+
 const AnswerInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 500px;
   position: relative;
   margin-bottom: 10px;
   background-color: #fdf7e2;
@@ -132,7 +152,7 @@ const AnswerInfo = styled.div`
 `;
 const AnswerBtn = styled.div`
   display: flex;
-  width: 542px;
+  width: 800px;
   .askquestion_Btn {
     background: #0a95ff;
     width: 125px;
@@ -146,6 +166,7 @@ const AnswerBtn = styled.div`
     border-radius: 5px;
     border: #1681d2;
     font-weight: 500;
+    cursor: pointer;
   }
   .askquestion_Btn:hover {
     background: hsl(206, 100%, 40%);

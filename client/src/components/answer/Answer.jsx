@@ -6,16 +6,17 @@ import VoteGroup from '../vote/VoteGroup';
 import AnsComment from '../comment/AnsComment';
 import { displayAt } from '../../utils/daycalcFormatter';
 
-const Answer = () => {
+
+const Answer = ({ qsId }) => {
   const User_id = localStorage.getItem('User_id');
   const [answerList, setAnswerList] = useState([]);
   const [answerFilter, setAnswerFilter] = useState('score');
-
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/answer`)
+      .get(`/api/question/${qsId}`)
       .then(res => {
-        const answers = res.data;
+        const answers = res.data.answers;
+        console.log('answers', answers);
         if (answers) {
           setAnswerList(answers);
         }
@@ -23,15 +24,18 @@ const Answer = () => {
       .catch(error => {
         console.log(error);
       });
-  }, [answerFilter]);
+  }, [qsId]);
+  // console.log('answerList', answerList);
 
-  const deleteAnswer = answerId => {
-    console.log(answerId);
+
+  const deleteAnswer = asId => {
+    console.log(asId);
     axios
-      .delete(`http://localhost:3000/api/answer/${answerId}`)
+      .delete(`/api/answers/${asId}`)
       .then(res => {
-        window.location.reload();
         console.log(res);
+        alert('답변 삭제 완료');
+        window.location.reload();
       })
       .catch(error => {
         console.log(error);
@@ -64,6 +68,7 @@ const Answer = () => {
   const answerFilterHandler = e => {
     setAnswerFilter(e.target.value);
   };
+
   return (
     <Container>
       <AnswerTitle>
@@ -77,23 +82,20 @@ const Answer = () => {
         </select>
       </AnswerTitle>
       {answerList.map(answer => (
-        <DetailContents key={answer.Answer_id}>
+        <DetailContents key={answer.id}>
           <div>
-            <VoteGroup
-              answerId={answer.Answer_id}
-              answerVoteCount={answer.count}
-            />
+            <VoteGroup answerId={answer.id} answerVoteCount={answer.vote} />
             <TextContents>
-              <span>{answer.Content}</span>
+              <span>{answer.content}</span>
               <SideContents>
-                {Number(answer.User_id) !== Number(User_id) ? (
+                {Number(answer.member.id) !== Number(User_id) ? (
                   <div className="sideMenu">
                     <button>
-                      <Link to={`/answer/edit/${answer.Answer_id}`}>Edit</Link>
+                      <Link to={`/answer/edit/${answer.id}`}>Edit</Link>
                     </button>
                     <button
                       onClick={() => {
-                        deleteAnswer(answer.Answer_id);
+                        deleteAnswer(answer.id);
                       }}
                     >
                       delete
@@ -112,15 +114,16 @@ const Answer = () => {
                       alt="profileAvatar"
                     />
                     <span>
-                      <p>{answer.User.name}</p>
-                      <p>asked {displayAt(new Date(answer.answered_At))}</p>
+                      <p>{answer.member.displayName}</p>
+                      <p>asked {displayAt(new Date(answer.createdAt))}</p>
                     </span>
                   </div>
                 </div>
               </SideContents>
               <AnsComment
-                answerComment={answer.answerAnswers}
-                answerId={answer.Answer_id}
+                answerComment={answer.comments}
+                asId={answer.id}
+                qsId={qsId}
               />
             </TextContents>
           </div>
@@ -131,8 +134,7 @@ const Answer = () => {
 };
 
 const Container = styled.div`
-  width: 600px;
-  margin-left: 17%;
+  width: 730px;
 `;
 const AnswerTitle = styled.div`
   display: flex;

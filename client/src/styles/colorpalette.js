@@ -29,6 +29,7 @@ const colorpalette = {
     questionResetBtnHoverColor:'hsl(358,75%,97%)',
     questionResetBtnActiveColor:'hsl(358,76%,90%)',
     questionEditorBorderColor:'#f1f1f1',
+    questionPageBgColor:'#F8F9F9',
 
     questionListPostTitleFontColor:'hsl(206,100%,40%)',
     questionListPostTitleHoverFontcolor:'hsl(206,100%,52%)',
@@ -40,6 +41,25 @@ const colorpalette = {
     questionPostUserCardAnswerCountColor:'hsl(210,8%,35%)',
     questionPostFontColor:'hsl(210,8%,45%)',
     questionPostFontBlack:'#0C0D0E',
+
+    questionDetailTitleFontColor:'hsl(210,8%,25%)',
+    questionDetailTitleSize:'1.875rem',
+    questionRegistrationBtnColor:'hsl(206,100%,52%)',
+    questionRegistrationBtnHoverColor:'hsl(206,100%,40%)',
+    questionRegistrationBtnActiveColor:'hsl(209,100%,37.5%)',
+
+    questionDetailInfoFontColor:'hsl(210,8%,45%)',
+    questionDetailUserInfoColor:'hsl(206,100%,40%)',
+    questionDetailUserInfoHoverColor:' hsl(206,100%,52%)',
+    questionDetailUserInfoBgColor:' hsl(205,53%,88%)',
+
+    questionEditNoticeBorderColor:'hsl(47,69%,69%)',
+    questionEditNoticeBgColor:'hsl(47,87%,94%)',
+    questionEditNoticeFontColor:' hsl(210,8%,25%)',
+    questionEditSaveBtnColor:'hsl(206,100%,52%)',
+    questionEditSaveBtnHoverColor:'hsl(206,100%,40%)',
+    questionEditCancelBtnHoverColor:'hsl(206,100%,97%)',
+    questionEditCancelBtnFontColor:'hsl(206,100%,40%)',
 }
 
 export default colorpalette;

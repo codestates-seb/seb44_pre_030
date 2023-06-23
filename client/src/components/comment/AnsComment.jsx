@@ -2,49 +2,87 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { displayAt } from '../../utils/daycalcFormatter';
 import { styled } from 'styled-components';
+import CommentUpdate from './CommentUpdate';
 
-const AnsComment = () => {
+const AnsComment = ({ answerComment, asId, qsId }) => {
   const [commentsList, setCommentsList] = useState([]);
   const [editCommentOn, setEditCommentOn] = useState(false);
   const [newComment, setNewComment] = useState('');
+  const [updateCommentOn, setUpdateCommentOn] = useState(false);
+  const [updateCommentContent, setUpdateCommentContent] = useState('');
+  const [updateId, setUpdateId] = useState(null);
   const commentUser_id = localStorage.getItem('commentUser_id');
+  console.log('answerComment', answerComment);
 
+  const commentPosting = () => {
+    axios
+      .post(`/api/comments`, {
+        answerId: asId,
+        content: newComment,
+        memberId: 1,
+      })
+      .then(res => {
+        console.log(res);
+        alert('댓글 등록');
+        window.location.reload();
+      })
+      .catch(error => console.log(error));
+  };
   const handleCommentContent = e => {
     setNewComment(e.target.value);
   };
-  useEffect(() => {
+
+  const commentDelete = commentId => {
     axios
-      .get(`http://localhost:3000/api/comment`)
+      .delete(`/api/comments/${commentId}`)
       .then(res => {
-        const comments = res.data;
-        if (comments) {
-          setCommentsList(comments);
-        }
+        console.log(res);
+        alert('댓글 삭제 완료');
+        window.location.reload();
       })
       .catch(error => {
         console.log(error);
       });
-  }, []);
-
+  };
   return (
     <>
       <CommentView>
-        {commentsList.map((comment, idx) => {
+        {answerComment.map((comment, idx) => {
           return (
             <div className="comment-list" key={idx}>
-              <span>{comment.comment_content}</span>
-              <span className="comment-user">-{comment.commentUserName}</span>
-              <span>{displayAt(new Date(comment.commented_At))}</span>
-              {Number(commentUser_id) !== comment.user_id ? (
+              <span>{comment.content}</span>
+              <span className="comment-user">-{'정승현'}</span>
+              <span>{displayAt(new Date(comment.createdAt))}</span>
+              {Number(commentUser_id) !== comment.member.id ? (
                 <>
-                  <button>Edit</button>
-                  <button>Delete</button>
+                  <button
+                    onClick={() => {
+                      setUpdateCommentOn(!updateCommentOn);
+                      setUpdateCommentContent(comment.content);
+                      setUpdateId(comment.id);
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button onClick={() => commentDelete(comment.id)}>
+                    Delete
+                  </button>
                 </>
               ) : null}
             </div>
           );
         })}
       </CommentView>
+      {updateCommentOn ? (
+        <CommentUpdate
+          updateId={updateId}
+          updateCommentContent={updateCommentContent}
+          setUpdateCommentOn={setUpdateCommentOn}
+          setUpdataCommentContent={setUpdateCommentContent}
+          answerId={asId}
+          qsId={qsId}
+        />
+      ) : null}
       <CommentOpenBtn>
         <button
           className="addComment"
@@ -63,7 +101,7 @@ const AnsComment = () => {
             value={newComment}
             onChange={handleCommentContent}
           />
-          <button>submit</button>
+          <button onClick={commentPosting}>submit</button>
         </CommentWrite>
       ) : null}
     </>
@@ -108,7 +146,7 @@ const CommentOpenBtn = styled.div`
   }
 `;
 
-const CommentWrite = styled.div`
+export const CommentWrite = styled.div`
   display: flex;
   margin: 10px 0;
   background-color: #f7f7f7;
