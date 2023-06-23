@@ -67,9 +67,10 @@ const Sidebar = () => {
 
 const SidebarContainer = styled.div`
   margin-right: 1px;
-  width: 168px;
-  padding-top: 24px;
-  padding-left: 5px;
+  width: 288px;
+  height: 100vh;
+  padding-top: 10px;
+  padding-left: 127px;
   border-right: 1px solid #d6d9dc;
   font-size: 14px;
 `;
@@ -100,6 +101,8 @@ const SidebarBlock = styled.div`
 `
 const QuesetionsButton = styled.button`
   background-color: white;
+  width: 160px;
+  height: 40px;
   text-align: left;
   color: rgb(77, 77, 77);
   border :0;
@@ -120,6 +123,8 @@ const QuesetionsButton = styled.button`
 const SidebarButton = styled.button`
   display: flex;
   background-color: white;
+  width: 160px;;
+  height: 40px;
   text-align: left;
   color: rgb(74, 74, 74);
   border :0;
@@ -136,6 +141,8 @@ const SidebarButton = styled.button`
 
 const HomeButton = styled.button`
   background-color: white;
+  width: 160px;
+  height: 50px;
   text-align: left;
   color: rgb(88, 88, 88);
   border :0;

@@ -4,13 +4,17 @@ import { Link } from 'react-router-dom';
 import {MdSearch} from 'react-icons/md'
 import HeaderLogoImg from '../../assets/header/headerLogo.svg.svg'
 import colorpalette from '../../styles/colorpalette';
+import MyPage from '../../pages/MyPage';
 
 
 const SecondChildData = ['About','Products','For Teams'];
-const ThirdChildData = ['Log in','Sign up'];
+const ThirdChildData = ['Log in','Sign up','Mypage','Log out'];
 
 
-const Header = () => {
+const Header = ({isLogin, setIsLogin}) => {
+    const handleLogout = () => {
+        setIsLogin(false);
+      };
     return (
         <HeaderContainer>
             <FirstChild className='headerLogo'>
@@ -28,16 +32,22 @@ const Header = () => {
                 </form>
             </SecondChild>
             <ThirdChild>
-                <ul>
-        
-                    <UserButton className='loginBtn'>
-                        <Link to ="/login">{ThirdChildData[0]}</Link>
-                    </UserButton>
 
-                    <UserButton className='signUpBtn'>
-                        <Link to ="/signup">{ThirdChildData[1]}</Link>
-                    </UserButton>
-                </ul>
+                {!isLogin ? (<ol>
+                    <Link to ="/login">
+                    <UserButton>{ThirdChildData[0]}</UserButton>
+                    </Link>
+                    <Link to ="/signup">
+                    <UserButton>{ThirdChildData[1]}</UserButton>
+                    </Link> 
+                </ol>) :( <ol>             
+                     <Link to ="/mypage/:id">
+                    <UserButton>{ThirdChildData[2]}</UserButton>
+                    </Link>
+                    <Link to ="/login">
+                    <UserButton onClick={handleLogout}> {ThirdChildData[3]}</UserButton>
+                    </Link> </ol>)}
+
             </ThirdChild>
         </HeaderContainer>
     );

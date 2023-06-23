@@ -36,7 +36,7 @@ const MypageProfile = () => {
 const AllContainer = styled.div`
     display: flex;
     width: 1000px;
-    height: 600px;
+    height: 70vh;
 `
 
 const Container1 = styled.div`

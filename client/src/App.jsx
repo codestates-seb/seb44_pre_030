@@ -18,6 +18,7 @@ import MyPageTags from './pages/MyPageTags';
 import EditMyPage from './pages/EditMyPage';
 import TagsList from './pages/TagsList';
 import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 
 const MainDiv = styled.div`
   display: flex;
@@ -25,27 +26,42 @@ const MainDiv = styled.div`
 `;
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
+  const [isId, setIsId] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    if(userInfo){
+    setProfile(userInfo.data.attributes.displayname);
+    setIsId(userInfo.data.id)
+    console.log(isId)
+    console.log(profile)
+    }
+})
+
+
   return (
     <>
-      <Header />
+      <Header isLogin={isLogin} setIsLogin={setIsLogin}/>
       <MainDiv>
-        <Sidebar />
-        <Routes>
-          <Route path="/" element={<QuestionList />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/question/ask" element={<CreateQuestion />} />
-          <Route path="/question/:id" element={<QuestionDetail />} />
-          <Route path="/question/edit/:id" element={<EditQuestion />} />
-          <Route path="/answer/edit/:id" element={<EditAnswer />} />
-          <Route path="/mypage/:id" element={<MyPage />} />
-          <Route path="/mypage/summary/:id" element={<MyPageSummary />} />
-          <Route path="/mypage/answers/:id" element={<MyPageAnswers />} />
-          <Route path="/mypage/questions/:id" element={<MyPageQuestions />} />
-          <Route path="/mypage/tags/:id" element={<MyPageTags />} />
-          <Route path="/mypage/edit/:id" element={<EditMyPage />} />
-          <Route path="/tagslist" element={<TagsList />} />
-        </Routes>
+      <Sidebar />
+      <Routes>
+        <Route path="/" element={<QuestionList />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login setIsLogin={setIsLogin} setUserInfo={setUserInfo}/>} />
+        <Route path="/question/ask" element={<CreateQuestion />} />
+        <Route path="/question/:id" element={<QuestionDetail />} />
+        <Route path="/question/edit/:id" element={<EditQuestion />} />
+        <Route path="/answer/edit/:id" element={<EditAnswer />} />
+        <Route path="/mypage/:id" element={<MyPage  isLogin={isLogin} profile={profile}/>} />
+        <Route path="/mypage/summary/:id" element={<MyPageSummary profile={profile}/>} />
+        <Route path="/mypage/answers/:id" element={<MyPageAnswers profile={profile}/>} />
+        <Route path="/mypage/questions/:id" element={<MyPageQuestions profile={profile}/>} />
+        <Route path="/mypage/tags/:id" element={<MyPageTags profile={profile}/>} />
+        <Route path="/mypage/edit/:id" element={<EditMyPage userInfo={userInfo} profile={profile} />} />
+        <Route path="/tagslist" element={<TagsList />} />
+      </Routes>
       </MainDiv>
       <Footer />
     </>
