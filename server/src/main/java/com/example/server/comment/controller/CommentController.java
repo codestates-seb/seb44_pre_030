@@ -41,7 +41,7 @@ public class CommentController {
         commentPatchDto.setId(commentId);
         Comment comment = commentService.updateComment(mapper.commentPatchDtoToComment(commentPatchDto));
 
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(comment, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{comment-id}")
