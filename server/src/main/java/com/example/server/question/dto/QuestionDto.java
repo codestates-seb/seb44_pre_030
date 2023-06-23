@@ -2,8 +2,7 @@ package com.example.server.question.dto;
 
 import com.example.server.answer.entity.Answer;
 import com.example.server.member.entity.Member;
-import com.example.server.question.entity.Question;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -62,7 +61,7 @@ public class QuestionDto {
     @AllArgsConstructor
     public static class DetailResponse{
         private long id;
-        private Member member;
+        private MemberDto member;
         private List<Answer> answers;
         private String title;
         private String content;

@@ -32,7 +32,7 @@ public class CommentController {
 
         URI location = UriCreator.createUri("/comments", comment.getId());
 //        Comment createdComment = commentService.findComment(comment.getId());
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).body(comment.getId());
     }
 
     @PatchMapping("/{comment-id}")
@@ -41,12 +41,12 @@ public class CommentController {
         commentPatchDto.setId(commentId);
         Comment comment = commentService.updateComment(mapper.commentPatchDtoToComment(commentPatchDto));
 
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(comment, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{comment-id}")
     public ResponseEntity cancelComment(@PathVariable("comment-id") @Positive long commentId) {
-        commentService.cancelComment(commentId);
+        commentService.deleteComment(commentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
