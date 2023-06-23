@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react';
 import axios from 'axios';
 import styled from 'styled-components'
-import {useParams,useNavigate} from 'react-router-dom'
+import {useParams,useNavigate,Link} from 'react-router-dom'
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState,ContentState } from "draft-js";
 import colorpalette from '../../styles/colorpalette';
@@ -53,7 +53,6 @@ const EditQuestionComponent  = () => {
              const contentState = ContentState.createFromText(questionContent.content);
              const initialState = EditorState.createWithContent(contentState);
             setEditorState(initialState);
-            // console.log(editorState.getCurrentContent().getPlainText())
         }
     },[questionContent])
 
@@ -94,7 +93,7 @@ const EditQuestionComponent  = () => {
                   </PostEditorTags>
                 <PostBtnWrpper>
                     <PostBtn className='saveBtn' onClick={handleEditContent}>Save edits</PostBtn>
-                    <PostBtn className='calcelBtn'>Cancel</PostBtn>
+                    <Link to={`/question/${params.id}`}><PostBtn className='calcelBtn'>Cancel</PostBtn></Link>
                 </PostBtnWrpper>
             </EditQuestionForm>
         </EditQuestionContainer>
