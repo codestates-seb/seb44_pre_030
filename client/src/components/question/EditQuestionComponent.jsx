@@ -201,6 +201,7 @@ const PostBtnWrpper = styled.div`
     } 
 `
 const PostBtn = styled.div`
+    cursor: pointer;
     margin-right: 10px;
     height: 38px;
     padding:10px;
