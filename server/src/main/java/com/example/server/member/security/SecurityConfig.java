@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.CustomAutowireConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -45,8 +46,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**").permitAll()
-                .antMatchers("/members/update/**").hasAuthority("ROLE_USER")
-                .antMatchers("/members/get/**").hasAuthority("ROLE_USER")
+                .antMatchers("/members/email").permitAll()
+                .antMatchers("/members/email/check").permitAll()
+                .antMatchers("/members/**").hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.POST, "/questions/**").hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.PATCH, "/questions/**").hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.DELETE, "/questions/**").hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.POST, "/answers/**").hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.PATCH, "/answers/**").hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.DELETE, "/answers/**").hasAuthority("ROLE_USER")
 //                .antMatchers("/**/create/**").hasAuthority("ROLE_USER")
                 .anyRequest().permitAll()
                 .and()
@@ -62,6 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .and()
                 .oauth2Login()
+//                .loginPage("/login")
+                .loginProcessingUrl("members/oauth-login")
                 .defaultSuccessUrl("/members/login-success")
                 .userInfoEndpoint()
                 .userService(customOauth2UserService);

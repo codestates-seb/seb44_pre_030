@@ -2,17 +2,17 @@ package com.example.server.member.controller;
 
 import com.example.server.member.dto.MemberPostDto;
 import com.example.server.member.dto.MemberSignupDto;
+import com.example.server.member.dto.maildto.RequestMailDto;
+import com.example.server.member.dto.maildto.ResponseMailDto;
 import com.example.server.member.entity.Member;
 import com.example.server.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Email;
 import java.io.IOException;
 
 @Slf4j
@@ -21,6 +21,20 @@ import java.io.IOException;
 @RequestMapping("/members")
 public class MemberController {
     private final MemberService memberService;
+
+    @PostMapping("/email")
+    ResponseEntity email(@RequestBody RequestMailDto dto){
+        memberService.authEmail(dto);
+
+        return new ResponseEntity(true, HttpStatus.OK);
+    }
+
+    @PostMapping("/email/check")
+    ResponseEntity emailCheck(@RequestBody ResponseMailDto dto){
+        boolean resposne = memberService.checkEmail(dto);
+
+        return new ResponseEntity(resposne, HttpStatus.OK);
+    }
 
     @GetMapping("/login-success")
     ResponseEntity success(){
@@ -47,6 +61,7 @@ public class MemberController {
     @PatchMapping("/{memberId}")
     ResponseEntity updateMember(@PathVariable("memberId") long memberId,
                           @RequestBody MemberPostDto dto){
+
         long response = memberService.update(memberId, dto);
 
         if(response == -1) return new ResponseEntity(response, HttpStatus.ACCEPTED);
