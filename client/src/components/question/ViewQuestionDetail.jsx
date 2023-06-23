@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { styled } from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { NumberForMatter } from '../../utils/NumberForMatter';
 import colorpalette from '../../styles/colorpalette';
 import AskQuestionBtn from './AskQuestionBtn';
+import axios from 'axios';
 import VoteGroup from '../vote/VoteGroup';
 import advertisementImg from '../../assets/questionDetail/advertisement.svg';
 import QuestionTag from './QuestionTag';
 import { ExtractingImage } from '../../utils/ExtractingImage';
+
 
 const ViewQuestionDetail = ({ question }) => {
   const tag = ['python', 'js'];
@@ -16,6 +18,17 @@ const ViewQuestionDetail = ({ question }) => {
     'https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon',
     'https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon',
   ];
+  const params = useParams();
+  const navigate = useNavigate();
+
+  const handleQuestionDelete = () => {
+    axios.delete(`/api/${params.id}`)
+      .then(res=>{
+        console.log(res);
+        navigate('/');
+      })
+      .catch(error=>console.log(error))
+  }
   return (
     <QuestionDetailContainer>
       <QuestionDetailHeader>
@@ -61,7 +74,7 @@ const ViewQuestionDetail = ({ question }) => {
           <QuestionEdit>
             <Link to={`/question/edit/${question.id}`}>Edit</Link>
 
-            <div>Delete</div>
+            <div onClick={handleQuestionDelete}>Delete</div>
           </QuestionEdit>
 
           <QuestionUserInfo>
