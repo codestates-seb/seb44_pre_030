@@ -20,21 +20,26 @@ const QuestionList = () => {
     { filterName: 'Score' },
   ];
 
-  const image_url = ['https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon','https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon','https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon'];
+  const image_url = [
+    'https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon',
+    'https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon',
+    'https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon',
+  ];
 
-  const tag = ['React','Java','JavaScript'];
+  const tag = ['React', 'Java', 'JavaScript'];
   useEffect(() => {
-    axios.get(`/api`,{
-      params: {
-        page: 1,
-        size: 15
-      }
-    })
-    .then(res => {
-       setQuestionList(res.data.data)
+    axios
+      .get(`/api`, {
+        params: {
+          page: 1,
+          size: 15,
+        },
+      })
+      .then(res => {
+        setQuestionList(res.data.data);
       })
       .catch(error => console.log(error));
-}, []);
+  }, []);
 
   const selectFilter = index => {
     setIndex(index);
@@ -69,7 +74,7 @@ const QuestionList = () => {
       </QuestionFilter>
       <ul>
         {questionList.map(list => {
-          console.log('list',NumberForMatter(list));
+          console.log('list', NumberForMatter(list));
           return (
             <li className="post" key={list.id}>
               <PostSummaryWrapper>
@@ -87,9 +92,7 @@ const QuestionList = () => {
               </PostSummaryWrapper>
               <PostContentWrapper>
                 <PostContentTitle>
-                  <Link
-                    to={`/question/${list.id}`}
-                  >
+                  <Link to={`/question/${list.id}`}>
                     <span>{list.title}</span>
                   </Link>
                 </PostContentTitle>
@@ -98,10 +101,7 @@ const QuestionList = () => {
                   <QuestionTag tagList={tag} />
                   <PostUserCard>
                     <img src={ExtractingImage(image_url)}></img>
-                    <Link
-                      className="UserName"
-                      to={`mypage/${list.member}`}
-                    >
+                    <Link className="UserName" to={`mypage/${list.member}`}>
                       {NumberForMatter(list.member)}
                     </Link>
                     <div>
