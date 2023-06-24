@@ -8,6 +8,7 @@ import VoteGroup from '../vote/VoteGroup';
 import advertisementImg from '../../assets/questionDetail/advertisement.svg';
 import QuestionTag from './QuestionTag';
 import { ExtractingImage } from '../../utils/ExtractingImage';
+import { DateForMatter } from '../../utils/DateForMatter';
 
 const ViewQuestionDetail = ({ question }) => {
   const tag = ['python', 'js'];
@@ -16,6 +17,7 @@ const ViewQuestionDetail = ({ question }) => {
     'https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon',
     'https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon',
   ];
+  console.log(question)
   return (
     <QuestionDetailContainer>
       <QuestionDetailHeader>
@@ -28,18 +30,16 @@ const ViewQuestionDetail = ({ question }) => {
         <QuestionInfoItem>
           <span>Asked</span>
           <time
-            dateTime={`${question.createdAt}`}
-          >{`${question.createdAt}`}</time>
+            dateTime={question.createdAt}
+          >{DateForMatter(question.createdAt)}</time>
         </QuestionInfoItem>
         <QuestionInfoItem>
           <span>Modified</span>
-          <span>{NumberForMatter(`${question.vote}`)}</span>
+          <time dateTime={question.modifiedAt}>{question.modifiedAt}</time>
         </QuestionInfoItem>
         <QuestionInfoItem>
           <span>Viewed</span>
-          <time
-            dateTime={`${question.modifiedAt}`}
-          >{`${question.modifiedAt}`}</time>
+          <span>times</span>
         </QuestionInfoItem>
       </QuestionInfo>
       <QuestionContent>
