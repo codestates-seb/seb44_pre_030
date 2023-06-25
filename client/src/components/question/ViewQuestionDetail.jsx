@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { styled } from 'styled-components';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { NumberForMatter } from '../../utils/NumberForMatter';
 import colorpalette from '../../styles/colorpalette';
 import AskQuestionBtn from './AskQuestionBtn';
@@ -11,28 +11,42 @@ import QuestionTag from './QuestionTag';
 import { ExtractingImage } from '../../utils/ExtractingImage';
 
 
-const ViewQuestionDetail = ({ question }) => {
+const ViewQuestionDetail = ({ qsId }) => {
+  const [questionDetail, setQuestionDetail] = useState([]);
   const tag = ['python', 'js'];
   const image_url = [
     'https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon',
     'https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon',
     'https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon',
   ];
-  const params = useParams();
   const navigate = useNavigate();
 
+  const getData = async () => {
+    try {
+      const response = await axios.get(`/api/questions/${qsId}`);
+      setQuestionDetail(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, [qsId]);
+
   const handleQuestionDelete = () => {
-    axios.delete(`/api/${params.id}`)
+    axios.delete(`/api/${qsId}`)
       .then(res=>{
         console.log(res);
         navigate('/');
       })
       .catch(error=>console.log(error))
   }
+
   return (
     <QuestionDetailContainer>
       <QuestionDetailHeader>
-        <h1>{question.title}</h1>
+        <h1>{questionDetail.title}</h1>
         <Link to={`/question/ask`}>
           <AskQuestionBtn />
         </Link>
@@ -41,18 +55,18 @@ const ViewQuestionDetail = ({ question }) => {
         <QuestionInfoItem>
           <span>Asked</span>
           <time
-            dateTime={`${question.createdAt}`}
-          >{`${question.createdAt}`}</time>
+            dateTime={`${questionDetail.createdAt}`}
+          >{`${questionDetail.createdAt}`}</time>
         </QuestionInfoItem>
         <QuestionInfoItem>
           <span>Modified</span>
-          <span>{NumberForMatter(`${question.vote}`)}</span>
+          <span>{NumberForMatter(`${questionDetail.vote}`)}</span>
         </QuestionInfoItem>
         <QuestionInfoItem>
           <span>Viewed</span>
           <time
-            dateTime={`${question.modifiedAt}`}
-          >{`${question.modifiedAt}`}</time>
+            dateTime={`${questionDetail.modifiedAt}`}
+          >{`${questionDetail.modifiedAt}`}</time>
         </QuestionInfoItem>
       </QuestionInfo>
       <QuestionContent>
@@ -64,7 +78,7 @@ const ViewQuestionDetail = ({ question }) => {
             <VoteGroup />
           </QuestionLayoutLeft>
           <QuestionLayouttRight>
-            {question.content}
+            {questionDetail.content}
             <QuestionTagLayout>
               <QuestionTag tagList={tag} />
             </QuestionTagLayout>
@@ -72,7 +86,7 @@ const ViewQuestionDetail = ({ question }) => {
         </QuestionLayout>
         <QuestionUserAuthority>
           <QuestionEdit>
-            <Link to={`/question/edit/${question.id}`}>Edit</Link>
+            <Link to={`/question/edit/${qsId}`}>Edit</Link>
 
             <div onClick={handleQuestionDelete}>Delete</div>
           </QuestionEdit>
@@ -81,9 +95,13 @@ const ViewQuestionDetail = ({ question }) => {
             <div>
               <img src={ExtractingImage(image_url)} />
             </div>
-            <div>
-              <Link className="userInfoName">'박채연'</Link>
-            </div>
+        
+            {questionDetail.member && (
+              <Link to={`mypage/${questionDetail.member.id}`} className="userInfoName">
+            {questionDetail.member.displayName}
+             </Link>
+              )}
+          
           </QuestionUserInfo>
         </QuestionUserAuthority>
       </QuestionContent>
@@ -157,7 +175,7 @@ const QuestionUserAuthority = styled.div`
   width: 724px;
   height: 79px;
 `;
-const QuestionEdit = styled.div`
+const QuestionEdit = styled.nav`
   display: flex;
   cursor: pointer;
   font-size: ${colorpalette.headerFontSize};

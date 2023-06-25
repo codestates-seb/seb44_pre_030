@@ -8,22 +8,11 @@ import Answer from '../components/answer/Answer';
 
 const QuestionDetail = () => {
 
-  const [questionDetail, setQuestionDetail] = useState([]);
   let params = useParams();
 
-  useEffect(() => {
-    axios
-      .get(`/api/questions/${params.id}`)
-      .then(res => {
-        if (res.data) {
-          setQuestionDetail(res.data);
-        }
-      })
-      .catch(error => console.log(error));
-  }, [params.id]);
   return (
     <QuestionDetailPageContainer>
-      <ViewQuestionDetail question={questionDetail} />
+      <ViewQuestionDetail qsId={params.id}/>
       <Answer qsId={params.id} />
       <WriteAnswer qsId={params.id} />
 
