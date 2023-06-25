@@ -7,8 +7,6 @@ const CommentUpdate = ({
   updateCommentContent,
   setUpdateCommentOn,
   setUpdataCommentContent,
-  answerId,
-  qsId,
 }) => {
   const handleUpdateContent = e => {
     setUpdataCommentContent(e.target.value);
