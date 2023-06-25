@@ -7,12 +7,18 @@ import { NumberForMatter } from '../../utils/NumberForMatter';
 import QuestionTag from './QuestionTag';
 import AskQuestionBtn from './AskQuestionBtn';
 import { ExtractingImage } from '../../utils/ExtractingImage';
+import Pagination from './Pagination';
 
 const QuestionList = () => {
   const [questions, setQuestions] = useState([]);
 
   const [index, setIndex] = useState(0);
   const [filter, setFilter] = useState('Newest');
+
+  const [totalElements,setTotalElements] = useState(0);
+  const [limit,setLimit] = useState(10);
+  const [page,setPage] = useState(1);
+  const offset = (page - 1) * limit;
 
   const buttonFilter = [
     { filterName: 'Newest' },
@@ -30,24 +36,24 @@ const QuestionList = () => {
   const getData = async () => {
     const response = await axios.get('/api/questions',
       {
-        params: {page:1,size:15}
+        params: {page:page,size:limit}
       });
       setQuestions(response.data.data);
-
-
+      setTotalElements(response.data.pageInfo.getTotalElements);
   }
   useEffect(() => {
     getData();
-  }, []);
+  }, [page]);
 
   const selectFilter = index => {
     setIndex(index);
   };
-
+if(questions){
+  console.log(totalElements);
+}
   return (
-    <>
-    
-      <QustionListContainer>
+    <QuestionListContainer>
+      <QustionList>
       <QuestionFilter>
         <div className="headContents">
           <h2>All Questions</h2>
@@ -74,7 +80,7 @@ const QuestionList = () => {
         </div>
       </QuestionFilter>
       <ul>
-        {questions.map(list => {
+        {questions.slice(offset,offset+limit).map(list => {
           return (
             <li className="post" key={list.id}>
               <PostSummaryWrapper>
@@ -117,12 +123,21 @@ const QuestionList = () => {
           );
         })}
       </ul>
-    </QustionListContainer>
-    </>
+    </QustionList>
+    <Pagination 
+      total={totalElements}
+      limit={limit}
+      page={page}
+      setPage={setPage}
+      />
+    </QuestionListContainer>
   );
 };
-
-const QustionListContainer = styled.main`
+const QuestionListContainer = styled.main`
+  display: flex;
+  flex-direction: column;
+`
+const QustionList = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;

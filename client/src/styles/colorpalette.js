@@ -60,6 +60,10 @@ const colorpalette = {
     questionEditSaveBtnHoverColor:'hsl(206,100%,40%)',
     questionEditCancelBtnHoverColor:'hsl(206,100%,97%)',
     questionEditCancelBtnFontColor:'hsl(206,100%,40%)',
+
+    paginationHoverBgColor:'hsl(210,8%,85%)',
+    paginationHoverBorderColor:'hsl(210,8%,75%)'
+    
 }
 
 export default colorpalette;
