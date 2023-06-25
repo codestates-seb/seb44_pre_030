@@ -6,17 +6,15 @@ import VoteGroup from '../vote/VoteGroup';
 import AnsComment from '../comment/AnsComment';
 import { displayAt } from '../../utils/daycalcFormatter';
 
-
 const Answer = ({ qsId }) => {
   const User_id = localStorage.getItem('User_id');
   const [answerList, setAnswerList] = useState([]);
   const [answerFilter, setAnswerFilter] = useState('score');
   useEffect(() => {
     axios
-      .get(`/api/question/${qsId}`)
+      .get(`/api/questions/${qsId}`)
       .then(res => {
         const answers = res.data.answers;
-        console.log('answers', answers);
         if (answers) {
           setAnswerList(answers);
         }
@@ -25,8 +23,6 @@ const Answer = ({ qsId }) => {
         console.log(error);
       });
   }, [qsId]);
-  // console.log('answerList', answerList);
-
 
   const deleteAnswer = asId => {
     console.log(asId);
