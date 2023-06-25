@@ -13,7 +13,7 @@ const QuestionDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/question/${params.id}`)
+      .get(`/api/questions/${params.id}`)
       .then(res => {
         if (res.data) {
           setQuestionDetail(res.data);
