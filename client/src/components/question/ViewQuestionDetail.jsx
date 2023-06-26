@@ -24,7 +24,7 @@ const ViewQuestionDetail = ({ qsId }) => {
 
   const getData = async () => {
     try {
-      const response = await axios.get(`/api/questions/${qsId}`);
+      const response = await axios.get(`/api/questions/${qsId}/1`);
       setQuestionDetail(response.data);
     } catch (error) {
       console.log(error);
