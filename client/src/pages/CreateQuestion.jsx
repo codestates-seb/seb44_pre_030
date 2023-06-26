@@ -6,7 +6,7 @@ import colorpalette from '../styles/colorpalette';
 const CreateQuestion = ({isId}) => {
   return (
     <CreateQuestionPage>
-      <WriteQestion isId={isId}/>
+      <WriteQestion isId={isId} />
     </CreateQuestionPage>
   );
 };

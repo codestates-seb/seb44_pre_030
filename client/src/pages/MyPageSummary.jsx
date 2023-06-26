@@ -2,10 +2,10 @@ import React from 'react';
 import MypageHeader from '../components/mypageheader/MypageHeader';
 import MypageSidebar from '../components/mypagesidebar/MypageSidebar';
 
-const MyPageSummary = ({profile}) => {
+const MyPageSummary = ({profile, location, title}) => {
   return (
     <div>
-   <MypageHeader profile={profile}></MypageHeader>
+   <MypageHeader profile={profile} location={location} title={title}></MypageHeader>
    <MypageSidebar></MypageSidebar>
    </div>
   );

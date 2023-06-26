@@ -5,10 +5,10 @@ import MypageTagsContent from '../components/mypagetagscontent/MypageTagsContent
 import styled from 'styled-components';
 
 
-const MyPageTags = () => {
+const MyPageTags = ({profile, location, title}) => {
   return(
     <div>
-    <MypageHeader></MypageHeader>
+    <MypageHeader profile={profile} location={location} title={title}></MypageHeader>
     <FlexBox>
     <MypageSidebar></MypageSidebar>
     <MypageTagsContent></MypageTagsContent>

@@ -43,6 +43,7 @@ const WriteQestion = ({isId}) => {
   const [editorError, setEditorError] = useState(false);
   const navigate = useNavigate();
 
+
   const handleEditorStateChange = newEditorState => {
     setEditorState(newEditorState);
   };
@@ -65,7 +66,7 @@ const WriteQestion = ({isId}) => {
           content: plainText,
           title: titleValue,
           member:{
-            id:isId
+            id:10
           }
         })
         .then(res => {
