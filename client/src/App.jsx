@@ -33,6 +33,8 @@ function App() {
   const [location, setLocation] = useState(null);
   const [title, setTitle] = useState(null);
 
+  const [inputText,setInputText] = useState('');
+  const [enterState,setEnterState] = useState(false);
   useEffect(() => {
     if(userInfo){
     setProfile(userInfo.data.displayName);
@@ -57,15 +59,15 @@ function App() {
 
   return (
     <>
-      <Header isLogin={isLogin} setIsLogin={setIsLogin}/>
+      <Header isLogin={isLogin} setIsLogin={setIsLogin} setInputText={setInputText} setEnterState={setEnterState}/>
       <MainDiv>
       <Sidebar />
       <Routes>
-        <Route path="/" element={<QuestionList />} />
+        <Route path="/" element={<QuestionList inputText={inputText} enterState={enterState} setEnterState={setEnterState}/>} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login setIsLogin={setIsLogin} setUserInfo={setUserInfo}/>} />
-        <Route path="/question/ask" element={<CreateQuestion />} />
-        <Route path="/question/:id" element={<QuestionDetail isId={isId} />} />
+        <Route path="/question/ask" element={<CreateQuestion isId={isId}/>} />
+        <Route path="/question/:id" element={<QuestionDetail />} />
         <Route path="/question/edit/:id" element={<EditQuestion />} />
         <Route path="/answer/edit/:id" element={<EditAnswer />} />
         <Route path="/mypage/:id" element={<MyPage setIsLogin={setIsLogin} isLogin={isLogin} profile={profile} location={location} title={title}/>} />

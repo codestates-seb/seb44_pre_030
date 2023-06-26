@@ -7,12 +7,19 @@ import { NumberForMatter } from '../../utils/NumberForMatter';
 import QuestionTag from './QuestionTag';
 import AskQuestionBtn from './AskQuestionBtn';
 import { ExtractingImage } from '../../utils/ExtractingImage';
+import Pagination from './Pagination';
 
-const QuestionList = () => {
-  const [questionList, setQuestionList] = useState([]);
+const QuestionList = ({inputText,enterState,setEnterState}) => {
+  const [questions, setQuestions] = useState([]);
 
   const [index, setIndex] = useState(0);
   const [filter, setFilter] = useState('Newest');
+
+  const [totalElements,setTotalElements] = useState(0);
+  const [limit,setLimit] = useState(10);
+  const [page,setPage] = useState(1);
+
+  const [printData,setPrintData] = useState([]);
 
   const buttonFilter = [
     { filterName: 'Newest' },
@@ -20,37 +27,60 @@ const QuestionList = () => {
     { filterName: 'Score' },
   ];
 
-  const image_url = ['https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon','https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon','https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon'];
+  const image_url = [
+    'https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon',
+    'https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon',
+    'https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon',
+  ];
 
-  const tag = ['React','Java','JavaScript'];
-  useEffect(() => {
-    axios.get(`/api`,{
-      params: {
-        page: 1,
-        size: 15
-      }
-    })
-    .then(res => {
-       setQuestionList(res.data.data)
-      })
-      .catch(error => console.log(error));
-}, []);
+  const tag = ['React', 'Java', 'JavaScript'];
+  const getData = async () => {
+    const response = await axios.get('/api/questions',
+      {
+        params: {page:page,size:limit}
+      });
+      setQuestions(response.data.data);
+      setPrintData(response.data.data);
+      setTotalElements(response.data.pageInfo.getTotalElements);
+  }
 
   const selectFilter = index => {
     setIndex(index);
   };
 
+  useEffect(() => {
+    getData();
+  }, [page]);
+
+  useEffect(()=>{
+    if(enterState){
+      const setTotalData = questions;
+      const data = setTotalData.filter(list=>list.title.includes(inputText));
+      setPrintData(data);
+    }
+    else{
+      if(questions){
+        setPrintData(questions);
+      }
+    }
+  },[enterState])
+
+  useEffect(() => {
+    setEnterState(false);
+  }, [inputText]);
+
   return (
-    <QustionListContainer>
-      <QuestionFilter>
-        <div className="headContents">
-          <h2>All Questions</h2>
+    <QuestionListContainer>
+      <QustionList>
+        <QuestionFilter>
+          <div className="headContents">
+            <h2>All Questions</h2>
           <Link to={'/question/ask'}>
             <AskQuestionBtn />
           </Link>
         </div>
         <div className="headContents flex-column">
-          <span>{`${NumberForMatter(questionList.length)} questions`}</span>
+          <span>{ totalElements && `${NumberForMatter(totalElements)} questions`}</span>
           <aside className="subFilterBtn">
             {buttonFilter.map((fil, idx) => (
               <button
@@ -68,8 +98,7 @@ const QuestionList = () => {
         </div>
       </QuestionFilter>
       <ul>
-        {questionList.map(list => {
-          console.log('list',NumberForMatter(list));
+        {printData.map(list => {
           return (
             <li className="post" key={list.id}>
               <PostSummaryWrapper>
@@ -79,7 +108,7 @@ const QuestionList = () => {
                   )} votes`}</span>
                 </PostSummaryStatsItem>
                 <PostSummaryStatsItem>
-                  <span>{`${NumberForMatter(list.answer_count)} answers`}</span>
+                  <span>{`${NumberForMatter(0)} answers`}</span>
                 </PostSummaryStatsItem>
                 <PostSummaryStatsItem>
                   <span>{`${NumberForMatter(list.view)} views`}</span>
@@ -87,9 +116,7 @@ const QuestionList = () => {
               </PostSummaryWrapper>
               <PostContentWrapper>
                 <PostContentTitle>
-                  <Link
-                    to={`/question/${list.id}`}
-                  >
+                  <Link to={`/question/${list.id}`}>
                     <span>{list.title}</span>
                   </Link>
                 </PostContentTitle>
@@ -98,15 +125,12 @@ const QuestionList = () => {
                   <QuestionTag tagList={tag} />
                   <PostUserCard>
                     <img src={ExtractingImage(image_url)}></img>
-                    <Link
-                      className="UserName"
-                      to={`mypage/${list.member}`}
-                    >
-                      {NumberForMatter(list.member)}
+                    <Link className="UserName" to={`mypage/${list.member.id}`}>
+                      {list.member.displayName}
                     </Link>
                     <div>
                       <span className="userCardAnswerCount">
-                        {NumberForMatter(list.answer_count)}
+                        {NumberForMatter(0)}
                       </span>
                       <span>asked</span>
                     </div>
@@ -117,11 +141,21 @@ const QuestionList = () => {
           );
         })}
       </ul>
-    </QustionListContainer>
+    </QustionList>
+    <Pagination 
+      total={totalElements}
+      limit={limit}
+      page={page}
+      setPage={setPage}
+      />
+    </QuestionListContainer>
   );
 };
-
-const QustionListContainer = styled.main`
+const QuestionListContainer = styled.main`
+  display: flex;
+  flex-direction: column;
+`
+const QustionList = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;

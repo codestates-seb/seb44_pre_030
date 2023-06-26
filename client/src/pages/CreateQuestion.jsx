@@ -3,10 +3,10 @@ import { styled } from 'styled-components';
 import WriteQestion from '../components/question/WriteQestion';
 import colorpalette from '../styles/colorpalette';
 
-const CreateQuestion = () => {
+const CreateQuestion = ({isId}) => {
   return (
     <CreateQuestionPage>
-      <WriteQestion />
+      <WriteQestion isId={isId} />
     </CreateQuestionPage>
   );
 };
