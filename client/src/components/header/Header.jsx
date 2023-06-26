@@ -12,7 +12,7 @@ const SecondChildData = ['About','Products','For Teams'];
 const ThirdChildData = ['Log in','Sign up','Mypage','Log out'];
 
 
-const Header = ({isLogin, setIsLogin,setInputText}) => {
+const Header = ({isLogin, setIsLogin,setInputText,setEnterState}) => {
 
 
   const handleLogout = () => {
@@ -20,6 +20,8 @@ const Header = ({isLogin, setIsLogin,setInputText}) => {
     };
   const handleSearchQuestion = (e) => {
     setInputText(e.target.value);
+    setEnterState(true);
+    console.log('엔터');
   }
   const handleOnKeyDown = (e) => {
     if(e.key === 'Enter'){

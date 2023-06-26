@@ -9,7 +9,7 @@ import AskQuestionBtn from './AskQuestionBtn';
 import { ExtractingImage } from '../../utils/ExtractingImage';
 import Pagination from './Pagination';
 
-const QuestionList = ({inputText}) => {
+const QuestionList = ({inputText,enterState,setEnterState}) => {
   const [questions, setQuestions] = useState([]);
 
   const [index, setIndex] = useState(0);
@@ -18,6 +18,8 @@ const QuestionList = ({inputText}) => {
   const [totalElements,setTotalElements] = useState(0);
   const [limit,setLimit] = useState(10);
   const [page,setPage] = useState(1);
+
+  const [printData,setPrintData] = useState([]);
 
   const buttonFilter = [
     { filterName: 'Newest' },
@@ -38,28 +40,48 @@ const QuestionList = ({inputText}) => {
         params: {page:page,size:limit}
       });
       setQuestions(response.data.data);
+      setPrintData(response.data.data);
       setTotalElements(response.data.pageInfo.getTotalElements);
   }
-  useEffect(() => {
-    getData();
-  }, [page]);
 
   const selectFilter = index => {
     setIndex(index);
   };
-  console.log(inputText);
+  
+  useEffect(() => {
+    getData();
+  }, [page]);
+
+  useEffect(()=>{
+    if(enterState){
+      const setTotalData = questions;
+      const data = setTotalData.filter(list=>list.title.includes(inputText));
+      setPrintData(data);
+    }
+    else{
+      if(questions){
+        setPrintData(questions);
+      }
+    }
+  },[enterState])
+
+  useEffect(() => {
+    setEnterState(false);
+  }, [inputText]);
+
+
   return (
     <QuestionListContainer>
       <QustionList>
-      <QuestionFilter>
-        <div className="headContents">
-          <h2>All Questions</h2>
+        <QuestionFilter>
+          <div className="headContents">
+            <h2>All Questions</h2>
           <Link to={'/question/ask'}>
             <AskQuestionBtn />
           </Link>
         </div>
         <div className="headContents flex-column">
-          <span>{questions && `${NumberForMatter(questions.length)} questions`}</span>
+          <span>{printData && `${NumberForMatter(printData.length)} questions`}</span>
           <aside className="subFilterBtn">
             {buttonFilter.map((fil, idx) => (
               <button
@@ -77,7 +99,7 @@ const QuestionList = ({inputText}) => {
         </div>
       </QuestionFilter>
       <ul>
-        {questions.map(list => {
+        {printData.map(list => {
           return (
             <li className="post" key={list.id}>
               <PostSummaryWrapper>
