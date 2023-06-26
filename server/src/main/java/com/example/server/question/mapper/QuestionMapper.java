@@ -39,6 +39,7 @@ public interface QuestionMapper {
                 .content(question.getContent())
                 .view(question.getView())
                 .vote(question.getVote())
+                .selectedAnswerId(question.getSelectedAnswerId())
                 .createdAt(question.getCreatedAt())
                 .modifiedAt(question.getModifiedAt())
                 .build();
@@ -52,7 +53,7 @@ public interface QuestionMapper {
         return response;
     }
 
-    // List Question Respon
+    // List Question Response
     QuestionDto.DetailResponse EntityToDetailResponse(Question question);
     List<QuestionDto.Response> ListEntityToListResponse(List<Question> questionList);
 }
