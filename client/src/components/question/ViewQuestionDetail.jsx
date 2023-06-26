@@ -65,15 +65,15 @@ const ViewQuestionDetail = ({ qsId }) => {
         </QuestionInfoItem>
         <QuestionInfoItem>
           <span>Modified</span>
-          <span>{NumberForMatter(`${questionDetail.vote}`)}</span>
-        </QuestionInfoItem>
-        <QuestionInfoItem>
-          <span>Viewed</span>
           <time
             dateTime={`${questionDetail.modifiedAt}`}
           >
             {DateForMatter(questionDetail.modifiedAt)}
           </time>
+        </QuestionInfoItem>
+        <QuestionInfoItem>
+          <span>Viewed</span>
+          <span>{NumberForMatter(`${questionDetail.vote}`)}</span>
         </QuestionInfoItem>
       </QuestionInfo>
       <QuestionContent>
