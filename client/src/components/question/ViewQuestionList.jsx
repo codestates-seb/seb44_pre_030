@@ -18,7 +18,6 @@ const QuestionList = () => {
   const [totalElements,setTotalElements] = useState(0);
   const [limit,setLimit] = useState(10);
   const [page,setPage] = useState(1);
-  const offset = (page - 1) * limit;
 
   const buttonFilter = [
     { filterName: 'Newest' },
@@ -48,11 +47,7 @@ const QuestionList = () => {
   const selectFilter = index => {
     setIndex(index);
   };
-if(questions){
-  // console.log(totalElements);
-  console.log('page',page);
-  console.log(questions)
-}
+
   return (
     <QuestionListContainer>
       <QustionList>
