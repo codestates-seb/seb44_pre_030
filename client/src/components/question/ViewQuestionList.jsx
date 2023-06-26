@@ -108,7 +108,7 @@ const QuestionList = ({inputText,enterState,setEnterState}) => {
                   )} votes`}</span>
                 </PostSummaryStatsItem>
                 <PostSummaryStatsItem>
-                  <span>{`${NumberForMatter(0)} answers`}</span>
+                  <span>{`${NumberForMatter(list.answerCount)} answers`}</span>
                 </PostSummaryStatsItem>
                 <PostSummaryStatsItem>
                   <span>{`${NumberForMatter(list.view)} views`}</span>
@@ -130,7 +130,7 @@ const QuestionList = ({inputText,enterState,setEnterState}) => {
                     </Link>
                     <div>
                       <span className="userCardAnswerCount">
-                        {NumberForMatter(0)}
+                        {NumberForMatter(list.answerCount)}
                       </span>
                       <span>asked</span>
                     </div>
