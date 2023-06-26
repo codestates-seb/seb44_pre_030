@@ -39,6 +39,7 @@ const ViewQuestionDetail = ({ qsId, isLogin }) => {
   const handleUserNameClick = (data) =>{
     navigate(`/mypage/${data.id}`);
   }
+
   const handleQuestionDelete = () => {
     axios.delete(`/api/${qsId}`)
       .then(res=>{
@@ -52,9 +53,7 @@ const ViewQuestionDetail = ({ qsId, isLogin }) => {
     <QuestionDetailContainer>
       <QuestionDetailHeader>
         <h1>{questionDetail.title}</h1>
-        <Link to={`/question/ask`}>
-          <AskQuestionBtn />
-        </Link>
+          <AskQuestionBtn isLogin={isLogin}/>
       </QuestionDetailHeader>
       <QuestionInfo>
         <QuestionInfoItem>
