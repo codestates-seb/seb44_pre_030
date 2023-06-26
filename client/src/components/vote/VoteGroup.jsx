@@ -7,16 +7,29 @@ import {
 } from 'react-icons/bs';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { styled } from 'styled-components';
+import axios from 'axios';
 
-const VoteGroup = ({ answerVoteCount }) => {
+const VoteGroup = ({ answerVoteCount, answerId }) => {
   const [selection, setSelection] = useState(false);
   const [count, setCount] = useState(answerVoteCount);
 
-  const countUpHandler = () => {
-    setCount(prevCount => prevCount + 1);
+  const countUpHandler = async () => {
+    await setCount(prevCount => prevCount + 1);
+    await axios
+      .patch(`/api/answers/${answerId}`, {
+        vote: count + 1,
+      })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   };
-  const countDownHandler = () => {
-    setCount(prevCount => prevCount - 1);
+  const countDownHandler = async () => {
+    await setCount(prevCount => prevCount - 1);
+    await axios
+      .patch(`/api/answers/${answerId}`, {
+        vote: count - 1,
+      })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   };
 
   return (
