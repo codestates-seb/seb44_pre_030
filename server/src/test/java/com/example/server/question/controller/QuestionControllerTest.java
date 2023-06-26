@@ -108,7 +108,7 @@ public class QuestionControllerTest implements QuestionControllerHelper, TestHel
 
         URI uri = getResoueceUri(question.getId());
 
-        given(questionService.findQuestion(Mockito.anyLong())).willReturn(new Question());
+        given(questionService.findQuestion(Mockito.anyLong(),Mockito.anyLong())).willReturn(new Question());
         given(questionMapper.EntityToResponse(Mockito.any(Question.class))).willReturn(response);
 
         resultActions = mockMvc.perform(getBuilder(uri));

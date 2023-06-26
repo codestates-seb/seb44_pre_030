@@ -46,6 +46,8 @@ public class MemberService {
                 .displayName(dto.getDisplayName())
                 .role(Member.MemberRole.USER)
                 .createdAt(LocalDateTime.now())
+                .VerifiedLike(false) // 추가사항
+                .VerifiedView(false) // 추가사항
                 .build();
 
         Member saveMember = memberJpaRepository.save(member);

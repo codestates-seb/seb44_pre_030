@@ -13,5 +13,4 @@ public class MemberDto {
     private String displayName;
     private String email;
     private Member.MemberRole role;
-
 }

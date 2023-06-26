@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface ServiceHelper extends ServiceConfigureHelper{
-
     Question createQuestion(Question question);
     Question updateQuestion(Question question);
-    Question findQuestion(long QuestionId);
+    Question findQuestion(long QuestionId,long memberId);
     Page<Question> ListOfFindQuestion(int page, int size);
     void deleteQuestion(long QuestionId);
+
 
 }

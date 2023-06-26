@@ -41,5 +41,5 @@ public class Answer {
 
     Long vote;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    LocalDateTime createdAt = LocalDateTime.now();;
+    LocalDateTime createdAt;
 }
