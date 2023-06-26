@@ -36,7 +36,7 @@ const EditQuestionComponent  = () => {
         .chatch(error=>console.log(error))
     }
     useEffect(()=>{
-        axios.get(`/api/questions/${params.id}`)
+        axios.get(`/api/questions/${params.id}/1`)
         .then(res=>{
             if(res.data){
               setQuestionContent(res.data)
