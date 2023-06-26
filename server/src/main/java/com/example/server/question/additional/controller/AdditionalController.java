@@ -1,10 +1,11 @@
-package com.example.server.question.like.controller;
+package com.example.server.question.additional.controller;
 
+import com.example.server.question.additional.service.AdditionalService;
 import com.example.server.question.entity.Question;
 import com.example.server.question.mapper.QuestionMapper;
-import com.example.server.question.service.QuestionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,30 +15,35 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.Positive;
 
 @RestController
+@Transactional
 @Validated
 @RequestMapping("/questions")
-public class additionalController {
+public class AdditionalController {
 
-    final private QuestionService questionService;
-    final private QuestionMapper questionMapper;
+    private final AdditionalService additionalService;
+    private final QuestionMapper questionMapper;
 
-    public additionalController(QuestionService questionService, QuestionMapper questionMapper) {
-        this.questionService = questionService;
+    public AdditionalController(AdditionalService additionalService, QuestionMapper questionMapper) {
+        this.additionalService = additionalService;
         this.questionMapper = questionMapper;
     }
 
-    @PatchMapping("/like/{question-id}")
-    public ResponseEntity likeApi(@Positive @PathVariable("question-id") long questionId){
+    @PatchMapping("/like/{question-id}/{member-id}")
+    public ResponseEntity likeApi(@Positive @PathVariable("question-id") long questionId,
+                                  @Positive @PathVariable("member-id") long memberId){
 
-        Question question = questionService.countLike(questionId);
+        Question question = additionalService.countLike(questionId,memberId);
 
         return new ResponseEntity(questionMapper.EntityToResponse(question), HttpStatus.OK);
     }
 
     @PatchMapping("/unlike/{question-id}/{member-id}")
-    public ResponseEntity unlikeApi(){
+    public ResponseEntity unlikeApi(@Positive @PathVariable("question-id") long questionId,
+                                    @Positive @PathVariable("member-id") long memberId){
 
-        return null;
+        Question question = additionalService.unCountLike(questionId,memberId);
+
+        return new ResponseEntity(questionMapper.EntityToResponse(question), HttpStatus.OK);
     }
 
 }

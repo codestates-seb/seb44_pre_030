@@ -12,4 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface QuestionRepository extends JpaRepository<Question,Long> {
+
+    @Query("SELECT COUNT(a) FROM Answer a JOIN a.question q WHERE q = :question")
+    long countAnswersByQuestion(@Param("question") Question question);
 }

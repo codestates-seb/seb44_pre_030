@@ -1,8 +1,5 @@
 package com.example.server.question.mapper;
 
-import com.example.server.answer.entity.Answer;
-import com.example.server.question.dto.QuestionDto.DetailResponse;
-import com.example.server.question.dto.QuestionDto.DetailResponse.DetailResponseBuilder;
 import com.example.server.question.dto.QuestionDto.Patch;
 import com.example.server.question.dto.QuestionDto.Post;
 import com.example.server.question.dto.QuestionDto.Response;
@@ -15,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-06-22T16:40:30+0900",
+    date = "2023-06-26T14:11:42+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
@@ -54,32 +51,6 @@ public class QuestionMapperImpl implements QuestionMapper {
         question.modifiedAt( patch.getModifiedAt() );
 
         return question.build();
-    }
-
-    @Override
-    public DetailResponse EntityToDetailResponse(Question question) {
-        if ( question == null ) {
-            return null;
-        }
-
-        DetailResponseBuilder detailResponse = DetailResponse.builder();
-
-        if ( question.getId() != null ) {
-            detailResponse.id( question.getId() );
-        }
-        detailResponse.member( question.getMember() );
-        List<Answer> list = question.getAnswers();
-        if ( list != null ) {
-            detailResponse.answers( new ArrayList<Answer>( list ) );
-        }
-        detailResponse.title( question.getTitle() );
-        detailResponse.content( question.getContent() );
-        detailResponse.view( question.getView() );
-        detailResponse.vote( question.getVote() );
-        detailResponse.createdAt( question.getCreatedAt() );
-        detailResponse.modifiedAt( question.getModifiedAt() );
-
-        return detailResponse.build();
     }
 
     @Override

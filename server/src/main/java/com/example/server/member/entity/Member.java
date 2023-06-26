@@ -60,6 +60,11 @@ public class Member implements UserDetails {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     LocalDateTime lastLogin;
 
+    // 추가사항
+    boolean VerifiedLike; // Setting : false 좋이요를 누를 경우 true 아닐 경우 false
+
+    boolean VerifiedView; // Setting : false
+
     @Getter
     public enum MemberRole{
         USER("ROLE_USER"),

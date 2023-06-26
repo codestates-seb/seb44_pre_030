@@ -8,8 +8,6 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface ServiceConfigureHelper {
-
-    // Configure
     default Question postQuestion(Question question){
 
         if(question == null){
@@ -27,11 +25,11 @@ public interface ServiceConfigureHelper {
                 .content(question.getContent())
                 .view(0L)
                 .vote(0L)
+                .answerCount(0L)
                 .createdAt(LocalDateTime.now())
                 .modifiedAt(LocalDateTime.now())
                 .build();
     }
-
     default Question patchQuestion(Question question,Question result){
 
         Optional.ofNullable(question.getTitle())
@@ -42,9 +40,17 @@ public interface ServiceConfigureHelper {
                 .ifPresent(result::setView);
         Optional.ofNullable(question.getVote())
                 .ifPresent(result::setVote);
+        Optional.ofNullable(question.getAnswerCount())
+                .ifPresent(result::setAnswerCount);
 
         result.setModifiedAt(LocalDateTime.now());
 
         return result;
+    }
+    default void PlusView(Member member,Question question){
+        if(!member.isVerifiedView()){
+            member.setVerifiedView(true);
+            question.setView(question.getView() + 1);
+        }
     }
 }
