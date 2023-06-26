@@ -9,6 +9,7 @@ import VoteGroup from '../vote/VoteGroup';
 import advertisementImg from '../../assets/questionDetail/advertisement.svg';
 import QuestionTag from './QuestionTag';
 import { ExtractingImage } from '../../utils/ExtractingImage';
+import { DateForMatter } from '../../utils/DateForMatter';
 
 
 const ViewQuestionDetail = ({ qsId }) => {
@@ -34,6 +35,7 @@ const ViewQuestionDetail = ({ qsId }) => {
     getData();
   }, [qsId]);
 
+
   const handleQuestionDelete = () => {
     axios.delete(`/api/${qsId}`)
       .then(res=>{
@@ -56,7 +58,7 @@ const ViewQuestionDetail = ({ qsId }) => {
           <span>Asked</span>
           <time
             dateTime={`${questionDetail.createdAt}`}
-          >{`${questionDetail.createdAt}`}</time>
+          >{DateForMatter(questionDetail.createdAt)}</time>
         </QuestionInfoItem>
         <QuestionInfoItem>
           <span>Modified</span>
@@ -66,7 +68,9 @@ const ViewQuestionDetail = ({ qsId }) => {
           <span>Viewed</span>
           <time
             dateTime={`${questionDetail.modifiedAt}`}
-          >{`${questionDetail.modifiedAt}`}</time>
+          >
+            {DateForMatter(questionDetail.modifiedAt)}
+          </time>
         </QuestionInfoItem>
       </QuestionInfo>
       <QuestionContent>
