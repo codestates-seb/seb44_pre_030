@@ -1,4 +1,4 @@
-package com.example.server.question.mapper;
+gipackage com.example.server.question.mapper;
 
 import com.example.server.answer.entity.Answer;
 import com.example.server.comment.entity.Comment;
@@ -105,6 +105,7 @@ public interface QuestionMapper {
                 .view(question.getView())
                 .vote(question.getVote())
                 .answerCount(question.getAnswerCount())
+                .selectedAnswerId(question.getSelectedAnswerId())
                 .createdAt(question.getCreatedAt())
                 .modifiedAt(question.getModifiedAt())
                 .build();
