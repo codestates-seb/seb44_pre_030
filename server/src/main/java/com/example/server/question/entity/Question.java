@@ -34,18 +34,11 @@ public class Question {
     @Column(nullable = false, length = 100)
     private String title;
     @Column(nullable = false, length = 1000)
-<<<<<<< HEAD
     private String content;
     private Long view;
     private Long vote;
     private Long answerCount;
-=======
-    private String content; // 글 내용
-
-    private Long view; // 조회수 -> EndPoint 요청에 응답했을 시 (* 보류사항 : 쿠키사용 가능 시 1회원 당 1뷰 로직 작성)
-    private Long vote; // 좋아요 수
     private Long selectedAnswerId; // 채택된 답변의 id
->>>>>>> d8869a509edfabde6a5c0280fad2cab6b02b4f1b
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime createdAt;
