@@ -19,17 +19,19 @@ const LoginBox = ({setIsLogin, setUserInfo}) => {
       return;
     } else {
       axios
-      .post('http://localhost:1337/api/auth/local', {
-        identifier: email,
-        password: password,
+      .post(`http://43.201.232.213:8080/members/login?username=${email}&password=${password}`,{
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+          value : true,
+        },
       })
       .then(response => {
         // Handle success.
         setIsLogin(true);
         console.log('Login successful!');
-        console.log("isLogin");
-        console.log('post'+response.data)
-        var idValue = response.data.user.id
+        console.log("post");
+        console.log(response);
+        var idValue = response.data
         getUserInfo(idValue);
       })
       .catch(error => {
@@ -41,11 +43,11 @@ const LoginBox = ({setIsLogin, setUserInfo}) => {
 
 const getUserInfo =(idValue) => {
   axios
-  .get(`http://localhost:1337/api/stacks/${idValue}`)
+  .get(`http://43.201.232.213:8080/members/${idValue}`)
       .then(response => {
         // Handle success.
         console.log('get successful!');
-        setUserInfo(response.data)
+        setUserInfo(response)
         replace("/");
       })
       .catch(error => {
@@ -63,7 +65,7 @@ const getUserInfo =(idValue) => {
         </Link>
         </LogImgbox>
         <OauthBtn>
-        <GoogleOAuthProvider clientId="668048382423-t9ksgi5lv9urphnrv4dm428gc01bh32o.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId='668048382423-t9ksgi5lv9urphnrv4dm428gc01bh32o.apps.googleusercontent.com'>
         <GoogleLogin width={250}
         onSuccess={(credentailRespones)=> {
           console.log(credentailRespones);
@@ -77,11 +79,11 @@ const getUserInfo =(idValue) => {
       </OauthBtn>
         <InputContainer>
           <SmallContainer>
-          <TextBox For="Email">Email</TextBox>
+          <TextBox htmlFor="Email">Email</TextBox>
           <InputBox id="Email" value={email} onChange={(event) => setEmail(event.target.value)}></InputBox>
           </SmallContainer>
           <SmallContainer>
-          <TextBox For="Password">Password</TextBox>
+          <TextBox htmlFor="Password">Password</TextBox>
           <InputBox id="Password" type="password"  value={password} onChange={(event) => setPassword(event.target.value)}></InputBox>
           </SmallContainer>
           <LoginBtn onClick={checkUser}>Log in</LoginBtn>

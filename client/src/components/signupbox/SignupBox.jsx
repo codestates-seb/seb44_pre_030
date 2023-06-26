@@ -34,8 +34,7 @@ const SignupBox = () => {
      return false;
     }else {
       axios
-      .post("http://localhost:1337/api/auth/local/register", {
-        username: email,
+      .post("http://43.201.232.213:8080/members", {
         email: email,
         password: password,
         displayName: displayName,
@@ -43,7 +42,9 @@ const SignupBox = () => {
       .then(response => {
         // Handle success.
         console.log('Well done!');
-        console.log('User profile', response.data.user);
+        console.log('User profile', response);
+        alert("가입이 완료되었습니디.")
+        replace("/login")
       })
       .catch(error => {
         // Handle error.
@@ -55,7 +56,7 @@ const SignupBox = () => {
     return (
       <AllContainer>
         <OauthBtn>
-        <GoogleOAuthProvider clientId="668048382423-t9ksgi5lv9urphnrv4dm428gc01bh32o.apps.googleusercontent.com">
+        <GoogleOAuthProvider >
         <GoogleLogin width={250}
         onSuccess={(credentailRespones)=> {
           console.log(credentailRespones);
@@ -69,15 +70,15 @@ const SignupBox = () => {
       </OauthBtn>
         <InputContainer>
           <SmallContainer>
-          <TextBox For="DisplayName">Display name</TextBox>
+          <TextBox htmlFor="DisplayName">Display name</TextBox>
           <InputBox id="DisplayName" value={displayName} onChange={(event) => {setDisplayName(event.target.value)}}></InputBox>
           </SmallContainer>
           <SmallContainer>
-          <TextBox For="Email">Email</TextBox>
+          <TextBox htmlFor="Email">Email</TextBox>
           <InputBox id="Email" value={email} onChange={(event) => {setEmail(event.target.value)}}></InputBox>
           </SmallContainer>
           <SmallContainer>
-          <TextBox For="Password">Password</TextBox>
+          <TextBox htmlFor="Password">Password</TextBox>
           <InputBox type="password" id="Password" value={password} onChange={(event) => {setPassword(event.target.value)}}/>
           </SmallContainer>
          <Expainbox>Passwords must contain at least eight
