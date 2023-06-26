@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-06-26T14:11:42+0900",
+    date = "2023-06-26T14:35:15+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
@@ -47,6 +47,7 @@ public class QuestionMapperImpl implements QuestionMapper {
         question.content( patch.getContent() );
         question.view( patch.getView() );
         question.vote( patch.getVote() );
+        question.selectedAnswerId( patch.getSelectedAnswerId() );
         question.createdAt( patch.getCreatedAt() );
         question.modifiedAt( patch.getModifiedAt() );
 

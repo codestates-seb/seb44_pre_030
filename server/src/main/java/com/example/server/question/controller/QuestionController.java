@@ -6,6 +6,7 @@ import com.example.server.question.mapper.QuestionMapper;
 import com.example.server.question.response.MultiResponse;
 import com.example.server.question.service.QuestionService;
 import com.example.server.utils.UriCreator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,15 +23,12 @@ import java.util.List;
 @Validated
 @Transactional
 @RequestMapping("/questions")
+@RequiredArgsConstructor
 public class QuestionController {
 
     private final QuestionService questionService;
     private final QuestionMapper questionMapper;
 
-    public QuestionController(QuestionService questionService, QuestionMapper questionMapper) {
-        this.questionService = questionService;
-        this.questionMapper = questionMapper;
-    }
 
     // 질문 작성 페이지
     @PostMapping("")

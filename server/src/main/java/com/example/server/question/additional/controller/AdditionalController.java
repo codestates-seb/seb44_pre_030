@@ -3,6 +3,7 @@ package com.example.server.question.additional.controller;
 import com.example.server.question.additional.service.AdditionalService;
 import com.example.server.question.entity.Question;
 import com.example.server.question.mapper.QuestionMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,15 +19,11 @@ import javax.validation.constraints.Positive;
 @Transactional
 @Validated
 @RequestMapping("/questions")
+@RequiredArgsConstructor
 public class AdditionalController {
 
     private final AdditionalService additionalService;
     private final QuestionMapper questionMapper;
-
-    public AdditionalController(AdditionalService additionalService, QuestionMapper questionMapper) {
-        this.additionalService = additionalService;
-        this.questionMapper = questionMapper;
-    }
 
     @PatchMapping("/like/{question-id}/{member-id}")
     public ResponseEntity likeApi(@Positive @PathVariable("question-id") long questionId,

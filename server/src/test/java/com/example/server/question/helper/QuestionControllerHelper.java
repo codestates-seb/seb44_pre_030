@@ -11,6 +11,7 @@ public interface QuestionControllerHelper extends ControllerHelper {
 
     String DEFAULT_URL = "/questions";
     String RESOURCE_URL = "/{id}";
+    String MEMBER_URL = "/{member-id}";
     String MAIN_URL = "/";
 
     default URI postUri(){
@@ -22,18 +23,18 @@ public interface QuestionControllerHelper extends ControllerHelper {
         return createUri(DEFAULT_URL + RESOURCE_URL, resourceId);
     }
 
-    default URI getResoueceUri(long resourceId) {
+    default URI getResoueceUri(long resourceId,long memberId) {
 
-        return createUri(DEFAULT_URL + RESOURCE_URL,resourceId);
+        return createUri(DEFAULT_URL + RESOURCE_URL + MEMBER_URL,resourceId,memberId);
     }
 
     default URI getMainOfListUri(){
 
-        return createUri(MAIN_URL);
+        return createUri(DEFAULT_URL + MAIN_URL);
     }
 
     default URI getDeleteUri(long resourceId) {
 
-        return createUri(RESOURCE_URL,resourceId);
+        return createUri(DEFAULT_URL + RESOURCE_URL,resourceId);
     }
 }

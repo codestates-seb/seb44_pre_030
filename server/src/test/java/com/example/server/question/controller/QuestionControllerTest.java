@@ -1,5 +1,6 @@
 package com.example.server.question.controller;
 
+import com.example.server.member.entity.Member;
 import com.example.server.question.dto.QuestionDto;
 import com.example.server.question.entity.Question;
 import com.example.server.question.gsonConfigure.LocalDateTimeDeserializer;
@@ -15,9 +16,12 @@ import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
@@ -31,6 +35,7 @@ import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasToString;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 
@@ -50,14 +55,21 @@ public class QuestionControllerTest implements QuestionControllerHelper, TestHel
     private Question question;
     private QuestionDto.Post post;
     private QuestionDto.Patch patch;
-    private QuestionDto.Response response;
+    private QuestionDto.Response patchResponse;
+    private QuestionDto.DetailResponse getResponse;
     private String content;
 
     @BeforeEach
     public void init(){
         question = StubData.MockQuestion.getQuestion();
         post = (QuestionDto.Post) StubData.MockQuestion.getStubDataRequestBody(HttpMethod.POST); // RequestBody
-        response = (QuestionDto.Response) StubData.MockQuestion.getStubDataResponseBody(HttpMethod.GET);
+        patchResponse = (QuestionDto.Response) StubData.MockQuestion.getStubDataResponseBody(HttpMethod.GET);
+        getResponse = (QuestionDto.DetailResponse) StubData.MockQuestion.getStubDataGetResponseBody(HttpMethod.GET);
+
+        // LocalDateTime 오류 -> Json 형태로 직렬화
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
+        gson = gsonBuilder.setPrettyPrinting().create();
     }
 
     @Override
@@ -69,11 +81,12 @@ public class QuestionControllerTest implements QuestionControllerHelper, TestHel
         URI uri = postUri();
 
         given(questionMapper.PostToEntity(Mockito.any(QuestionDto.Post.class))).willReturn(new Question());
-        given(questionService.createQuestion(Mockito.any(Question.class))).willReturn(new Question());
-        given(questionMapper.EntityToResponse(Mockito.any(Question.class))).willReturn(response);
+        given(questionService.createQuestion(Mockito.any(Question.class))).willReturn(question);
 
         resultActions = mockMvc.perform(postBuilder(uri,content));
+
         postTest(resultActions);
+
     }
 
     @Override
@@ -83,17 +96,12 @@ public class QuestionControllerTest implements QuestionControllerHelper, TestHel
 
         patch = QuestionDto.Patch.builder().title("title").content("Content").build();
 
-        // LocalDateTime 오류 -> Json 형태로 직렬화
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
-        gson = gsonBuilder.setPrettyPrinting().create();
-
         URI uri = patchUri(question.getId());
         content = gson.toJson(patch);
 
         given(questionMapper.PatchToEntity(Mockito.any(QuestionDto.Patch.class))).willReturn(new Question());
         given(questionService.updateQuestion(Mockito.any(Question.class))).willReturn(new Question());
-        given(questionMapper.EntityToResponse(Mockito.any(Question.class))).willReturn(response);
+        given(questionMapper.EntityToResponse(Mockito.any(Question.class))).willReturn(patchResponse);
 
         resultActions = mockMvc.perform(patchBuilder(uri,content));
 
@@ -106,10 +114,16 @@ public class QuestionControllerTest implements QuestionControllerHelper, TestHel
     @DisplayName("질문 조회 테스트")
     public void GetQuestionTest() throws Exception {
 
-        URI uri = getResoueceUri(question.getId());
+        Member member = Member.builder()
+                .id(1L)
+                .email("Test@Test.com")
+                .displayName("Test")
+                .build();
+
+        URI uri = getResoueceUri(question.getId(),member.getId());
 
         given(questionService.findQuestion(Mockito.anyLong(),Mockito.anyLong())).willReturn(new Question());
-        given(questionMapper.EntityToResponse(Mockito.any(Question.class))).willReturn(response);
+        given(questionMapper.EntityToDetailResponse(Mockito.any(Question.class))).willReturn(getResponse);
 
         resultActions = mockMvc.perform(getBuilder(uri));
         getTest(resultActions);
