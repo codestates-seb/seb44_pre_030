@@ -34,6 +34,7 @@ public class QuestionDto {
         private String content;
         private Long view;
         private Long vote;
+        private Long selectedAnswerId;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
     }
@@ -51,6 +52,7 @@ public class QuestionDto {
         private Long view;
         private Long vote;
         private LocalDateTime createdAt;
+        private Long selectedAnswerId;
         private LocalDateTime modifiedAt;
     }
 
@@ -67,7 +69,7 @@ public class QuestionDto {
         private String content;
         private Long view;
         private Long vote;
-        private Long answer_count;
+        private Long selectedAnswerId;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
     }
