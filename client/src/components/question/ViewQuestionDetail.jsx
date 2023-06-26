@@ -12,7 +12,7 @@ import { ExtractingImage } from '../../utils/ExtractingImage';
 import { DateForMatter } from '../../utils/DateForMatter';
 
 
-const ViewQuestionDetail = ({ qsId }) => {
+const ViewQuestionDetail = ({ qsId, isLogin }) => {
   const [questionDetail, setQuestionDetail] = useState([]);
   const tag = ['python', 'js'];
   const image_url = [
@@ -92,11 +92,15 @@ const ViewQuestionDetail = ({ qsId }) => {
           </QuestionLayouttRight>
         </QuestionLayout>
         <QuestionUserAuthority>
-          <QuestionEdit>
-            <Link to={`/question/edit/${qsId}`}>Edit</Link>
-
-            <div onClick={handleQuestionDelete}>Delete</div>
-          </QuestionEdit>
+          {
+            isLogin?(
+              <QuestionEdit>
+              <Link to={`/question/edit/${qsId}`}>Edit</Link>
+  
+              <div onClick={handleQuestionDelete}>Delete</div>
+            </QuestionEdit>
+            ):(<div></div>)
+          }
 
           <QuestionUserInfo>
             <div>
