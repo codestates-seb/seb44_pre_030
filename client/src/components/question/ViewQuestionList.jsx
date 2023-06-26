@@ -49,7 +49,9 @@ const QuestionList = () => {
     setIndex(index);
   };
 if(questions){
-  console.log(totalElements);
+  // console.log(totalElements);
+  console.log('page',page);
+  console.log(questions)
 }
   return (
     <QuestionListContainer>
@@ -80,7 +82,7 @@ if(questions){
         </div>
       </QuestionFilter>
       <ul>
-        {questions.slice(offset,offset+limit).map(list => {
+        {questions.map(list => {
           return (
             <li className="post" key={list.id}>
               <PostSummaryWrapper>
