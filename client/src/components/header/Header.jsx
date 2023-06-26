@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
 import {MdSearch} from 'react-icons/md'
@@ -7,55 +7,73 @@ import colorpalette from '../../styles/colorpalette';
 import MyPage from '../../pages/MyPage';
 
 
+
 const SecondChildData = ['About','Products','For Teams'];
 const ThirdChildData = ['Log in','Sign up','Mypage','Log out'];
 
 
-const Header = ({isLogin, setIsLogin}) => {
-    const handleLogout = () => {
-        setIsLogin(false);
-      };
-    return (
-        <HeaderContainer>
-            <FirstChild className='headerLogo'>
-                <Link to='/'><img src={HeaderLogoImg}/></Link>
-            </FirstChild>
-            <SecondChild>
-                <ul>
-                {SecondChildData.map((data,index)=><li key={index}><a>{data}</a></li>)}
-                </ul>
-                <form className="header-search">
-                    <SearchWrapper>
-                        <input type='text' placeholder='Search...'></input>
-                        <MdSearch className='header-search_icon'/>
-                    </SearchWrapper>
-                </form>
-            </SecondChild>
-            <ThirdChild>
-                
-                {!isLogin ? (
-                <ol>
-                    <Link to ="/login">
-                      <UserButton className='loginBtn'>{ThirdChildData[0]}</UserButton>
-                    </Link>
-                    <Link to ="/signup">
-                      <UserButton className='signUpBtn'>{ThirdChildData[1]}</UserButton>
-                    </Link> 
-                </ol>
-                ) 
-                :( 
-                <ol>             
-                     <Link to ="/mypage/:id">
-                    <UserButton>{ThirdChildData[2]}</UserButton>
-                    </Link>
-                    <Link to ="/login">
-                    <UserButton onClick={handleLogout}> {ThirdChildData[3]}</UserButton>
-                    </Link> </ol>
-                    )}
+const Header = ({isLogin, setIsLogin,setInputText,setEnterState}) => {
 
-            </ThirdChild>
-        </HeaderContainer>
-    );
+
+  const handleLogout = () => {
+      setIsLogin(false);
+    };
+  const handleSearchQuestion = (e) => {
+    setInputText(e.target.value);
+    setEnterState(true);
+    console.log('엔터');
+  }
+  const handleOnKeyDown = (e) => {
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      handleSearchQuestion(e);
+    }
+  }
+  return (
+      <HeaderContainer>
+          <FirstChild className='headerLogo'>
+              <Link to='/'><img src={HeaderLogoImg}/></Link>
+          </FirstChild>
+          <SecondChild>
+              <ul>
+              {SecondChildData.map((data,index)=><li key={index}><a>{data}</a></li>)}
+              </ul>
+              <form className="header-search">
+                  <SearchWrapper>
+                      <input 
+                        type='text' 
+                        placeholder='Search...' 
+                        onChange={(e)=>setInputText(e.target.value)}
+                        onKeyDown={(e)=>handleOnKeyDown(e)} />
+                      <MdSearch className='header-search_icon'/>
+                  </SearchWrapper>
+              </form>
+          </SecondChild>
+          <ThirdChild>
+              
+              {!isLogin ? (
+              <ol>
+                  <Link to ="/login">
+                    <UserButton className='loginBtn'>{ThirdChildData[0]}</UserButton>
+                  </Link>
+                  <Link to ="/signup">
+                    <UserButton className='signUpBtn'>{ThirdChildData[1]}</UserButton>
+                  </Link> 
+              </ol>
+              ) 
+              :( 
+              <ol>             
+                    <Link to ="/mypage/:id">
+                  <UserButton>{ThirdChildData[2]}</UserButton>
+                  </Link>
+                  <Link to ="/login">
+                  <UserButton onClick={handleLogout}> {ThirdChildData[3]}</UserButton>
+                  </Link> </ol>
+                  )}
+
+          </ThirdChild>
+      </HeaderContainer>
+  );
 };
 
 const HeaderContainer = styled.header`
