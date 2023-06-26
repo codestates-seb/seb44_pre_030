@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 
@@ -21,6 +22,12 @@ import java.io.IOException;
 @RequestMapping("/members")
 public class MemberController {
     private final MemberService memberService;
+
+    @GetMapping("/session")
+    ResponseEntity session(HttpSession session){
+        String response = "유저 DB ID : " + "\"" + session.getAttribute("ID") + "\"" + " 입니다";
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
 
     @PostMapping("/email")
     ResponseEntity email(@RequestBody RequestMailDto dto){
@@ -36,7 +43,7 @@ public class MemberController {
         return new ResponseEntity(resposne, HttpStatus.OK);
     }
 
-    @GetMapping("/login-success")
+    @GetMapping("/login/success")
     ResponseEntity success(){
         log.info("로그인 성공");
         return new ResponseEntity("Login Success!", HttpStatus.OK);

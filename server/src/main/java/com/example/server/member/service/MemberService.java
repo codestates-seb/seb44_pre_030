@@ -135,12 +135,17 @@ public class MemberService {
             return false;
         }
 
-        if(emailCode.getEmail().equals(dto.getEmail())){
-            log.info("이메일 존재 확인");
+        boolean response = false;
+
+        if(emailCode.getEmail().equals(dto.getEmail()) && emailCode.getCode().equals(dto.getCode())){
+            log.info("이메일 코드 일치 확인");
+            response = true;
             emailCodeJpaRepository.deleteById(emailCode.getId());
+        }else{
+            log.info("이메일 코드 불일치");
         }
 
-        return true;
+        return response;
     }
 
     public String generateAuthCode(){

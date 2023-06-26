@@ -11,6 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SessionUser implements Serializable {
+    private long id;
     private String name;
     private String email;
 
