@@ -9,7 +9,7 @@ import AskQuestionBtn from './AskQuestionBtn';
 import { ExtractingImage } from '../../utils/ExtractingImage';
 import Pagination from './Pagination';
 
-const QuestionList = () => {
+const QuestionList = ({inputText}) => {
   const [questions, setQuestions] = useState([]);
 
   const [index, setIndex] = useState(0);
@@ -47,7 +47,7 @@ const QuestionList = () => {
   const selectFilter = index => {
     setIndex(index);
   };
-
+  console.log(inputText);
   return (
     <QuestionListContainer>
       <QustionList>

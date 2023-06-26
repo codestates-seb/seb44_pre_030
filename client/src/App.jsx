@@ -31,6 +31,8 @@ function App() {
   const [userInfo, setUserInfo] = useState(null);
   const [profile, setProfile] = useState(null);
 
+  const [inputText,setInputText] = useState('');
+
   useEffect(() => {
     if(userInfo){
     setProfile(userInfo.data.attributes.displayname);
@@ -38,16 +40,17 @@ function App() {
     console.log('isId',isId)
     console.log(profile)
     }
+    console.log(inputText);
 })
 
 
   return (
     <>
-      <Header isLogin={isLogin} setIsLogin={setIsLogin}/>
+      <Header isLogin={isLogin} setIsLogin={setIsLogin} setInputText={setInputText}/>
       <MainDiv>
       <Sidebar />
       <Routes>
-        <Route path="/" element={<QuestionList />} />
+        <Route path="/" element={<QuestionList inputText={inputText}/>} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login setIsLogin={setIsLogin} setUserInfo={setUserInfo}/>} />
         <Route path="/question/ask" element={<CreateQuestion isId={isId}/>} />

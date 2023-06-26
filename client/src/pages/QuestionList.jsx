@@ -2,10 +2,10 @@ import React from 'react';
 import ViewQuestionList from '../components/question/ViewQuestionList'
 
 
-const QuestionList = () => {
+const QuestionList = ({inputText}) => {
   return (
       <>
-        <ViewQuestionList/>
+        <ViewQuestionList inputText={inputText}/>
       </>
     )
 };
