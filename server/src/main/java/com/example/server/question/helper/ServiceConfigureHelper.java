@@ -26,6 +26,7 @@ public interface ServiceConfigureHelper {
                 .view(0L)
                 .vote(0L)
                 .answerCount(0L)
+                .selectedAnswerId(0L)
                 .createdAt(LocalDateTime.now())
                 .modifiedAt(LocalDateTime.now())
                 .build();
@@ -38,6 +39,8 @@ public interface ServiceConfigureHelper {
                 .ifPresent(result::setContent);
         Optional.ofNullable(question.getView())
                 .ifPresent(result::setView);
+        Optional.ofNullable(question.getSelectedAnswerId())
+                .ifPresent(result::setSelectedAnswerId);
         Optional.ofNullable(question.getVote())
                 .ifPresent(result::setVote);
         Optional.ofNullable(question.getAnswerCount())

@@ -79,6 +79,7 @@ public interface QuestionMapper {
                 .view(question.getView())
                 .vote(question.getVote())
                 .answerCount(question.getAnswerCount())
+                .selectedAnswerId(question.getSelectedAnswerId())
                 .createdAt(question.getCreatedAt())
                 .modifiedAt(question.getModifiedAt())
                 .build();
