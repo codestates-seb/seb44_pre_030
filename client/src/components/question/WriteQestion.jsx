@@ -36,7 +36,7 @@ const InputData = {
   },
 };
 
-const WriteQestion = () => {
+const WriteQestion = ({isId}) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [titleValue, SetTitleValue] = useState('');
   const [titleError, setTitleError] = useState(false);
@@ -65,7 +65,7 @@ const WriteQestion = () => {
           content: plainText,
           title: titleValue,
           member:{
-            id:10
+            id:isId
           }
         })
         .then(res => {
