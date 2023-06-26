@@ -24,8 +24,9 @@ const ViewQuestionDetail = ({ qsId }) => {
 
   const getData = async () => {
     try {
-      const response = await axios.get(`/api/questions/${qsId}`);
+      const response = await axios.get(`/api/questions/${qsId}/1`);
       setQuestionDetail(response.data);
+      console.log(response.data)
     } catch (error) {
       console.log(error);
     }
@@ -35,7 +36,9 @@ const ViewQuestionDetail = ({ qsId }) => {
     getData();
   }, [qsId]);
 
-
+  const handleUserNameClick = (data) =>{
+    navigate(`/mypage/${data.id}`);
+  }
   const handleQuestionDelete = () => {
     axios.delete(`/api/${qsId}`)
       .then(res=>{
@@ -62,15 +65,15 @@ const ViewQuestionDetail = ({ qsId }) => {
         </QuestionInfoItem>
         <QuestionInfoItem>
           <span>Modified</span>
-          <span>{NumberForMatter(`${questionDetail.vote}`)}</span>
-        </QuestionInfoItem>
-        <QuestionInfoItem>
-          <span>Viewed</span>
           <time
             dateTime={`${questionDetail.modifiedAt}`}
           >
             {DateForMatter(questionDetail.modifiedAt)}
           </time>
+        </QuestionInfoItem>
+        <QuestionInfoItem>
+          <span>Viewed</span>
+          <span>{NumberForMatter(`${questionDetail.vote}`)}</span>
         </QuestionInfoItem>
       </QuestionInfo>
       <QuestionContent>
@@ -101,9 +104,9 @@ const ViewQuestionDetail = ({ qsId }) => {
             </div>
         
             {questionDetail.member && (
-              <Link to={`mypage/${questionDetail.member.id}`} className="userInfoName">
+              <span onClick={()=>handleUserNameClick(questionDetail.member)} className="userInfoName">
             {questionDetail.member.displayName}
-             </Link>
+             </span>
               )}
           
           </QuestionUserInfo>
@@ -205,6 +208,7 @@ const QuestionUserInfo = styled.div`
     margin-right: 0.5rem;
   }
   & .userInfoName {
+    cursor: pointer;
     font-size: ${colorpalette.headerFontSize};
     color: ${colorpalette.questionDetailUserInfoColor};
   }
