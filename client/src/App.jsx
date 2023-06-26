@@ -30,15 +30,29 @@ function App() {
   const [isId, setIsId] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
   const [profile, setProfile] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [title, setTitle] = useState(null);
 
   const [inputText,setInputText] = useState('');
   const [enterState,setEnterState] = useState(false);
   useEffect(() => {
     if(userInfo){
-    setProfile(userInfo.data.attributes.displayname);
-    setIsId(userInfo.data.id)
-    console.log('isId',isId)
-    console.log(profile)
+    setProfile(userInfo.data.displayName);
+    setIsId(userInfo.data.id);
+    if(userInfo.data.location === null){
+    setLocation("");
+    }else{
+      setLocation(userInfo.data.location);
+    }
+    if(userInfo.data.title === null){
+      setTitle("");
+      }else{
+        setTitle(userInfo.data.title);
+      }
+    console.log(userInfo.data);
+    console.log(isId);
+    console.log(profile);
+    console.log(location);
     }
 })
 
@@ -56,12 +70,12 @@ function App() {
         <Route path="/question/:id" element={<QuestionDetail />} />
         <Route path="/question/edit/:id" element={<EditQuestion />} />
         <Route path="/answer/edit/:id" element={<EditAnswer />} />
-        <Route path="/mypage/:id" element={<MyPage  isLogin={isLogin} profile={profile}/>} />
-        <Route path="/mypage/summary/:id" element={<MyPageSummary profile={profile}/>} />
-        <Route path="/mypage/answers/:id" element={<MyPageAnswers profile={profile}/>} />
-        <Route path="/mypage/questions/:id" element={<MyPageQuestions profile={profile}/>} />
-        <Route path="/mypage/tags/:id" element={<MyPageTags profile={profile}/>} />
-        <Route path="/mypage/edit/:id" element={<EditMyPage userInfo={userInfo} profile={profile} />} />
+        <Route path="/mypage/:id" element={<MyPage setIsLogin={setIsLogin} isLogin={isLogin} profile={profile} location={location} title={title}/>} />
+        <Route path="/mypage/summary/:id" element={<MyPageSummary profile={profile} location={location} title={title}/>} />
+        <Route path="/mypage/answers/:id" element={<MyPageAnswers profile={profile} location={location} title={title}/>} />
+        <Route path="/mypage/questions/:id" element={<MyPageQuestions profile={profile} location={location} title={title}/>} />
+        <Route path="/mypage/tags/:id" element={<MyPageTags profile={profile} location={location} title={title}/>} />
+        <Route path="/mypage/edit/:id" element={<EditMyPage isLogin={isLogin} setIsLogin={setIsLogin} userInfo={userInfo} location={location} profile={profile} title={title} setUserInfo={setUserInfo}/>} />
         <Route path="/tagslist" element={<TagsList />} />
       </Routes>
       </MainDiv>

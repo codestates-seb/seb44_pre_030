@@ -5,7 +5,7 @@ import { FaForumbee } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 
-const MypageHeader = ({profile}) => {
+const MypageHeader = ({profile, location, title}) => {
     return (
         <AllContainer>
            <Container>
@@ -13,8 +13,8 @@ const MypageHeader = ({profile}) => {
             <ProfileImg src={ProfileSvg}/>
             <ContentBox>
                 <ProfileName>{profile}</ProfileName>
-                <ProfileTitle>mypage</ProfileTitle>
-                <ProfileLocation>korea</ProfileLocation>
+                <ProfileTitle>{title}</ProfileTitle>
+                <ProfileLocation>{location}</ProfileLocation>
                 </ContentBox>
             </ProfileNameBox>
             <BtnBox>

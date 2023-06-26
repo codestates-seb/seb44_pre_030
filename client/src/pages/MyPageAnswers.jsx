@@ -7,10 +7,10 @@ import MypageAnswersContent from '../components/mypageanswerscontent/MypageAnswe
 
 
 
-const MyPageAnswers = ({profile}) => {
+const MyPageAnswers = ({profile, location, title}) => {
   return(
     <div>
-    <MypageHeader profile={profile}></MypageHeader>
+    <MypageHeader profile={profile} location={location} title={title}></MypageHeader>
     <FlexBox>
     <MypageSidebar></MypageSidebar>
     <MypageAnswersContent></MypageAnswersContent>

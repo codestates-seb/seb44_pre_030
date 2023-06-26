@@ -8,10 +8,10 @@ import styled from 'styled-components';
 
 
 
-const MyPageQuestions = ({profile}) => {
+const MyPageQuestions = ({profile, location, title}) => {
   return(
     <div>
-    <MypageHeader profile={profile}></MypageHeader>
+    <MypageHeader profile={profile} location={location} title={title}></MypageHeader>
     <FlexBox>
     <MypageSidebar></MypageSidebar>
     <MypageQuestionsContent></MypageQuestionsContent>
