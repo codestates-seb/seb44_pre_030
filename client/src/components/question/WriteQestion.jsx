@@ -50,6 +50,7 @@ const WriteQestion = () => {
   const handleTitleValue = e => {
     SetTitleValue(e.target.value);
   };
+
   const CheckInputData = e => {
     e.preventDefault();
     if (!titleValue || editorState.getCurrentContent().getPlainText() === '') {
@@ -60,9 +61,12 @@ const WriteQestion = () => {
     } else {
       const plainText = editorState.getCurrentContent().getPlainText();
       axios
-        .post(`/api/question/ask`, {
+        .post(`/api/questions`, {
           content: plainText,
           title: titleValue,
+          member:{
+            id:10
+          }
         })
         .then(res => {
           console.log(res);
