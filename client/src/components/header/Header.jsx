@@ -33,20 +33,25 @@ const Header = ({isLogin, setIsLogin}) => {
             </SecondChild>
             <ThirdChild>
                 
-                {!isLogin ? (<ol>
+                {!isLogin ? (
+                <ol>
                     <Link to ="/login">
-                    <UserButton>{ThirdChildData[0]}</UserButton>
+                      <UserButton className='loginBtn'>{ThirdChildData[0]}</UserButton>
                     </Link>
                     <Link to ="/signup">
-                    <UserButton>{ThirdChildData[1]}</UserButton>
+                      <UserButton className='signUpBtn'>{ThirdChildData[1]}</UserButton>
                     </Link> 
-                </ol>) :( <ol>             
+                </ol>
+                ) 
+                :( 
+                <ol>             
                      <Link to ="/mypage/:id">
                     <UserButton>{ThirdChildData[2]}</UserButton>
                     </Link>
                     <Link to ="/login">
                     <UserButton onClick={handleLogout}> {ThirdChildData[3]}</UserButton>
-                    </Link> </ol>)}
+                    </Link> </ol>
+                    )}
 
             </ThirdChild>
         </HeaderContainer>
@@ -138,7 +143,6 @@ const ThirdChild = styled.div`
     & ol{
         display: flex;
     }
-
     & .loginBtn{
         border: 1px solid ${colorpalette.headerLoginFontColor};
         background-color: ${colorpalette.headerLoginColor};
@@ -166,11 +170,11 @@ const UserButton = styled.li`
     margin-right: 0.625rem;
     border-radius: 3px;
     padding:3px;
-    color : white;
+    /* color : white;
     background-color: rgba(29, 154, 249, 1);
     border: none;
     border-radius: 3px;
-    box-shadow: inset 0px 2px 0px 0px rgba(119, 194, 251, 1);
+    box-shadow: inset 0px 2px 0px 0px rgba(119, 194, 251, 1); */
     cursor: pointer;
 
 `

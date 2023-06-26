@@ -25,7 +25,7 @@ const EditQuestionComponent  = () => {
     }
 
     const handleEditContent = () => {
-        axios.patch(`/api/question/edit/${params.id}`,{
+        axios.patch(`/api/questions/${params.id}`,{
             content:editorState.getCurrentContent().getPlainText(),
             title:titleContent,
         })
@@ -36,7 +36,7 @@ const EditQuestionComponent  = () => {
         .chatch(error=>console.log(error))
     }
     useEffect(()=>{
-        axios.get(`/api/question/${params.id}`)
+        axios.get(`/api/questions/${params.id}`)
         .then(res=>{
             if(res.data){
               setQuestionContent(res.data)

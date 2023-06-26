@@ -18,7 +18,6 @@ const QuestionList = () => {
   const [totalElements,setTotalElements] = useState(0);
   const [limit,setLimit] = useState(10);
   const [page,setPage] = useState(1);
-  const offset = (page - 1) * limit;
 
   const buttonFilter = [
     { filterName: 'Newest' },
@@ -48,9 +47,7 @@ const QuestionList = () => {
   const selectFilter = index => {
     setIndex(index);
   };
-if(questions){
-  console.log(totalElements);
-}
+
   return (
     <QuestionListContainer>
       <QustionList>
@@ -80,7 +77,7 @@ if(questions){
         </div>
       </QuestionFilter>
       <ul>
-        {questions.slice(offset,offset+limit).map(list => {
+        {questions.map(list => {
           return (
             <li className="post" key={list.id}>
               <PostSummaryWrapper>

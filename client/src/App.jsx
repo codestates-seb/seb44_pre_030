@@ -35,7 +35,7 @@ function App() {
     if(userInfo){
     setProfile(userInfo.data.attributes.displayname);
     setIsId(userInfo.data.id)
-    console.log(isId)
+    console.log('isId',isId)
     console.log(profile)
     }
 })
@@ -50,7 +50,7 @@ function App() {
         <Route path="/" element={<QuestionList />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login setIsLogin={setIsLogin} setUserInfo={setUserInfo}/>} />
-        <Route path="/question/ask" element={<CreateQuestion />} />
+        <Route path="/question/ask" element={<CreateQuestion isId={isId}/>} />
         <Route path="/question/:id" element={<QuestionDetail />} />
         <Route path="/question/edit/:id" element={<EditQuestion />} />
         <Route path="/answer/edit/:id" element={<EditAnswer />} />

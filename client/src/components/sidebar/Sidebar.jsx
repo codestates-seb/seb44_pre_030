@@ -66,8 +66,7 @@ const Sidebar = () => {
 };
 
 const SidebarContainer = styled.div`
-  width: 164px;
-  height: 100vh;
+  width: 168px;
   padding-top: 10px;
   border-right: 1px solid #d6d9dc;
   font-size: 14px;
@@ -75,7 +74,6 @@ const SidebarContainer = styled.div`
 `;
 
 const SidebarBlock = styled.div`
-  width: 165px;
   color: rgb(93, 92, 92);
   display: flex;
   flex-direction: column;
@@ -83,7 +81,7 @@ const SidebarBlock = styled.div`
     padding-left: 5px;
   }
   & button{
-    width:162px;
+    width:165px;
     height: 40px;
     cursor: pointer;
     padding-left: 5px;

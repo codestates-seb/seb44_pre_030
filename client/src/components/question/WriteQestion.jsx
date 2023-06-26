@@ -36,7 +36,7 @@ const InputData = {
   },
 };
 
-const WriteQestion = () => {
+const WriteQestion = ({isId}) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [titleValue, SetTitleValue] = useState('');
   const [titleError, setTitleError] = useState(false);
@@ -50,6 +50,7 @@ const WriteQestion = () => {
   const handleTitleValue = e => {
     SetTitleValue(e.target.value);
   };
+
   const CheckInputData = e => {
     e.preventDefault();
     if (!titleValue || editorState.getCurrentContent().getPlainText() === '') {
@@ -60,9 +61,12 @@ const WriteQestion = () => {
     } else {
       const plainText = editorState.getCurrentContent().getPlainText();
       axios
-        .post(`/api/question/ask`, {
+        .post(`/api/questions`, {
           content: plainText,
           title: titleValue,
+          member:{
+            id:isId
+          }
         })
         .then(res => {
           console.log(res);

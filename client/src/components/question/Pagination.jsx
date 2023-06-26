@@ -5,7 +5,7 @@ import colorpalette from '../../styles/colorpalette';
 const Pagination = ({total,limit,page,setPage}) => {
   const numPages = Math.ceil(total/limit);
   //전체 갯수 / 10 => 15 / 10 => 2page
-  console.log(numPages)
+
   return (
       <PaginationContainer>
           <Button onClick={()=>setPage(page-1)} disabled={page === 1}>&lt;</Button>
