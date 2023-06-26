@@ -47,7 +47,7 @@ const QuestionList = ({inputText,enterState,setEnterState}) => {
   const selectFilter = index => {
     setIndex(index);
   };
-  
+
   useEffect(() => {
     getData();
   }, [page]);
@@ -69,7 +69,6 @@ const QuestionList = ({inputText,enterState,setEnterState}) => {
     setEnterState(false);
   }, [inputText]);
 
-
   return (
     <QuestionListContainer>
       <QustionList>
@@ -81,7 +80,7 @@ const QuestionList = ({inputText,enterState,setEnterState}) => {
           </Link>
         </div>
         <div className="headContents flex-column">
-          <span>{printData && `${NumberForMatter(printData.length)} questions`}</span>
+          <span>{ totalElements && `${NumberForMatter(totalElements)} questions`}</span>
           <aside className="subFilterBtn">
             {buttonFilter.map((fil, idx) => (
               <button
