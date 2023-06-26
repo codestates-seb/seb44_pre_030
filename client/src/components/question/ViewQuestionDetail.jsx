@@ -5,7 +5,7 @@ import { NumberForMatter } from '../../utils/NumberForMatter';
 import colorpalette from '../../styles/colorpalette';
 import AskQuestionBtn from './AskQuestionBtn';
 import axios from 'axios';
-import VoteGroup from '../vote/VoteGroup';
+import QuestionVoteGroup from '../vote/QuestionVoteGroup';
 import advertisementImg from '../../assets/questionDetail/advertisement.svg';
 import QuestionTag from './QuestionTag';
 import { ExtractingImage } from '../../utils/ExtractingImage';
@@ -14,6 +14,8 @@ import { DateForMatter } from '../../utils/DateForMatter';
 
 const ViewQuestionDetail = ({ qsId }) => {
   const [questionDetail, setQuestionDetail] = useState([]);
+  const [voteCount,setVoteCount] = useState(0);
+
   const tag = ['python', 'js'];
   const image_url = [
     'https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon',
@@ -26,7 +28,7 @@ const ViewQuestionDetail = ({ qsId }) => {
     try {
       const response = await axios.get(`/api/questions/${qsId}/1`);
       setQuestionDetail(response.data);
-      console.log(response.data)
+      setVoteCount(response.data.vote);
     } catch (error) {
       console.log(error);
     }
@@ -34,7 +36,7 @@ const ViewQuestionDetail = ({ qsId }) => {
 
   useEffect(() => {
     getData();
-  }, [qsId]);
+  }, [qsId,voteCount]);
 
   const handleUserNameClick = (data) =>{
     navigate(`/mypage/${data.id}`);
@@ -82,7 +84,7 @@ const ViewQuestionDetail = ({ qsId }) => {
         </Advertisement>
         <QuestionLayout>
           <QuestionLayoutLeft>
-            <VoteGroup />
+            <QuestionVoteGroup QuestionId={qsId} setVoteCount={setVoteCount} voteCount={voteCount}/>
           </QuestionLayoutLeft>
           <QuestionLayouttRight>
             {questionDetail.content}
