@@ -66,7 +66,7 @@ const WriteQestion = ({isId}) => {
           content: plainText,
           title: titleValue,
           member:{
-            id:10
+            id:isId
           }
         })
         .then(res => {
