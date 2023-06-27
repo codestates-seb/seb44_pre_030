@@ -6,7 +6,7 @@ import { EditorState } from 'draft-js';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import axios from 'axios';
 
-const WriteAnswer = ({ qsId }) => {
+const WriteAnswer = ({ qsId, isId }) => {
   const [openInfo, setOpenInfo] = useState(true);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const handleEditorStateChange = newEditorState => {
@@ -22,7 +22,7 @@ const WriteAnswer = ({ qsId }) => {
       .post(`/api/answers`, {
         questionId: qsId,
         content: createAnswer,
-        memberId: 1,
+        memberId: isId,
       })
       .then(res => {
         console.log(res);

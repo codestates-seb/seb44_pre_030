@@ -6,13 +6,13 @@ import VoteGroup from '../vote/VoteGroup';
 import AnsComment from '../comment/AnsComment';
 import { displayAt } from '../../utils/daycalcFormatter';
 
-const Answer = ({ qsId }) => {
+const Answer = ({ qsId, isId }) => {
   const User_id = localStorage.getItem('User_id');
   const [answerList, setAnswerList] = useState([]);
   const [answerFilter, setAnswerFilter] = useState('score');
   useEffect(() => {
     axios
-      .get(`/api/questions/${qsId}`)
+      .get(`/api/questions/${qsId}/${isId}`)
       .then(res => {
         const answers = res.data.answers;
         if (answers) {
@@ -120,6 +120,7 @@ const Answer = ({ qsId }) => {
                 answerComment={answer.comments}
                 asId={answer.id}
                 qsId={qsId}
+                isId={isId}
               />
             </TextContents>
           </div>

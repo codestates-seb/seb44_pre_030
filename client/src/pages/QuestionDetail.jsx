@@ -6,16 +6,13 @@ import ViewQuestionDetail from '../components/question/ViewQuestionDetail';
 import WriteAnswer from '../components/answer/WriteAnswer';
 import Answer from '../components/answer/Answer';
 
-const QuestionDetail = ({isLogin}) => {
-
+const QuestionDetail = ({ isLogin, isId }) => {
   let params = useParams();
-
   return (
     <QuestionDetailPageContainer>
-      <ViewQuestionDetail isLogin={isLogin} qsId={params.id}/>
-      <Answer qsId={params.id} />
-      <WriteAnswer qsId={params.id} />
-
+      <ViewQuestionDetail isLogin={isLogin} qsId={params.id} />
+      <Answer qsId={params.id} isId={isId} />
+      <WriteAnswer qsId={params.id} isId={isId} />
     </QuestionDetailPageContainer>
   );
 };
