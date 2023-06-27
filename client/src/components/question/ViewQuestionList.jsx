@@ -48,7 +48,21 @@ const QuestionList = ({inputText,enterState,setEnterState,isLogin}) => {
 
   const selectFilter = index => {
     setIndex(index);
+    setFilter(buttonFilter[index])
+    if(index===0){
+      //Newest
+      setPrintData([...questions].sort((a,b)=>new Date(b.createdAt)- new Date(a.createdAt)));
+    }
+    else if(index===1){
+      //Active
+      setPrintData([...questions].sort((a,b)=>b.view - a.view));
+    }
+    else if(index===2){
+      //Score
+      setPrintData([...questions].sort((a,b)=>b.vote-a.vote));
+    }
   };
+
 
   useEffect(() => {
     getData();
