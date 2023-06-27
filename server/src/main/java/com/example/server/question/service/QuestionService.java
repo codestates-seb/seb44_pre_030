@@ -9,6 +9,7 @@ import com.example.server.member.repository.MemberJpaRepository;
 import com.example.server.question.entity.Question;
 import com.example.server.question.helper.ServiceHelper;
 import com.example.server.question.repository.QuestionRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -19,15 +20,11 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class QuestionService implements ServiceHelper {
 
     private final QuestionRepository questionRepository;
     private final MemberJpaRepository memberJpaRepository;
-
-    public QuestionService(QuestionRepository questionRepository, MemberJpaRepository memberJpaRepository, AnswerRepository answerRepository) {
-        this.questionRepository = questionRepository;
-        this.memberJpaRepository = memberJpaRepository;
-    }
 
     @Override
     public Question createQuestion(Question question) {

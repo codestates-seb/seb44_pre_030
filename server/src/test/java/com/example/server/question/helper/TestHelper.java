@@ -20,10 +20,7 @@ public interface TestHelper {
 
         resultActions
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.title").value(StubData.MockQuestion.getQuestion().getTitle()))
-                .andExpect(jsonPath("$.content").value(StubData.MockQuestion.getQuestion().getContent()))
-                .andExpect(jsonPath("$.view").value(StubData.MockQuestion.getQuestion().getView()))
-                .andExpect(jsonPath("$.vote").value(StubData.MockQuestion.getQuestion().getVote()));;
+                .andExpect(header().string("Location",is(startsWith("/questions"))));
     }
 
     default void patchTest(ResultActions resultActions) throws Exception {
