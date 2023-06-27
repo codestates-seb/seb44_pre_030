@@ -54,8 +54,5 @@ public class QuestionServiceTest {
         Question createdQuestion = questionService.createQuestion(questionService.postQuestion(question));
 
         Assertions.assertEquals(Mockquestion,createdQuestion);
-
-
     }
-
 }

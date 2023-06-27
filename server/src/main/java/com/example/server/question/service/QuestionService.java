@@ -2,6 +2,7 @@ package com.example.server.question.service;
 
 import com.example.server.answer.entity.Answer;
 import com.example.server.answer.repositroy.AnswerRepository;
+import com.example.server.comment.repository.CommentRepository;
 import com.example.server.exception.BusinessLogicException;
 import com.example.server.exception.ErrorResponse;
 import com.example.server.member.entity.Member;
@@ -23,6 +24,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class QuestionService implements ServiceHelper {
 
+    private final AnswerRepository answerRepository;
     private final QuestionRepository questionRepository;
     private final MemberJpaRepository memberJpaRepository;
 
@@ -61,11 +63,14 @@ public class QuestionService implements ServiceHelper {
     }
 
     @Override
-    public void deleteQuestion(long QuestionId) {
+    public void deleteQuestion(long questionId) {
 
-        Question question = findExistQuestion(QuestionId);
+        Question question = findExistQuestion(questionId);
 
+        questionRepository.deleteComment(question);
+        questionRepository.deleteAnswer(question);
         questionRepository.deleteById(question.getId());
+
     }
 
     private Question findExistQuestion(long id){
