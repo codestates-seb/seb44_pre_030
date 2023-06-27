@@ -51,6 +51,8 @@ const ViewQuestionDetail = ({ qsId, isLogin }) => {
       .catch(error=>console.log(error))
   }
 
+  console.log(isLogin);
+
   return (
     <QuestionDetailContainer>
       <QuestionDetailHeader>
