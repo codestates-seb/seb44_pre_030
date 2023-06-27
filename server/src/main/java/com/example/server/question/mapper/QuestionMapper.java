@@ -1,4 +1,4 @@
-gipackage com.example.server.question.mapper;
+package com.example.server.question.mapper;
 
 import com.example.server.answer.entity.Answer;
 import com.example.server.comment.entity.Comment;

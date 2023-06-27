@@ -55,6 +55,12 @@ public class MemberController {
         return new ResponseEntity("fail", HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/logout")
+    ResponseEntity logout(){
+        log.info("로그아웃 성공");
+        return new ResponseEntity("logout", HttpStatus.OK);
+    }
+
 
     @PostMapping("")
     ResponseEntity signupMember(@Valid @RequestBody MemberSignupDto dto/*, HttpServletResponse response*/) throws IOException {

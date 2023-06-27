@@ -40,6 +40,7 @@ public class CustomOauth2UserService implements OAuth2UserService<OAuth2UserRequ
         sessionUser.setId(member.getId());
 
         httpSession.setAttribute("ID", sessionUser.getId());
+        httpSession.setMaxInactiveInterval(3600);
 
         httpSession.setAttribute("user", new SessionUser(member));
 
