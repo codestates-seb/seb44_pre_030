@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import colorpalette from '../../styles/colorpalette';
 import { NumberForMatter } from '../../utils/NumberForMatter';
 import QuestionTag from './QuestionTag';
@@ -9,7 +9,7 @@ import AskQuestionBtn from './AskQuestionBtn';
 import { ExtractingImage } from '../../utils/ExtractingImage';
 import Pagination from './Pagination';
 
-const QuestionList = ({inputText,enterState,setEnterState}) => {
+const QuestionList = ({inputText,enterState,setEnterState,isLogin}) => {
   const [questions, setQuestions] = useState([]);
 
   const [index, setIndex] = useState(0);
@@ -20,6 +20,8 @@ const QuestionList = ({inputText,enterState,setEnterState}) => {
   const [page,setPage] = useState(1);
 
   const [printData,setPrintData] = useState([]);
+
+  const navigate = useNavigate();
 
   const buttonFilter = [
     { filterName: 'Newest' },
@@ -35,7 +37,7 @@ const QuestionList = ({inputText,enterState,setEnterState}) => {
 
   const tag = ['React', 'Java', 'JavaScript'];
   const getData = async () => {
-    const response = await axios.get('/api/questions',
+    const response = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/questions`,
       {
         params: {page:page,size:limit}
       });
@@ -75,9 +77,7 @@ const QuestionList = ({inputText,enterState,setEnterState}) => {
         <QuestionFilter>
           <div className="headContents">
             <h2>All Questions</h2>
-          <Link to={'/question/ask'}>
-            <AskQuestionBtn />
-          </Link>
+            <AskQuestionBtn isLogin={isLogin}/>
         </div>
         <div className="headContents flex-column">
           <span>{ totalElements && `${NumberForMatter(totalElements)} questions`}</span>
@@ -108,7 +108,7 @@ const QuestionList = ({inputText,enterState,setEnterState}) => {
                   )} votes`}</span>
                 </PostSummaryStatsItem>
                 <PostSummaryStatsItem>
-                  <span>{`${NumberForMatter(0)} answers`}</span>
+                  <span>{`${NumberForMatter(list.answerCount)} answers`}</span>
                 </PostSummaryStatsItem>
                 <PostSummaryStatsItem>
                   <span>{`${NumberForMatter(list.view)} views`}</span>
@@ -130,7 +130,7 @@ const QuestionList = ({inputText,enterState,setEnterState}) => {
                     </Link>
                     <div>
                       <span className="userCardAnswerCount">
-                        {NumberForMatter(0)}
+                        {NumberForMatter(list.answerCount)}
                       </span>
                       <span>asked</span>
                     </div>
@@ -142,7 +142,7 @@ const QuestionList = ({inputText,enterState,setEnterState}) => {
         })}
       </ul>
     </QustionList>
-    <Pagination 
+    <Pagination
       total={totalElements}
       limit={limit}
       page={page}

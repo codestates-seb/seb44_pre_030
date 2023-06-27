@@ -64,10 +64,10 @@ const Header = ({isLogin, setIsLogin,setInputText,setEnterState}) => {
               :( 
               <ol>             
                     <Link to ="/mypage/:id">
-                  <UserButton>{ThirdChildData[2]}</UserButton>
+                  <UserButton className='signUpBtn'>{ThirdChildData[2]}</UserButton>
                   </Link>
                   <Link to ="/login">
-                  <UserButton onClick={handleLogout}> {ThirdChildData[3]}</UserButton>
+                  <UserButton className='loginBtn' onClick={handleLogout}> {ThirdChildData[3]}</UserButton>
                   </Link> </ol>
                   )}
 

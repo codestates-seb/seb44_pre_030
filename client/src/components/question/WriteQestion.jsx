@@ -62,11 +62,11 @@ const WriteQestion = ({isId}) => {
     } else {
       const plainText = editorState.getCurrentContent().getPlainText();
       axios
-        .post(`/api/questions`, {
+        .post(`${import.meta.env.VITE_API_ENDPOINT}/questions`, {
           content: plainText,
           title: titleValue,
           member:{
-            id:10
+            id:isId
           }
         })
         .then(res => {

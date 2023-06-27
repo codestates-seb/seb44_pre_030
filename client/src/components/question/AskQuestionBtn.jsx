@@ -1,6 +1,25 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import {useNavigate } from 'react-router-dom';
 import colorpalette from '../../styles/colorpalette';
+
+
+const AskQuestionBtn = ({isLogin}) => {
+  const navigate = useNavigate();
+
+  const handleQuestionAsk = () => {
+
+    if(isLogin){
+      navigate('/question/ask');
+    }
+    else{
+      alert('로그인 후 질문을 등록할 수 있습니다.');
+      navigate('/login');
+    }
+  }
+
+  return <AskQuestionBtnContainer onClick={handleQuestionAsk}>Ask Question</AskQuestionBtnContainer>;
+};
 
 const AskQuestionBtnContainer = styled.div`
   display: flex;
@@ -24,8 +43,5 @@ const AskQuestionBtnContainer = styled.div`
     background-color: ${colorpalette.questionRegistrationBtnActiveColor};
   }
 `;
-const AskQuestionBtn = () => {
-  return <AskQuestionBtnContainer>Ask Question</AskQuestionBtnContainer>;
-};
 
 export default AskQuestionBtn;

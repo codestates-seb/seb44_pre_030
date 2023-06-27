@@ -4,7 +4,7 @@ import { displayAt } from '../../utils/daycalcFormatter';
 import { styled } from 'styled-components';
 import CommentUpdate from './CommentUpdate';
 
-const AnsComment = ({ answerComment, asId, qsId }) => {
+const AnsComment = ({ answerComment, asId, qsId, isId }) => {
   const [editCommentOn, setEditCommentOn] = useState(false);
   const [newComment, setNewComment] = useState('');
   const [updateCommentOn, setUpdateCommentOn] = useState(false);
@@ -14,10 +14,10 @@ const AnsComment = ({ answerComment, asId, qsId }) => {
 
   const commentPosting = () => {
     axios
-      .post(`/api/comments`, {
+      .post(`${import.meta.env.VITE_API_ENDPOINT}/comments`, {
         answerId: asId,
         content: newComment,
-        memberId: 1,
+        memberId: isId,
       })
       .then(res => {
         console.log(res);
@@ -32,7 +32,7 @@ const AnsComment = ({ answerComment, asId, qsId }) => {
 
   const commentDelete = commentId => {
     axios
-      .delete(`/api/comments/${commentId}`)
+      .delete(`${import.meta.env.VITE_API_ENDPOINT}/comments/${commentId}`)
       .then(res => {
         console.log(res);
         alert('댓글 삭제 완료');
@@ -42,6 +42,7 @@ const AnsComment = ({ answerComment, asId, qsId }) => {
         console.log(error);
       });
   };
+  console.log('answercom', answerComment);
   return (
     <>
       <CommentView>
@@ -50,10 +51,10 @@ const AnsComment = ({ answerComment, asId, qsId }) => {
             <div className="comment-list" key={idx}>
               <span>{comment.content}</span>
               <span className="comment-user">
-                -{comment.member.displayName}
+                -{comment.memberDto.displayName}
               </span>
               <span>{displayAt(new Date(comment.createdAt))}</span>
-              {Number(commentUser_id) !== comment.member.id ? (
+              {Number(commentUser_id) !== comment.memberDto.id ? (
                 <>
                   <button
                     onClick={() => {

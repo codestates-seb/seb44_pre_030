@@ -9,25 +9,21 @@ import { AiOutlineClockCircle } from 'react-icons/ai';
 import { styled } from 'styled-components';
 import axios from 'axios';
 
-const VoteGroup = ({ answerVoteCount, answerId }) => {
+const QuestionVoteGroup = ({ voteCount, setVoteCount, QuestionId }) => {
   const [selection, setSelection] = useState(false);
-  const [count, setCount] = useState(answerVoteCount);
 
+  console.log(voteCount);
   const countUpHandler = async () => {
-    await setCount(prevCount => prevCount + 1);
+    await setVoteCount(prevCount => prevCount + 1);
     await axios
-      .patch(`${import.meta.env.VITE_API_ENDPOINT}/answers/${answerId}`, {
-        vote: count + 1,
-      })
+      .patch(`/api/questions/like/${QuestionId}/1`)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };
   const countDownHandler = async () => {
-    await setCount(prevCount => prevCount - 1);
+    await setVoteCount(prevCount => prevCount - 1);
     await axios
-      .patch(`${import.meta.env.VITE_API_ENDPOINT}/answers/${answerId}`, {
-        vote: count - 1,
-      })
+      .patch(`/api/questions/unlike/${QuestionId}/1`)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };
@@ -37,7 +33,7 @@ const VoteGroup = ({ answerVoteCount, answerId }) => {
       <button className="vote-icon" onClick={countUpHandler}>
         <BsFillHandThumbsUpFill />
       </button>
-      <span>{count}</span>
+      <span>{voteCount}</span>
       <button className="vote-icon" onClick={countDownHandler}>
         <BsFillHandThumbsDownFill />
       </button>
@@ -81,4 +77,4 @@ const VoteIcon = styled.div`
     color: #413e47;
   }
 `;
-export default VoteGroup;
+export default QuestionVoteGroup;

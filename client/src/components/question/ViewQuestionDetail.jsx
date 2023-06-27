@@ -5,15 +5,17 @@ import { NumberForMatter } from '../../utils/NumberForMatter';
 import colorpalette from '../../styles/colorpalette';
 import AskQuestionBtn from './AskQuestionBtn';
 import axios from 'axios';
-import VoteGroup from '../vote/VoteGroup';
+import QuestionVoteGroup from '../vote/QuestionVoteGroup';
 import advertisementImg from '../../assets/questionDetail/advertisement.svg';
 import QuestionTag from './QuestionTag';
 import { ExtractingImage } from '../../utils/ExtractingImage';
 import { DateForMatter } from '../../utils/DateForMatter';
 
 
-const ViewQuestionDetail = ({ qsId }) => {
+const ViewQuestionDetail = ({ qsId, isLogin }) => {
   const [questionDetail, setQuestionDetail] = useState([]);
+  const [voteCount,setVoteCount] = useState(0);
+
   const tag = ['python', 'js'];
   const image_url = [
     'https://gravatar.com/avatar/0c8b0a8b346f1549e6f08f8ed841acd0?s=270&d=identicon',
@@ -24,8 +26,13 @@ const ViewQuestionDetail = ({ qsId }) => {
 
   const getData = async () => {
     try {
-      const response = await axios.get(`/api/questions/${qsId}`);
+<<<<<<< HEAD
+      const response = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/questions/${qsId}`);
+=======
+      const response = await axios.get(`/api/questions/${qsId}/1`);
+>>>>>>> 9c4e3bf37ea026eda928dd3f5571e41228f9d7ff
       setQuestionDetail(response.data);
+      setVoteCount(response.data.vote);
     } catch (error) {
       console.log(error);
     }
@@ -33,11 +40,14 @@ const ViewQuestionDetail = ({ qsId }) => {
 
   useEffect(() => {
     getData();
-  }, [qsId]);
+  }, [qsId,voteCount]);
 
+  const handleUserNameClick = (data) =>{
+    navigate(`/mypage/${data.id}`);
+  }
 
   const handleQuestionDelete = () => {
-    axios.delete(`/api/${qsId}`)
+    axios.delete(`${import.meta.env.VITE_API_ENDPOINT}/${qsId}`)
       .then(res=>{
         console.log(res);
         navigate('/');
@@ -49,9 +59,7 @@ const ViewQuestionDetail = ({ qsId }) => {
     <QuestionDetailContainer>
       <QuestionDetailHeader>
         <h1>{questionDetail.title}</h1>
-        <Link to={`/question/ask`}>
-          <AskQuestionBtn />
-        </Link>
+          <AskQuestionBtn isLogin={isLogin}/>
       </QuestionDetailHeader>
       <QuestionInfo>
         <QuestionInfoItem>
@@ -62,15 +70,15 @@ const ViewQuestionDetail = ({ qsId }) => {
         </QuestionInfoItem>
         <QuestionInfoItem>
           <span>Modified</span>
-          <span>{NumberForMatter(`${questionDetail.vote}`)}</span>
-        </QuestionInfoItem>
-        <QuestionInfoItem>
-          <span>Viewed</span>
           <time
             dateTime={`${questionDetail.modifiedAt}`}
           >
             {DateForMatter(questionDetail.modifiedAt)}
           </time>
+        </QuestionInfoItem>
+        <QuestionInfoItem>
+          <span>Viewed</span>
+          <span>{NumberForMatter(`${questionDetail.vote}`)}</span>
         </QuestionInfoItem>
       </QuestionInfo>
       <QuestionContent>
@@ -79,7 +87,7 @@ const ViewQuestionDetail = ({ qsId }) => {
         </Advertisement>
         <QuestionLayout>
           <QuestionLayoutLeft>
-            <VoteGroup />
+            <QuestionVoteGroup QuestionId={qsId} setVoteCount={setVoteCount} voteCount={voteCount}/>
           </QuestionLayoutLeft>
           <QuestionLayouttRight>
             {questionDetail.content}
@@ -89,23 +97,27 @@ const ViewQuestionDetail = ({ qsId }) => {
           </QuestionLayouttRight>
         </QuestionLayout>
         <QuestionUserAuthority>
-          <QuestionEdit>
-            <Link to={`/question/edit/${qsId}`}>Edit</Link>
-
-            <div onClick={handleQuestionDelete}>Delete</div>
-          </QuestionEdit>
+          {
+            isLogin?(
+              <QuestionEdit>
+              <Link to={`/question/edit/${qsId}`}>Edit</Link>
+  
+              <div onClick={handleQuestionDelete}>Delete</div>
+            </QuestionEdit>
+            ):(<div></div>)
+          }
 
           <QuestionUserInfo>
             <div>
               <img src={ExtractingImage(image_url)} />
             </div>
-        
+
             {questionDetail.member && (
-              <Link to={`mypage/${questionDetail.member.id}`} className="userInfoName">
+              <span onClick={()=>handleUserNameClick(questionDetail.member)} className="userInfoName">
             {questionDetail.member.displayName}
-             </Link>
+             </span>
               )}
-          
+
           </QuestionUserInfo>
         </QuestionUserAuthority>
       </QuestionContent>
@@ -205,6 +217,7 @@ const QuestionUserInfo = styled.div`
     margin-right: 0.5rem;
   }
   & .userInfoName {
+    cursor: pointer;
     font-size: ${colorpalette.headerFontSize};
     color: ${colorpalette.questionDetailUserInfoColor};
   }

@@ -6,13 +6,15 @@ import VoteGroup from '../vote/VoteGroup';
 import AnsComment from '../comment/AnsComment';
 import { displayAt } from '../../utils/daycalcFormatter';
 
-const Answer = ({ qsId }) => {
+const Answer = ({ qsId, isId }) => {
   const User_id = localStorage.getItem('User_id');
   const [answerList, setAnswerList] = useState([]);
   const [answerFilter, setAnswerFilter] = useState('score');
+
   useEffect(() => {
     axios
-      .get(`/api/questions/${qsId}`)
+      .get(`${import.meta.env.VITE_API_ENDPOINT}/questions/${qsId}`)
+      .get(`/api/questions/${qsId}/${isId}`)
       .then(res => {
         const answers = res.data.answers;
         if (answers) {
@@ -27,7 +29,7 @@ const Answer = ({ qsId }) => {
   const deleteAnswer = asId => {
     console.log(asId);
     axios
-      .delete(`/api/answers/${asId}`)
+      .delete(`${import.meta.env.VITE_API_ENDPOINT}/answers/${asId}`)
       .then(res => {
         console.log(res);
         alert('답변 삭제 완료');
@@ -120,6 +122,7 @@ const Answer = ({ qsId }) => {
                 answerComment={answer.comments}
                 asId={answer.id}
                 qsId={qsId}
+                isId={isId}
               />
             </TextContents>
           </div>
