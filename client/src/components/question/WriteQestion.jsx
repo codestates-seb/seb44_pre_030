@@ -43,6 +43,7 @@ const WriteQestion = ({isId}) => {
   const [editorError, setEditorError] = useState(false);
   const navigate = useNavigate();
 
+  console.log('write',isId);
 
   const handleEditorStateChange = newEditorState => {
     setEditorState(newEditorState);
@@ -81,6 +82,7 @@ const WriteQestion = ({isId}) => {
     SetTitleValue('');
     setEditorState(EditorState.createEmpty());
   };
+
 
   useEffect(() => {}, [titleValue]);
   return (

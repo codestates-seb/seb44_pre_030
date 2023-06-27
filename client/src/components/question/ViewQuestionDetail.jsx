@@ -43,7 +43,7 @@ const ViewQuestionDetail = ({ qsId, isLogin }) => {
   }
 
   const handleQuestionDelete = () => {
-    axios.delete(`/api/${qsId}`)
+    axios.delete(`/api/questions/${qsId}`)
       .then(res=>{
         console.log(res);
         navigate('/');

@@ -55,7 +55,6 @@ function App() {
     console.log(location);
     }
 })  
-console.log(isLogin)
 
 
   return (
