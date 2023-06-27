@@ -97,7 +97,6 @@ const ViewQuestionDetail = ({ qsId, isLogin }) => {
             isLogin?(
               <QuestionEdit>
               <Link to={`/question/edit/${qsId}`}>Edit</Link>
-
               <div onClick={handleQuestionDelete}>Delete</div>
             </QuestionEdit>
             ):(<div></div>)
