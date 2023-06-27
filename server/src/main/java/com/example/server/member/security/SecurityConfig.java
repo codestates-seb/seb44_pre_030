@@ -62,8 +62,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-//                .loginPage("/login")
-//                .usernameParameter("email")
                 .loginProcessingUrl("/members/login")
                 .defaultSuccessUrl("/members/login/success")
                 .successHandler(customLoginSuccessHandler)
@@ -77,9 +75,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
                 .and()
                 .oauth2Login()
-//                .loginPage("/login")
-//                .loginProcessingUrl("/members/oauth")
-//                .successHandler(customOauthSuccessHandler)
                 .defaultSuccessUrl("/members/login/success")
                 .userInfoEndpoint()
                 .userService(customOauth2UserService);
