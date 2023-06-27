@@ -13,8 +13,7 @@ const Answer = ({ qsId, isId }) => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_ENDPOINT}/questions/${qsId}`)
-      .get(`/api/questions/${qsId}/${isId}`)
+      .get(`${import.meta.env.VITE_API_ENDPOINT}/questions/${qsId}/${isId}`)
       .then(res => {
         const answers = res.data.answers;
         if (answers) {

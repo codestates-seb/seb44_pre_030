@@ -26,11 +26,7 @@ const ViewQuestionDetail = ({ qsId, isLogin }) => {
 
   const getData = async () => {
     try {
-<<<<<<< HEAD
-      const response = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/questions/${qsId}`);
-=======
-      const response = await axios.get(`/api/questions/${qsId}/1`);
->>>>>>> 9c4e3bf37ea026eda928dd3f5571e41228f9d7ff
+      const response = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/questions/${qsId}/1`);
       setQuestionDetail(response.data);
       setVoteCount(response.data.vote);
     } catch (error) {
@@ -101,7 +97,7 @@ const ViewQuestionDetail = ({ qsId, isLogin }) => {
             isLogin?(
               <QuestionEdit>
               <Link to={`/question/edit/${qsId}`}>Edit</Link>
-  
+
               <div onClick={handleQuestionDelete}>Delete</div>
             </QuestionEdit>
             ):(<div></div>)
