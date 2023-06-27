@@ -120,6 +120,7 @@ const Answer = ({ qsId, isId }) => {
                 answerComment={answer.comments}
                 asId={answer.id}
                 qsId={qsId}
+                isId={isId}
               />
             </TextContents>
           </div>

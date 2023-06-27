@@ -91,7 +91,7 @@ function App() {
           />
           <Route
             path="/question/:id"
-            element={<QuestionDetail isId={isId} />}
+            element={<QuestionDetail isId={isId} isLogin={isLogin} />}
           />
           <Route path="/question/edit/:id" element={<EditQuestion />} />
           <Route path="/answer/edit/:id" element={<EditAnswer />} />
