@@ -13,7 +13,7 @@ const CommentUpdate = ({
   };
   const handleUpdateContentClick = updateId => {
     axios
-      .patch(`/api/comments/${updateId}`, {
+      .patch(`${import.meta.env.VITE_API_ENDPOINT}/comments/${updateId}`, {
         content: updateCommentContent,
       })
       .then(res => {

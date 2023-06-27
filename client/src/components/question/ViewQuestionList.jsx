@@ -37,7 +37,7 @@ const QuestionList = ({inputText,enterState,setEnterState,isLogin}) => {
 
   const tag = ['React', 'Java', 'JavaScript'];
   const getData = async () => {
-    const response = await axios.get('/api/questions',
+    const response = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/questions`,
       {
         params: {page:page,size:limit}
       });
@@ -142,7 +142,7 @@ const QuestionList = ({inputText,enterState,setEnterState,isLogin}) => {
         })}
       </ul>
     </QustionList>
-    <Pagination 
+    <Pagination
       total={totalElements}
       limit={limit}
       page={page}

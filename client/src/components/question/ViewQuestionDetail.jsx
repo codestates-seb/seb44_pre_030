@@ -26,7 +26,7 @@ const ViewQuestionDetail = ({ qsId, isLogin }) => {
 
   const getData = async () => {
     try {
-      const response = await axios.get(`/api/questions/${qsId}/1`);
+      const response = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/questions/${qsId}/1`);
       setQuestionDetail(response.data);
       setVoteCount(response.data.vote);
     } catch (error) {
@@ -43,7 +43,7 @@ const ViewQuestionDetail = ({ qsId, isLogin }) => {
   }
 
   const handleQuestionDelete = () => {
-    axios.delete(`/api/${qsId}`)
+    axios.delete(`${import.meta.env.VITE_API_ENDPOINT}/${qsId}`)
       .then(res=>{
         console.log(res);
         navigate('/');
@@ -97,7 +97,6 @@ const ViewQuestionDetail = ({ qsId, isLogin }) => {
             isLogin?(
               <QuestionEdit>
               <Link to={`/question/edit/${qsId}`}>Edit</Link>
-  
               <div onClick={handleQuestionDelete}>Delete</div>
             </QuestionEdit>
             ):(<div></div>)
@@ -107,13 +106,13 @@ const ViewQuestionDetail = ({ qsId, isLogin }) => {
             <div>
               <img src={ExtractingImage(image_url)} />
             </div>
-        
+
             {questionDetail.member && (
               <span onClick={()=>handleUserNameClick(questionDetail.member)} className="userInfoName">
             {questionDetail.member.displayName}
              </span>
               )}
-          
+
           </QuestionUserInfo>
         </QuestionUserAuthority>
       </QuestionContent>
