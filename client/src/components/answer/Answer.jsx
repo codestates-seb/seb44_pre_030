@@ -10,9 +10,10 @@ const Answer = ({ qsId, isId }) => {
   const User_id = localStorage.getItem('User_id');
   const [answerList, setAnswerList] = useState([]);
   const [answerFilter, setAnswerFilter] = useState('score');
+
   useEffect(() => {
     axios
-      .get(`/api/questions/${qsId}/${isId}`)
+      .get(`${import.meta.env.VITE_API_ENDPOINT}/questions/${qsId}/${isId}`)
       .then(res => {
         const answers = res.data.answers;
         if (answers) {
@@ -27,7 +28,7 @@ const Answer = ({ qsId, isId }) => {
   const deleteAnswer = asId => {
     console.log(asId);
     axios
-      .delete(`/api/answers/${asId}`)
+      .delete(`${import.meta.env.VITE_API_ENDPOINT}/answers/${asId}`)
       .then(res => {
         console.log(res);
         alert('답변 삭제 완료');

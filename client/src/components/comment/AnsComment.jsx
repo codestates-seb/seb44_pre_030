@@ -14,7 +14,7 @@ const AnsComment = ({ answerComment, asId, qsId, isId }) => {
 
   const commentPosting = () => {
     axios
-      .post(`/api/comments`, {
+      .post(`${import.meta.env.VITE_API_ENDPOINT}/comments`, {
         answerId: asId,
         content: newComment,
         memberId: isId,
@@ -32,7 +32,7 @@ const AnsComment = ({ answerComment, asId, qsId, isId }) => {
 
   const commentDelete = commentId => {
     axios
-      .delete(`/api/comments/${commentId}`)
+      .delete(`${import.meta.env.VITE_API_ENDPOINT}/comments/${commentId}`)
       .then(res => {
         console.log(res);
         alert('댓글 삭제 완료');

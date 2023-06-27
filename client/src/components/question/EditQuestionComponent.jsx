@@ -15,7 +15,7 @@ const EditQuestionComponent  = () => {
     const params = useParams();
     const navigate = useNavigate();
     const tag = ['React','Java','JavaScript'];
-    
+
     const handleEditorStateChange = (newEditorState) => {
         setEditorState(newEditorState);
     }
@@ -25,7 +25,7 @@ const EditQuestionComponent  = () => {
     }
 
     const handleEditContent = () => {
-        axios.patch(`/api/questions/${params.id}`,{
+        axios.patch(`${import.meta.env.VITE_API_ENDPOINT}/questions/${params.id}`,{
             content:editorState.getCurrentContent().getPlainText(),
             title:titleContent,
         })
@@ -36,7 +36,7 @@ const EditQuestionComponent  = () => {
         .chatch(error=>console.log(error))
     }
     useEffect(()=>{
-        axios.get(`/api/questions/${params.id}/1`)
+        axios.get(`${import.meta.env.VITE_API_ENDPOINT}/questions/${params.id}/1`)
         .then(res=>{
             if(res.data){
               setQuestionContent(res.data)

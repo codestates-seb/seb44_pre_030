@@ -19,7 +19,7 @@ function EditAnswerCompo({ asId }) {
   };
   const answerEditHandler = () => {
     axios
-      .patch(`/api/answers/${asId.id}`, {
+      .patch(`${import.meta.env.VITE_API_ENDPOINT}/answers/${asId.id}`, {
         content: editAnswer,
       })
       .then(res => {

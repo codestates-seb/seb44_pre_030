@@ -30,7 +30,7 @@ const MypageEditContent = ({userInfo, setUserInfo, setIsLogin, isLogin}) => {
     console.log(editlocation);
     // 프로필 정보 업데이트 요청을 보내는 함수
       axios
-      .patch(`http://43.201.232.213:8080/members/${userId}`,{
+      .patch(`${import.meta.env.VITE_API_ENDPOINT}/members/${userId}`,{
         displayName: editdisplayName,
         location: editlocation,
         title: editTitle,
@@ -48,7 +48,7 @@ const MypageEditContent = ({userInfo, setUserInfo, setIsLogin, isLogin}) => {
   };
   const getUserInfo =(idValue) => {
     axios
-    .get(`http://43.201.232.213:8080/members/${idValue}`)
+    .get(`${import.meta.env.VITE_API_ENDPOINT}/members/${idValue}`)
         .then(response => {
           // Handle success.
           console.log('get successful!');
@@ -64,7 +64,7 @@ const MypageEditContent = ({userInfo, setUserInfo, setIsLogin, isLogin}) => {
     if (result) {
       deleteLogout();
       axios
-    .delete(`http://43.201.232.213:8080/members/${idValue}`)
+    .delete(`${import.meta.env.VITE_API_ENDPOINT}/members/${idValue}`)
         .then(response => {
           // Handle success.
           console.log('delete!');
@@ -78,11 +78,11 @@ const MypageEditContent = ({userInfo, setUserInfo, setIsLogin, isLogin}) => {
       // 취소 버튼이 눌렸을 때의 동작
       console.log('Cancelled');
     }
-    
+
   }
     return (
         <AllContainer>
-            
+
             <TitleBox1>Edit your profile</TitleBox1>
             <TitleBox2>Public information</TitleBox2>
         <Container>
@@ -117,7 +117,7 @@ const MypageEditContent = ({userInfo, setUserInfo, setIsLogin, isLogin}) => {
           textAlign: { inDropdown: true },
           link: { inDropdown: true },
           history: { inDropdown: false },
-        }} 
+        }}
         placeholder=""
         // 한국어 설정
         localization={{

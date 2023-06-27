@@ -16,7 +16,7 @@ const VoteGroup = ({ answerVoteCount, answerId }) => {
   const countUpHandler = async () => {
     await setCount(prevCount => prevCount + 1);
     await axios
-      .patch(`/api/answers/${answerId}`, {
+      .patch(`${import.meta.env.VITE_API_ENDPOINT}/answers/${answerId}`, {
         vote: count + 1,
       })
       .then(res => console.log(res))
@@ -25,7 +25,7 @@ const VoteGroup = ({ answerVoteCount, answerId }) => {
   const countDownHandler = async () => {
     await setCount(prevCount => prevCount - 1);
     await axios
-      .patch(`/api/answers/${answerId}`, {
+      .patch(`${import.meta.env.VITE_API_ENDPOINT}/answers/${answerId}`, {
         vote: count - 1,
       })
       .then(res => console.log(res))

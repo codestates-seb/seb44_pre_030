@@ -19,7 +19,7 @@ const WriteAnswer = ({ qsId, isId }) => {
   };
   const answerPosting = () => {
     axios
-      .post(`/api/answers`, {
+      .post(`${import.meta.env.VITE_API_ENDPOINT}/answers`, {
         questionId: qsId,
         content: createAnswer,
         memberId: isId,

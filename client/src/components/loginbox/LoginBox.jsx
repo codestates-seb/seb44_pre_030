@@ -10,16 +10,16 @@ import {useNavigate} from 'react-router-dom';
 const LoginBox = ({setIsLogin, setUserInfo}) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  
+
   const replace = useNavigate();
-  
-  const checkUser = () => { 
+
+  const checkUser = () => {
     if (email === "" || password === ""){
       alert("아이디와 비밀번호를 입력해주세요");
       return;
     } else {
       axios
-      .post(`http://43.201.232.213:8080/members/login?username=${email}&password=${password}`,{
+      .post(`${import.meta.env.VITE_API_ENDPOINT}/members/login?username=${email}&password=${password}`,{
         headers: {
           'ngrok-skip-browser-warning': 'true',
           value : true,
@@ -43,7 +43,7 @@ const LoginBox = ({setIsLogin, setUserInfo}) => {
 
 const getUserInfo =(idValue) => {
   axios
-  .get(`http://43.201.232.213:8080/members/${idValue}`)
+  .get(`${import.meta.env.VITE_API_ENDPOINT}/members/${idValue}`)
       .then(response => {
         // Handle success.
         console.log('get successful!');

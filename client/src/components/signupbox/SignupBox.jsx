@@ -34,7 +34,7 @@ const SignupBox = () => {
      return false;
     }else {
       axios
-      .post("http://43.201.232.213:8080/members", {
+      .post(`${import.meta.env.VITE_API_ENDPOINT}/members`, {
         email: email,
         password: password,
         displayName: displayName,
@@ -52,7 +52,7 @@ const SignupBox = () => {
       });
     }
     }
-    
+
     return (
       <AllContainer>
         <OauthBtn>
@@ -182,4 +182,3 @@ const SignupBtn = styled.button`
 }
 `
 export default SignupBox;
-  
