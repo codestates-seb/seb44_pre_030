@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import colorpalette from '../../styles/colorpalette';
 import { NumberForMatter } from '../../utils/NumberForMatter';
 import QuestionTag from './QuestionTag';
@@ -9,7 +9,7 @@ import AskQuestionBtn from './AskQuestionBtn';
 import { ExtractingImage } from '../../utils/ExtractingImage';
 import Pagination from './Pagination';
 
-const QuestionList = ({inputText,enterState,setEnterState}) => {
+const QuestionList = ({inputText,enterState,setEnterState,isLogin}) => {
   const [questions, setQuestions] = useState([]);
 
   const [index, setIndex] = useState(0);
@@ -20,6 +20,8 @@ const QuestionList = ({inputText,enterState,setEnterState}) => {
   const [page,setPage] = useState(1);
 
   const [printData,setPrintData] = useState([]);
+
+  const navigate = useNavigate();
 
   const buttonFilter = [
     { filterName: 'Newest' },
@@ -75,9 +77,7 @@ const QuestionList = ({inputText,enterState,setEnterState}) => {
         <QuestionFilter>
           <div className="headContents">
             <h2>All Questions</h2>
-          <Link to={'/question/ask'}>
-            <AskQuestionBtn />
-          </Link>
+            <AskQuestionBtn isLogin={isLogin}/>
         </div>
         <div className="headContents flex-column">
           <span>{ totalElements && `${NumberForMatter(totalElements)} questions`}</span>

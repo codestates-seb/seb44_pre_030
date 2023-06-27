@@ -63,10 +63,10 @@ function App() {
       <MainDiv>
       <Sidebar />
       <Routes>
-        <Route path="/" element={<QuestionList inputText={inputText} enterState={enterState} setEnterState={setEnterState}/>} />
+        <Route path="/" element={<QuestionList inputText={inputText} enterState={enterState} setEnterState={setEnterState} isLogin={isLogin}/>} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login setIsLogin={setIsLogin} setUserInfo={setUserInfo}/>} />
-        <Route path="/question/ask" element={<CreateQuestion isId={isId}/>} />
+        <Route path="/question/ask" element={<CreateQuestion isId={isId} isLogin={isLogin}/>} />
         <Route path="/question/:id" element={<QuestionDetail/>} />
         <Route path="/question/edit/:id" element={<EditQuestion />} />
         <Route path="/answer/edit/:id" element={<EditAnswer />} />
