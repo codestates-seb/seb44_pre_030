@@ -18,7 +18,7 @@
 | 이희재 | MyPage - 회원정보 수정, 이미지 업로드, 다운로드 / Answer - CRUD  / AnswerAnswer - CRUD / AnswerVote - CRUD |
 |:--------:| :--------: |
 | 김아영 | Member - CRUD / QuestionVote - CRUD / Member, MyPage, Answer, AnswerAnswer, QuestionVote, AnswerVote - ControllerTest |
-| 조성욱 |  Spring Security (JWT, OAuth) / Question - CRUD , 검색 (제목), 조회수 (쿠키 사용), 댓글, Test / Answer - 투표 / Tag - Data set (csv) 제작, 검색 (제목), Test / AWS 배포 환경 구축 및 배포 |
+| 조성욱 |  Spring Security (JWT, OAuth) / Question - CRUD , 검색 (제목), 조회수 (쿠키 사용), 댓글, Test /  |
 
 </br>
 
