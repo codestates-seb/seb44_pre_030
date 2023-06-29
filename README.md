@@ -16,10 +16,10 @@
 
 ## ⚙️ BE // 채워주세영
 
-| 이희재 | MyPage - 회원정보 수정, 이미지 업로드, 다운로드 / Answer - CRUD  / AnswerAnswer - CRUD / AnswerVote - CRUD |
+| 이희재 | MyPage - Question - CRUD, 다운로드 / Answer - CRUD  / AnswerAnswer - CRUD / AnswerVote - CRUD |
 |:--------:| :--------: |
-| 김아영 |  Application 배포, Answer, comment 기능 구현 |
-| 조성욱 |  Spring Security (JWT, OAuth) / Question - CRUD , 검색 (제목), 조회수 (쿠키 사용), 댓글, Test /  |
+| 김아영 |  Application 배포, Answer, comment 기능 구현, 댓글 Test|
+| 조성욱 |  로그인 기능 (Session, OAuth) / 회원정보 CRUD /  |
 
 </br>
 
