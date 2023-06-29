@@ -53,7 +53,7 @@
 </br>
 
 ## 💻 Stacks Used
-### Back-end //안쓰는건 빼주세용
+### Back-end 
 |   Java   |   Spring   |   Spring Boot   |   Spring Security   |   MySQL   |   AWS   |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
 | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/java-icon.svg" alt="icon" width="65" height="65" /></div> | <img alt="spring logo" src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" height="50" width="50" > | <img alt="spring-boot logo" src="https://t1.daumcdn.net/cfile/tistory/27034D4F58E660F616" width="65" height="65" > |  <img alt="spring-security logo" width="60px" src="https://camo.githubusercontent.com/923e99a57f8a456fdade5f65b35ada254be277612ddc991afb702d8dfd880d4f/68747470733a2f2f63646e2e73696d706c6569636f6e732e6f72672f737072696e677365637572697479" width="85" height=auto > | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/mysql-icon.svg" alt="icon" width="65" height="65" /></div> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/aws-icon.svg" alt="icon" width="65" height="65" /></div> |
@@ -86,10 +86,7 @@
 - [개발자 테스트 체크리스트 pdf](https://github.com/codestates-seb/seb44_pre_030/files/11897724/p2.pdf)
 </br>
 
-### API 명세서
-- 
-</br>
 
 ### ERD
--<img width="574" alt="Screen Shot 2023-06-29 at 9 38 59 AM" src="https://github.com/codestates-seb/seb44_pre_030/assets/53630359/01d089cd-0f11-4aad-9527-28652f7035fd">
+<img width="574" alt="Screen Shot 2023-06-29 at 9 38 59 AM" src="https://github.com/codestates-seb/seb44_pre_030/assets/53630359/01d089cd-0f11-4aad-9527-28652f7035fd">
 
