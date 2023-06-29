@@ -91,4 +91,5 @@
 </br>
 
 ### ERD
--
+-<img width="574" alt="Screen Shot 2023-06-29 at 9 38 59 AM" src="https://github.com/codestates-seb/seb44_pre_030/assets/53630359/01d089cd-0f11-4aad-9527-28652f7035fd">
+
