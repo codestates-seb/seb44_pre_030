@@ -14,12 +14,12 @@
 
 </br>
 
-## ⚙️ BE // 채워주세영
+## ⚙️ BE 
 
-| 이희재 | MyPage - Question - CRUD, 다운로드 / Answer - CRUD  / AnswerAnswer - CRUD / AnswerVote - CRUD |
+| 이희재 | Question - CRUD / QuestionVote |
 |:--------:| :--------: |
 | 김아영 |  Application 배포, Answer, comment 기능 구현, 댓글 Test|
-| 조성욱 |  로그인 기능 (Session, OAuth) / 회원정보 CRUD /  |
+| 조성욱 |  로그인 기능 (Session, OAuth) / 회원정보 CRUD   |
 
 </br>
 
