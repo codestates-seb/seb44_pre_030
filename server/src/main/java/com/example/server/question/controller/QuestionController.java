@@ -2,10 +2,11 @@ package com.example.server.question.controller;
 
 import com.example.server.question.dto.QuestionDto;
 import com.example.server.question.entity.Question;
-import com.example.server.question.helper.ControllerUriHelper;
 import com.example.server.question.mapper.QuestionMapper;
 import com.example.server.question.response.MultiResponse;
 import com.example.server.question.service.QuestionService;
+import com.example.server.utils.UriCreator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,32 +22,30 @@ import java.util.List;
 @RestController
 @Validated
 @Transactional
-public class QuestionController implements ControllerUriHelper {
+@RequestMapping("/questions")
+@RequiredArgsConstructor
+public class QuestionController {
 
     private final QuestionService questionService;
     private final QuestionMapper questionMapper;
 
-    public QuestionController(QuestionService questionService, QuestionMapper questionMapper) {
-        this.questionService = questionService;
-        this.questionMapper = questionMapper;
-    }
 
     // 질문 작성 페이지
-    @PostMapping("/questions")
+    @PostMapping("")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post post) {
 
         Question postquestion = questionMapper.PostToEntity(post);
 
         Question question = questionService.createQuestion(postquestion);
 
-        URI location = createUri(DEFAULT_URL, question.getId());
+        URI location = UriCreator.createUri("/questions", question.getId());
 
         return ResponseEntity.created(location).body("질문 Post 완료");
 
 //        return new ResponseEntity<>(questionMapper.EntityToResponse(question), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/questions/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity patchQuestion(@Positive @PathVariable("id") long id,
                                         @Valid @RequestBody QuestionDto.Patch patch) {
         patch.setId(id);
@@ -56,16 +55,16 @@ public class QuestionController implements ControllerUriHelper {
         return new ResponseEntity<>(questionMapper.EntityToResponse(question),HttpStatus.OK);
     }
 
-    @GetMapping("/questions/{id}")
-    public ResponseEntity getQuestion(@Positive @PathVariable("id") long id) {
+    @GetMapping("/{id}/{member-id}")
+    public ResponseEntity getQuestion(@Positive @PathVariable("id") long id,
+                                      @Positive @PathVariable("member-id") long memberId) {
 
-        Question question = questionService.findQuestion(id);
+        Question question = questionService.findQuestion(id,memberId);
 
         return new ResponseEntity(questionMapper.EntityToDetailResponse(question),HttpStatus.OK);
     }
 
-    // 리스트 조회시 추가사항 : 정렬 최신순 및
-    @GetMapping("/questions")
+    @GetMapping("")
     public ResponseEntity ListOfGetQuestions(@Positive @RequestParam int page,
                                              @Positive @RequestParam int size) {
 

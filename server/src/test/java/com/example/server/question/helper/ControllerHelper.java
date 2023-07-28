@@ -66,4 +66,13 @@ public interface ControllerHelper {
                 .buildAndExpand(resourceId)
                 .toUri();
     }
+
+    default URI createUri(String url,long resourceId,long memberId){
+        return UriComponentsBuilder
+                .newInstance()
+                .path(url)
+                .buildAndExpand(resourceId,memberId)
+                .toUri();
+    }
+
 }

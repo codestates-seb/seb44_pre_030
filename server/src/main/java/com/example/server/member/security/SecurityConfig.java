@@ -6,17 +6,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.CustomAutowireConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -26,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomUserDetailService customUserDetailService;
     private final CustomOauth2UserService customOauth2UserService;
     private final CustomLoginSuccessHandler customLoginSuccessHandler;
+    private final CustomOauthSuccessHandler customOauthSuccessHandler;
     private final CustomLoginFailureHandler customLoginFailureHandler;
 
     @Override
@@ -40,29 +44,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic()
                 .and()
-                .cors().configurationSource(corsConfigurationSource())
+                .cors()
                 .and()
                 .csrf().disable()
+                .sessionManagement()
+                .sessionFixation().changeSessionId()
+                .maximumSessions(1)
+                .and()
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                .and()
                 .authorizeRequests()
                 .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**").permitAll()
-                .antMatchers("/members/update/**").hasAuthority("ROLE_USER")
-                .antMatchers("/members/get/**").hasAuthority("ROLE_USER")
-//                .antMatchers("/**/create/**").hasAuthority("ROLE_USER")
-                .anyRequest().permitAll()
+                .antMatchers("/members/email").permitAll()
+                .antMatchers("/members/email/check").permitAll()
+                .antMatchers(HttpMethod.POST, "/members/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/questions/**", "/answer/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
-//                .loginPage("/login")
                 .loginProcessingUrl("/members/login")
-                .defaultSuccessUrl("/members/login-success")
+                .defaultSuccessUrl("/members/login/success")
                 .successHandler(customLoginSuccessHandler)
                 .failureHandler(customLoginFailureHandler)
                 .failureForwardUrl("/members/login/fail")
                 .and()
                 .logout()
-                .logoutUrl("/logout")
+                .logoutUrl("/members/logout")
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID")
                 .and()
                 .oauth2Login()
-                .defaultSuccessUrl("/members/login-success")
+                .defaultSuccessUrl("/members/login/success")
                 .userInfoEndpoint()
                 .userService(customOauth2UserService);
     }
@@ -85,11 +98,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        //http://ec2-43-200-169-238.ap-northeast-2.compute.amazonaws.com:8080/
-        configuration.addAllowedOriginPattern("*"); /* URL 설정해야함 */
-        configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod("*");
-        configuration.setAllowCredentials(true);
+
+        configuration.setAllowCredentials(false);
+        configuration.setAllowedOrigins(List.of("*"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setExposedHeaders(List.of("*"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

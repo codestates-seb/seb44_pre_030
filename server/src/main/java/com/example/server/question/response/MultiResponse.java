@@ -12,7 +12,6 @@ import java.util.List;
 public class MultiResponse<T> {
     private List<T> data;
     private PageInfo pageInfo;
-
     public MultiResponse(List<T> data, Page page) {
         this.data = data;
         this.pageInfo = PageInfo.builder()

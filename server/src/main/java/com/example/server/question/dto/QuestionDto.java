@@ -51,8 +51,9 @@ public class QuestionDto {
         private String content;
         private Long view;
         private Long vote;
-        private LocalDateTime createdAt;
+        private Long answerCount;
         private Long selectedAnswerId;
+        private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
     }
 
@@ -64,11 +65,12 @@ public class QuestionDto {
     public static class DetailResponse{
         private long id;
         private MemberDto member;
-        private List<Answer> answers;
+        private List<AnswerDto> answers;
         private String title;
         private String content;
         private Long view;
         private Long vote;
+        private Long answerCount;
         private Long selectedAnswerId;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;

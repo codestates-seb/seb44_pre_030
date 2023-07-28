@@ -1,6 +1,8 @@
 package com.example.server.question.stubData;
 
+import com.example.server.answer.entity.Answer;
 import com.example.server.member.entity.Member;
+import com.example.server.question.dto.MemberDto;
 import com.example.server.question.dto.QuestionDto;
 import com.example.server.question.entity.Question;
 import com.example.server.question.page.PageInfo;
@@ -14,6 +16,7 @@ import org.springframework.util.MultiValueMap;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +27,7 @@ public class StubData {
 
     private static Map<HttpMethod,Object> stubDataRequestBody;
     private static Map<HttpMethod,Object> stubDataResponseBody;
+    private static Map<HttpMethod,Object> stubDataGetResponseBody;
 
     private static Map<HttpMethod,List<QuestionDto.Response>> ListOfStubDataResponseBody;
     private static Map<HttpMethod,List<Question>> ListOfPageResponseBody;
@@ -39,7 +43,6 @@ public class StubData {
                 .content("Content")
                 .view(1L)
                 .vote(1L)
-                .answer_count(0L)
                 .createdAt(LocalDateTime.now())
                 .modifiedAt(LocalDateTime.now())
                 .build();
@@ -48,15 +51,19 @@ public class StubData {
         stubDataRequestBody = new HashMap<>();
         stubDataRequestBody.put(HttpMethod.POST, new QuestionDto.Post("title","Content",new Member()));
 
-        // ResponseBody Area
+        //Patch ResponseBody Area
         stubDataResponseBody = new HashMap<>();
-        stubDataResponseBody.put(HttpMethod.GET, new QuestionDto.Response(1L,new Member(),"title","Content",1L,1L,0L,LocalDateTime.now(),LocalDateTime.now()));
+        stubDataResponseBody.put(HttpMethod.GET, new QuestionDto.Response(1L,new MemberDto(),"title","Content",1L,1L,0L,1L,LocalDateTime.now(),LocalDateTime.now()));
+
+        //Get ResponseBody Area
+        stubDataGetResponseBody = new HashMap<>();
+        stubDataGetResponseBody.put(HttpMethod.GET, new QuestionDto.DetailResponse(1L,new MemberDto(),new ArrayList<>(),"title","Content",1L,1L,0L,1L,LocalDateTime.now(),LocalDateTime.now()));
 
         // ListOfResponseBody Area
         ListOfStubDataResponseBody = new HashMap<>();
         ListOfStubDataResponseBody.put(HttpMethod.GET,List.of(
-                new QuestionDto.Response(1L,new Member(),"title1","Content1",1L,1L,1L,LocalDateTime.now(),LocalDateTime.now()),
-                new QuestionDto.Response(2L,new Member(),"title2","Content2",2L,2L,2L,LocalDateTime.now(),LocalDateTime.now())
+                new QuestionDto.Response(1L,new MemberDto(),"title1","Content1",1L,1L,1L,1L,LocalDateTime.now(),LocalDateTime.now()),
+                new QuestionDto.Response(2L,new MemberDto(),"title2","Content2",2L,2L,1L,1L,LocalDateTime.now(),LocalDateTime.now())
         ));
 
         // ListOfPageResponseBody Area
@@ -86,6 +93,10 @@ public class StubData {
 
         public static Object getStubDataResponseBody(HttpMethod httpMethod){
             return stubDataResponseBody.get(httpMethod);
+        }
+
+        public static Object getStubDataGetResponseBody(HttpMethod httpMethod){
+            return stubDataGetResponseBody.get(httpMethod);
         }
 
         public static List<QuestionDto.Response> getListOfStubDataResponseBody(HttpMethod httpMethod){

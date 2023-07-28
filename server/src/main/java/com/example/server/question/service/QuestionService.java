@@ -1,30 +1,32 @@
 package com.example.server.question.service;
 
+import com.example.server.answer.entity.Answer;
+import com.example.server.answer.repositroy.AnswerRepository;
+import com.example.server.comment.repository.CommentRepository;
 import com.example.server.exception.BusinessLogicException;
 import com.example.server.exception.ErrorResponse;
 import com.example.server.member.entity.Member;
+import com.example.server.member.repository.MemberJpaRepository;
 import com.example.server.question.entity.Question;
 import com.example.server.question.helper.ServiceHelper;
 import com.example.server.question.repository.QuestionRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class QuestionService implements ServiceHelper {
 
+    private final AnswerRepository answerRepository;
     private final QuestionRepository questionRepository;
-
-    public QuestionService(QuestionRepository questionRepository) {
-        this.questionRepository = questionRepository;
-    }
+    private final MemberJpaRepository memberJpaRepository;
 
     @Override
     public Question createQuestion(Question question) {
@@ -43,10 +45,12 @@ public class QuestionService implements ServiceHelper {
     }
 
     @Override
-    public Question findQuestion(long QuestionId) {
+    public Question findQuestion(long QuestionId,long memberId) {
 
-        // 멤버가 조회를 할때마다 View 하나씩 증가
         Question question = findExistQuestion(QuestionId);
+        Member member = findExistMember(memberId);
+        PlusView(member,question);
+        question.setAnswerCount(findAnswerCount(question));
 
         return questionRepository.save(question);
     }
@@ -59,14 +63,16 @@ public class QuestionService implements ServiceHelper {
     }
 
     @Override
-    public void deleteQuestion(long QuestionId) {
+    public void deleteQuestion(long questionId) {
 
-        Question question = findExistQuestion(QuestionId);
+        Question question = findExistQuestion(questionId);
 
+        questionRepository.deleteComment(question);
+        questionRepository.deleteAnswer(question);
         questionRepository.deleteById(question.getId());
+
     }
 
-    // question -> 만일 찾는 질문이 있다면 값을 찾아서 리턴한다.
     private Question findExistQuestion(long id){
 
         Optional<Question> findQuestion = questionRepository.findById(id);
@@ -74,4 +80,19 @@ public class QuestionService implements ServiceHelper {
         return findQuestion.orElseThrow(
                 () -> new BusinessLogicException(ErrorResponse.QUESTION_NOT_FOUND));
     }
+
+    private Member findExistMember(long id){
+
+        Member member = memberJpaRepository.findMemberByMemberId(id);
+
+        return member;
+    }
+    // 질문에 달린 답변 개수
+    private long findAnswerCount(Question question){
+
+        long count = questionRepository.countAnswersByQuestion(question);
+
+        return count;
+    }
+
 }

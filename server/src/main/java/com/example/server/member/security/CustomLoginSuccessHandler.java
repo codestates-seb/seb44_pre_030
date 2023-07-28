@@ -14,10 +14,13 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
@@ -36,11 +39,14 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
         member.setLastLogin(LocalDateTime.now());
         memberJpaRepository.save(member);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+        request.getSession().setAttribute("ID", member.getId());
+        request.getSession().setMaxInactiveInterval(3600);
 
-        getRedirectStrategy().sendRedirect(request, response, "http://localhost:8080/members/login-success");
-//        response.sendRedirect("/members/login-success");
+        response.getWriter().write(String.valueOf(member.getId()));
+
+//        response.sendRedirect("/members/login/success");
+//        RequestDispatcher dispatcher = request.getRequestDispatcher("/members/login/success");
+//        dispatcher.forward(request, response);
     }
-
-
 }
